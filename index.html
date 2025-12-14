@@ -1,200 +1,1382 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Harsha Vardhan | Portfolio</title>
-  <link rel="stylesheet" href="styles/main.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harsha's Portfolio</title>
 
-  <meta name="description"
-    content="Portfolio of Harsha Vardhan – projects in algorithms, systems, quantitative modeling, and machine learning." />
+  <!--
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon">
 
-  <!-- NEW: SEO / Social -->
-  <meta name="theme-color" content="#050816" />
-  <meta property="og:title" content="Harsha Vardhan — Portfolio" />
-  <meta property="og:description" content="Projects in Algorithms, Systems, Quantitative Modeling, ML and Web Development." />
-  <meta property="og:type" content="website" />
+  <!--
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!--
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <div class="page">
 
-    <!-- NAVBAR -->
-    <header class="nav">
+  <!--
+    - #MAIN
+  -->
 
-      <div class="nav-left">
-        <div class="logo"><span>H</span></div>
-        <div class="nav-title">
-          <h1>HARSHA VARDHAN</h1>
-          <span>Algorithms · Systems · ML</span>
+  <main>
+
+    <!--
+      - #SIDEBAR
+    -->
+
+    <aside class="sidebar" data-sidebar>
+
+      <div class="sidebar-info">
+
+        <figure class="avatar-box">
+          <img src="./assets/images/my-avatar.jpeg" alt="Harsha Vardhan" width="80">
+        </figure>
+
+        <div class="info-content">
+          <h1 class="name" title="Harsha Vardhan">Harsha Vardhan</h1>
+
+          <p class="title">Computer Science Student</p>
         </div>
+
+        <button class="info_more-btn" data-sidebar-btn>
+          <span>Show Contacts</span>
+
+          <ion-icon name="chevron-down"></ion-icon>
+        </button>
+
       </div>
 
-      <button id="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+      <div class="sidebar-info_more">
 
-      <nav id="site-nav" class="nav-links" role="navigation" aria-label="Primary navigation">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-        <a href="https://github.com/Y-Harsha-Vardhan" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/harsha-vardhan-yalamanchili-086a60323"
-           target="_blank" rel="noopener" class="primary-link">LinkedIn</a>
+        <div class="separator"></div>
+
+        <ul class="contacts-list">
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+
+              <a href="mailto:yharshavardhan37@gmail.com" class="contact-link">yharshavardhan37@gmail.com</a>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="phone-portrait-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Phone</p>
+
+              <a href="tel:+919848697725" class="contact-link">+91 9848697725</a>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="calendar-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Birthday</p>
+
+              <time datetime="1982-06-23">Jan 3, 2007</time>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Location</p>
+
+              <address>Mumbai, Maharashtra, India</address>
+            </div>
+
+          </li>
+
+        </ul>
+
+        <div class="separator"></div>
+
+        <ul class="social-list">
+
+          <li class="social-item">
+            <a href="https://github.com/Y-Harsha-Vardhan" class="social-link" target="_blank" rel="noopener noreferrer">
+              <ion-icon name="logo-github"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="https://www.linkedin.com/in/harsha-vardhan-yalamanchili-086a60323" class="social-link" target="_blank" rel="noopener noreferrer">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="https://codeforces.com/profile/NovaStorm37" class="social-link" target="_blank" rel="noopener noreferrer">
+              <ion-icon name="code-slash-outline"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="mailto:yharshavardhan37@gmail.com" class="social-link">
+              <ion-icon name="mail-outline"></ion-icon>
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </aside>
+
+
+
+
+
+    <!--
+      - #main-content
+    -->
+
+    <div class="main-content">
+
+      <!--
+        - #NAVBAR
+      -->
+
+      <nav class="navbar">
+
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <button class="navbar-link  active" data-nav-link>About</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Resume</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Portfolio</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Reports</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Contact</button>
+          </li>
+
+        </ul>
+
       </nav>
-    </header>
 
-    <!-- HERO -->
-    <main>
-      <section class="hero-layout">
-        <div>
-          <span class="badge">
-            <span class="badge-dot"></span>
-            Open to opportunities & collaborations
-          </span>
 
-          <div class="headline">
-            <h2>
-              Building things with
-              <span class="accent">code, math & curiosity.</span>
-            </h2>
-          </div>
 
-          <p class="headline-sub">
-            I’m <strong>Harsha Vardhan</strong>, a developer who enjoys working across 
-            <strong>algorithms, systems programming, quantitative modeling, and applied machine learning</strong>.  
-            I love breaking problems down, understanding the principles behind them, and engineering solutions that 
-            are fast, reliable, and thoughtfully designed.
+
+
+      <!--
+        - #ABOUT
+      -->
+
+      <article class="about  active" data-page="about">
+
+        <header>
+          <h2 class="h2 article-title">About me</h2>
+        </header>
+
+        <section class="about-text">
+          <p>
+            I am a Computer Science student with a strong interest in systems, web development, and problem-solving.
+            I enjoy building clean, efficient interfaces backed by solid engineering fundamentals.
           </p>
 
-          <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary">
-              <span class="btn-icon">🚀</span>
-              <span>View my projects</span>
-            </a>
-            <a href="#contact" class="btn btn-ghost">
-              <span class="btn-icon">✉️</span>
-              <span>Get in touch</span>
-            </a>
-          </div>
+          <p>
+            My work focuses on writing maintainable code, understanding how things work under the hood,
+            and continuously improving through projects and experimentation.
+          </p>
 
-          <div class="hero-meta">
-            <div class="meta-group">
-              <span class="meta-label">Focus Areas</span>
-              <span class="meta-value">Algorithms · ML · Systems · Quant</span>
-            </div>
+          <p>
+            Currently, I am exploring full-stack development, data structures, and low-level concepts
+            while building projects that reflect real-world use cases.
+          </p>
+        </section>
 
-            <div class="meta-group">
-              <span class="meta-label">Code Home</span>
-              <span class="meta-value">github.com/Y-Harsha-Vardhan</span>
-            </div>
-          </div>
-        </div>
 
-        <aside class="hero-card">
-          <div class="hero-card-main">
-            <div class="avatar-circle">H</div>
-            <div class="hero-card-text">
-              <h3>Learning by building</h3>
-              <p>
-                I learn best by building end-to-end systems—experimenting, debugging, 
-                and understanding how things work under the hood. Whether it’s a chess engine, 
-                SAT solver, quant model, or a full-stack web app, I enjoy reasoning step by step 
-                and iterating until the solution feels crisp and elegant.
-              </p>
 
-              <div class="hero-card-tags">
-                <span class="chip">Algorithms</span>
-                <span class="chip">Machine Learning</span>
-                <span class="chip">Systems</span>
-                <span class="chip">Problem Solving</span>
+        <!--
+          - service
+        -->
+
+        <section class="service">
+
+          <h3 class="h3 service-title">What I Work On</h3>
+
+          <ul class="service-list">
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-design.svg" alt="design icon" width="40">
               </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Problem Solving & Algorithms</h4>
+
+                <p class="service-item-text">
+                  Strong foundation in data structures and algorithms, with experience in
+                  competitive programming and efficiency-driven problem solving.
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-dev.svg" alt="Web development icon" width="40">
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Systems & Low-Level Programming</h4>
+
+                <p class="service-item-text">
+                  Hands-on experience with operating systems concepts, computer architecture,
+                  low-level programming, and performance-oriented design.
+                </p>
+              </div>
+
+            </li>
+          
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-app.svg" alt="mobile app icon" width="40">
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Machine Learning & AI</h4>
+
+                <p class="service-item-text">
+                  Experience building machine learning models and AI systems, including
+                  time-series analysis, computer vision, and game-playing agents.
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-photo.svg" alt="camera icon" width="40">
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Software Engineering</h4>
+
+                <p class="service-item-text">
+                  Focused on writing modular, maintainable code with proper testing,
+                  version control, and clean software design principles.
+                </p>
+              </div>
+
+            </li>
+
+          </ul>
+
+        </section>
+
+
+        <!--
+          - testimonials
+        -->
+
+        <!-- <section class="testimonials">
+
+          <h3 class="h3 testimonials-title">Testimonials</h3>
+
+          <ul class="testimonials-list has-scrollbar">
+
+            <li class="testimonials-item">
+              <div class="content-card" data-testimonials-item>
+
+                <figure class="testimonials-avatar-box">
+                  <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="60" data-testimonials-avatar>
+                </figure>
+
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>Daniel lewis</h4>
+
+                <div class="testimonials-text" data-testimonials-text>
+                  <p>
+                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
+                    lot of experience
+                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
+                    consectetur adipiscing
+                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="testimonials-item">
+              <div class="content-card" data-testimonials-item>
+
+                <figure class="testimonials-avatar-box">
+                  <img src="./assets/images/avatar-2.png" alt="Jessica miller" width="60" data-testimonials-avatar>
+                </figure>
+
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>Jessica miller</h4>
+
+                <div class="testimonials-text" data-testimonials-text>
+                  <p>
+                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
+                    lot of experience
+                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
+                    consectetur adipiscing
+                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="testimonials-item">
+              <div class="content-card" data-testimonials-item>
+
+                <figure class="testimonials-avatar-box">
+                  <img src="./assets/images/avatar-3.png" alt="Emily evans" width="60" data-testimonials-avatar>
+                </figure>
+
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>Emily evans</h4>
+
+                <div class="testimonials-text" data-testimonials-text>
+                  <p>
+                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
+                    lot of experience
+                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
+                    consectetur adipiscing
+                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="testimonials-item">
+              <div class="content-card" data-testimonials-item>
+
+                <figure class="testimonials-avatar-box">
+                  <img src="./assets/images/avatar-4.png" alt="Henry william" width="60" data-testimonials-avatar>
+                </figure>
+
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>Henry william</h4>
+
+                <div class="testimonials-text" data-testimonials-text>
+                  <p>
+                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
+                    lot of experience
+                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
+                    consectetur adipiscing
+                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </section> -->
+
+
+        <!--
+          - testimonials modal
+        -->
+
+        <!-- <div class="modal-container" data-modal-container>
+
+          <div class="overlay" data-overlay></div>
+
+          <section class="testimonials-modal">
+
+            <button class="modal-close-btn" data-modal-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+
+            <div class="modal-img-wrapper">
+              <figure class="modal-avatar-box">
+                <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="80" data-modal-img>
+              </figure>
+
+              <img src="./assets/images/icon-quote.svg" alt="quote icon">
             </div>
-          </div>
 
-          <div class="hero-card-footer">
-            <span>Latest: <strong>Angry Birds-style game</strong></span>
-            <span>Repos: <strong>bird</strong>, <strong>Facial_recog</strong>, and more on GitHub.</span>
-          </div>
-        </aside>
-      </section>
+            <div class="modal-content">
 
-      <!-- ABOUT -->
-      <section id="about" class="section">
-        <div class="section-header">
-          <h2 class="section-title">About & Skills</h2>
-          <p class="section-sub">A quick snapshot of who I am and how I work.</p>
-        </div>
+              <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
 
-        <div class="grid-two">
+              <time datetime="2021-06-14">14 June, 2021</time>
 
-          <div class="card">
-            <p>
-              I enjoy working on <strong>practical, logic-driven projects</strong> — from algorithmic solvers 
-              and game engines to applied machine learning models and scalable web apps. 
-              I like understanding problems deeply, designing the right abstractions, and ensuring that 
-              the final system is clean, efficient, and predictable.
-            </p>
-            <br />
-            <p>
-              My interests lie at the intersection of <strong>algorithms, systems, ML, and quantitative modeling</strong>.  
-              I enjoy challenges that combine analytical thinking with real-world behaviour and love iterating 
-              on ideas until they become polished, well-engineered solutions.
-            </p>
-          </div>
+              <div data-modal-text>
+                <p>
+                  Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
+                  lot of experience
+                  and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
+                  consectetur adipiscing
+                  elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
+                </p>
+              </div>
 
-          <div class="card">
-            <p><strong>Technical stack</strong></p>
-            <div class="skills-grid">
-                <span class="skill-pill">Python</span>
-                <span class="skill-pill">C / C++</span>
-                <span class="skill-pill">Machine Learning</span>
-                <span class="skill-pill">Time-Series Modeling (LSTM)</span>
-                <span class="skill-pill">Algorithms & Data Structures</span>
-                <span class="skill-pill">OpenCV</span>
-                <span class="skill-pill">React.js</span>
-                <span class="skill-pill">Git & GitHub</span>
             </div>
 
-            <br />
+          </section>
 
-            <p><strong>How I like to work</strong></p>
-            <div class="skills-grid">
-                <span class="skill-pill soft">Structured problem solving</span>
-                <span class="skill-pill soft">Building from first principles</span>
-                <span class="skill-pill soft">Modular, clean design</span>
-                <span class="skill-pill soft">Iterative refinement</span>
-                <span class="skill-pill soft">Experiment-driven learning</span>
+        </div> -->
+
+
+        <!--
+          - technologies
+        -->
+
+        <section class="clients">
+
+          <h3 class="h3 clients-title">Technologies I Use</h3>
+
+          <ul class="clients-list has-scrollbar">
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./assets/images/python.svg" alt="Python">
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./assets/images/c++.svg" alt="C++">
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./assets/images/github.svg" alt="GitHub">
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./assets/images/numpy.svg" alt="NumPy">
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./assets/images/pytorch.svg" alt="PyTorch">
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./assets/images/react.svg" alt="React">
+              </a>
+            </li>
+
+          </ul>
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #RESUME
+      -->
+
+      <article class="resume" data-page="resume">
+
+        <header>
+          <h2 class="h2 article-title">Resume</h2>
+        </header>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
             </div>
+
+            <h3 class="h3">Education</h3>
           </div>
-        </div>
-      </section>
 
-      <!-- PROJECTS (unchanged) -->
-      <!-- CONTACT (unchanged) -->
-      <!-- FOOTER (unchanged) -->
+          <ol class="timeline-list">
 
-    </main>
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                B.Tech in Computer Science & Engineering
+              </h4>
 
-    <footer class="footer">
-      <span>© <span id="year"></span> Harsha Vardhan Y. Built with plain HTML & CSS.</span>
-      <span>
-        Deployed via <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
-      </span>
-    </footer>
+              <span>Indian Institute of Technology Bombay · 2024 — 2028</span>
 
-  </div>
+              <p class="timeline-text">
+                Currently pursuing Computer Science and Engineering at IIT Bombay.
+                Strong academic focus on systems, algorithms, cryptography, and machine learning.
+              </p>
+            </li>
 
-  <!-- JS -->
-  <script>
-    const toggle = document.getElementById("nav-toggle");
-    const nav = document.getElementById("site-nav");
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                Intermediate (Class XII) — CBSE
+              </h4>
 
-    toggle.addEventListener("click", () => {
-      const expanded = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", !expanded);
-      nav.classList.toggle("open");
-    });
+              <span>Narayana Junior College · 2022 — 2024</span>
 
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+              <p class="timeline-text">
+                Secured 97.8% with a strong foundation in Mathematics, Physics, and problem-solving.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                Matriculation (Class X) — CBSE
+              </h4>
+
+              <span>Narayana CO School · 2022</span>
+
+              <p class="timeline-text">
+                Achieved 97.6%, demonstrating consistent academic excellence.
+              </p>
+            </li>
+
+          </ol>
+
+
+        </section>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Experience</h3>
+          </div>
+
+          <ol class="timeline-list">
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                Quantitative Modeling & Trading Systems
+              </h4>
+
+              <span>Summer of Quant · IIT Bombay · June — July 2025</span>
+
+              <p class="timeline-text">
+                Studied stochastic processes, Markov chains, and time-series analysis with applications
+                to quantitative trading. Designed trading strategies with emphasis on signal generation,
+                risk management, and backtesting. Ranked among top 10 performers.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                Systems & Algorithm Engineering
+              </h4>
+
+              <span>Course & Self Projects · 2024 — Present</span>
+
+              <p class="timeline-text">
+                Implemented advanced data structures including Red-Black Trees and optimized hash tables.
+                Built performance-focused algorithms such as Strassen’s matrix multiplication and
+                benchmarked classical structures to study trade-offs.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                Applied Cryptography & Security Research
+              </h4>
+
+              <span>IIT Bombay · 2025</span>
+
+              <p class="timeline-text">
+                Performed real-world cryptographic attacks including CTR keystream reuse,
+                timing side-channel attacks on HMAC, and Merkle–Damgård collision constructions,
+                with focus on secure system design and constant-time implementations.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">
+                Full-Stack & Systems Projects
+              </h4>
+
+              <span>Personal & Course Projects · 2024 — Present</span>
+
+              <p class="timeline-text">
+                Built full-stack applications using React, Node.js, and Python.
+                Developed real-time systems, automation tools, and AI-driven applications
+                emphasizing robustness, modularity, and maintainability.
+              </p>
+            </li>
+
+          </ol>
+
+
+        </section>
+
+        <section class="skill">
+
+          <h3 class="h3 skills-title">My skills</h3>
+
+          <ul class="skills-list content-card">
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Data Structures & Algorithms</h5>
+                <data value="90">90%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 90%;"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Systems & Low-Level Programming</h5>
+                <data value="85">85%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 85%;"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Python, C/C++, Bash</h5>
+                <data value="90">90%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 90%;"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Machine Learning & AI</h5>
+                <data value="75">75%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 75%;"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Web Development & Tooling</h5>
+                <data value="80">80%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 80%;"></div>
+              </div>
+            </li>
+
+          </ul>
+
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #PORTFOLIO
+      -->
+
+      <article class="portfolio" data-page="portfolio">
+
+        <header>
+          <h2 class="h2 article-title">Portfolio</h2>
+        </header>
+
+        <section class="projects">
+
+          <ul class="filter-list">
+
+            <li class="filter-item">
+              <button class="active" data-filter-btn>All</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Systems</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>AI / ML</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Web</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Quant</button>
+            </li>
+
+          </ul>
+
+          <div class="filter-select-box">
+
+            <button class="filter-select" data-select>
+
+              <div class="select-value" data-select-value>Select category</div>
+
+              <div class="select-icon">
+                <ion-icon name="chevron-down"></ion-icon>
+              </div>
+
+            </button>
+
+            <ul class="select-list">
+
+              <li class="select-item">
+                <button data-select-item>All</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Systems</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>AI / ML</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Web</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Quant</button>
+              </li>
+
+            </ul>
+
+          </div>
+
+          <ul class="project-list">
+
+            <!-- <li class="project-item  active" data-filter-item data-category="web development">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-1.jpg" alt="finance" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Finance</h3>
+
+                <p class="project-category">Web development</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web development">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-2.png" alt="orizon" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Orizon</h3>
+
+                <p class="project-category">Web development</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web design">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-3.jpg" alt="fundo" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Fundo</h3>
+
+                <p class="project-category">Web design</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="applications">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-4.png" alt="brawlhalla" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Brawlhalla</h3>
+
+                <p class="project-category">Applications</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web design">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-5.png" alt="dsm." loading="lazy">
+                </figure>
+
+                <h3 class="project-title">DSM.</h3>
+
+                <p class="project-category">Web design</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web design">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-6.png" alt="metaspark" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">MetaSpark</h3>
+
+                <p class="project-category">Web design</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web development">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-7.png" alt="summary" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Summary</h3>
+
+                <p class="project-category">Web development</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="applications">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-8.jpg" alt="task manager" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Task Manager</h3>
+
+                <p class="project-category">Applications</p>
+
+              </a>
+            </li> -->
+
+            <!-- <li class="project-item  active" data-filter-item data-category="web development">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-9.png" alt="arrival" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Arrival</h3>
+
+                <p class="project-category">Web development</p>
+
+              </a>
+            </li>  -->
+
+            <li class="project-item active" data-filter-item data-category="ai / ml">
+              <a href="https://github.com/Y-Harsha-Vardhan/AI-Chess-Bot" target="_blank" rel="noopener noreferrer">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="logo-github"></ion-icon>
+                  </div>
+                  <img src="./assets/images/chess.png" alt="AI Chess Engine" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">AI Chess Engine</h3>
+                <p class="project-category">AI / ML</p>
+
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="web">
+              <a href="https://github.com/Y-Harsha-Vardhan/CS104-Project" target="_blank" rel="noopener noreferrer">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="logo-github"></ion-icon>
+                  </div>
+                  <img src="./assets/images/cricket.png" alt="Cricket Scoring System" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Cricket Scoring System</h3>
+                <p class="project-category">Web</p>
+
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="quant">
+              <a href="https://github.com/Y-Harsha-Vardhan/SoQ-Project" target="_blank" rel="noopener noreferrer">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="logo-github"></ion-icon>
+                  </div>
+                  <img src="./assets/images/quant.png" alt="Quantitative Trading Models" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Quantitative Trading Models</h3>
+                <p class="project-category">Quant</p>
+
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="systems">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/sat.png" alt="SAT Solver" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">SAT-Based Sokoban Solver</h3>
+                <p class="project-category">Systems</p>
+
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="systems">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/crypto.jpg" alt="Applied Cryptography" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Applied Cryptography & Exploits</h3>
+                <p class="project-category">Systems</p>
+
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="ai / ml">
+              <a href="https://github.com/Y-Harsha-Vardhan/Stock-Price-Prediction-Using-LSTM" target="_blank" rel="noopener noreferrer">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="logo-github"></ion-icon>
+                  </div>
+                  <img src="./assets/images/stock.jpg" alt="LSTM Stock Prediction" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Stock Price Prediction (LSTM)</h3>
+                <p class="project-category">AI / ML</p>
+
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="systems">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/algorithm.jpg" alt="Algorithms" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Advanced Algorithm Implementations</h3>
+                <p class="project-category">Systems</p>
+
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="web">
+              <a href="https://github.com/8787233419/e-commerce-dashboard" target="_blank" rel="noopener noreferrer">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="logo-github"></ion-icon>
+                  </div>
+                  <img src="./assets/images/food.png" alt="Restaurant Web App" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Restaurant E-Commerce Platform</h3>
+                <p class="project-category">Web</p>
+
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="systems">
+              <a href="https://github.com/Y-Harsha-Vardhan/CS293-TeamProject" target="_blank" rel="noopener noreferrer">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="logo-github"></ion-icon>
+                  </div>
+
+                  <!-- You can replace this later with a custom diagram or map image -->
+                  <img src="./assets/images/graph.jpg"
+                      alt="Graph-Based Routing System"
+                      loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Graph-Based Routing System</h3>
+
+                <p class="project-category">Systems</p>
+
+              </a>
+            </li>
+
+          </ul>
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #REPORTS
+      -->
+
+      <article class="blog" data-page="reports">
+
+        <header>
+          <h2 class="h2 article-title">Technical Reports</h2>
+        </header>
+
+        <section class="blog-posts">
+
+          <ul class="blog-posts-list">
+
+            <li class="blog-post-item">
+              <a href="./assets/reports/graphReport.pdf" target="_blank" rel="noopener noreferrer">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/reports/images/graph.jpg" alt="Graph-Based Routing System" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Systems / Algorithms</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2025-11-22">Nov 22, 2025</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Graph-Based Routing System Simulation</h3>
+
+                  <p class="blog-text">
+                    Designed and implemented a modular graph-based navigation system supporting shortest paths, k-shortest paths, heuristics, and delivery scheduling with real-world constraints.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="./assets/reports/quantReport.pdf" target="_blank" rel="noopener noreferrer">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/reports/images/quant.jpg" alt="Quantitative Trading Model" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Quant / Data Science</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2025-07-28">July 28, 2025</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Quantitative Trading Strategy Design</h3>
+
+                  <p class="blog-text">
+                    Explored stochastic processes and time-series analysis to design, backtest, and evaluate quantitative trading strategies with robust risk management.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="./assets/reports/cryptoReport.pdf" target="_blank" rel="noopener noreferrer">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/reports/images/crypto.jpg" alt="Cryptography" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Security / Cryptography</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2025-11-01">Nov 1, 2025</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Applied Cryptography & Exploit Analysis</h3>
+
+                  <p class="blog-text">
+                    Analyzed real-world cryptographic vulnerabilities including CTR keystream reuse, timing side-channel attacks, and hash collision constructions.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="./assets/reports/cricketReport.pdf" target="_blank" rel="noopener noreferrer">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/reports/images/cricket.jpg" alt="Cricket Scoring System" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Web / Software Engineering</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2025-04-29">April 29, 2025</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Real-Time Cricket Scoring System</h3>
+
+                  <p class="blog-text">
+                    Built a real-time web-based cricket scoring application with robust state management, modular design, and automated testing.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="./assets/reports/satReport.pdf" target="_blank" rel="noopener noreferrer">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/reports/images/solver.webp" alt="SAT Based Sokoban Solver" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Logic / Sokoban</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2025-08-24">Aug 24, 2025</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">SAT-Based Sokoban Solver</h3>
+
+                  <p class="blog-text">
+                    Modeled Sokoban as a Boolean satisfiability problem and implemented a SAT-based solver using efficient constraint encodings and optimizations.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="./assets/reports/cpReport.pdf" target="_blank" rel="noopener noreferrer">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/reports/images/cp.jpg" alt="Competitive Programming" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Algorithms / Problem Solving</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2025-07-02">July 2, 2025</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Competitive Programming & Algorithmic Problem Solving</h3>
+
+                  <p class="blog-text">
+                    Solved 150+ algorithmic problems using advanced data structures, graph algorithms, and dynamic programming to build strong analytical skills.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+          </ul>
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #CONTACT
+      -->
+
+      <article class="contact" data-page="contact">
+
+        <header>
+          <h2 class="h2 article-title">Contact</h2>
+        </header>
+
+        <section class="mapbox" data-mapbox>
+          <figure>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.4204230665146!2d72.9125311762743!3d19.13306555017654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c7f189efc039%3A0x68fdcea4c5c5894e!2sIndian%20Institute%20of%20Technology%20Bombay!5e0!3m2!1sen!2sin!4v1765734687044!5m2!1sen!2sin" 
+            width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </figure>
+        </section>
+
+        <section class="contact-form">
+
+          <h3 class="h3 form-title">Contact Form</h3>
+
+          <form action="https://formspree.io/f/mblnbzbb" method="POST" class="form" data-form>
+
+            <div class="input-wrapper">
+              <input type="text" name="name" class="form-input" placeholder="Full name" required data-form-input>
+
+              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
+            </div>
+
+            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+
+            <button class="form-btn" type="submit" disabled data-form-btn>
+              <ion-icon name="paper-plane"></ion-icon>
+              <span>Send Message</span>
+            </button>
+            <input type="hidden" name="_subject" value="New Portfolio Contact Message">
+          </form>
+          <p class="form-success" hidden>
+            Thanks! Your message has been sent.
+          </p>
+
+        </section>
+
+      </article>
+
+    </div>
+
+  </main>
+
+
+
+
+
+
+  <!--
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 </body>
+
 </html>
