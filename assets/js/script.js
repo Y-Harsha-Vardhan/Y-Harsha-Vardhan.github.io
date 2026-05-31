@@ -9,9 +9,19 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- Footer year ---------- */
+/* ---------- Footer year + last-updated ---------- */
 const yearEl = $('[data-year]');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+const updatedEl = $('[data-last-updated]');
+if (updatedEl) {
+  // document.lastModified reflects the file's mtime on most static hosts (GH Pages,
+  // Netlify, Vercel, file://). Falls back to "now" if the header is missing/zero.
+  const raw = Date.parse(document.lastModified);
+  const d = Number.isFinite(raw) && raw > 0 ? new Date(raw) : new Date();
+  updatedEl.textContent = d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  updatedEl.dateTime = d.toISOString().slice(0, 10);
+}
 
 /* ---------- Mouse spotlight ---------- */
 (() => {
@@ -139,26 +149,6 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     });
   });
 
-  // skill rings: animate stroke-dashoffset when ring-grid enters view
-  const rings = $$('.ring');
-  if (rings.length) {
-    const CIRC = 2 * Math.PI * 44; // matches r=44 in CSS
-    rings.forEach(r => {
-      const fill = r.querySelector('.ring-fill');
-      if (fill) fill.style.strokeDashoffset = CIRC;
-    });
-    const rio = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        const r = e.target;
-        const fill = r.querySelector('.ring-fill');
-        const pct = Math.max(0, Math.min(100, +r.dataset.pct || 0));
-        if (fill) fill.style.strokeDashoffset = CIRC * (1 - pct / 100);
-        rio.unobserve(r);
-      });
-    }, { threshold: 0.4 });
-    rings.forEach(r => rio.observe(r));
-  }
 })();
 
 /* ---------- Resume tabs ---------- */
@@ -199,6 +189,76 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   }
   window.addEventListener('load', reposition);
   window.addEventListener('resize', reposition);
+})();
+
+/* ---------- Live Codeforces rating ---------- */
+(() => {
+  const slot = $('[data-cf-handle]');
+  if (!slot) return;
+  const handle = slot.dataset.cfHandle;
+  const ratingEl = $('[data-cf-rating]', slot);
+  const rankEl = $('[data-cf-rank]', slot);
+
+  // Official CF rank → color. Tuned slightly for dark-bg legibility.
+  const RANK_COLOR = {
+    'newbie':                    '#9aa0a6',
+    'pupil':                     '#34d399',
+    'specialist':                '#22d3ee',
+    'expert':                    '#60a5fa',
+    'candidate master':          '#c084fc',
+    'master':                    '#fb923c',
+    'international master':      '#fb923c',
+    'grandmaster':               '#f87171',
+    'international grandmaster': '#ef4444',
+    'legendary grandmaster':     '#dc2626',
+  };
+  const titleCase = (s) => s.replace(/\b\w/g, c => c.toUpperCase());
+
+  const render = (user) => {
+    if (!user || typeof user.rating !== 'number') {
+      slot.dataset.state = 'unrated';
+      ratingEl.textContent = '—';
+      rankEl.textContent = `Codeforces · @${handle}`;
+      return;
+    }
+    const rank = (user.rank || 'unrated').toLowerCase();
+    const color = RANK_COLOR[rank] || '#9aa0a6';
+    slot.style.setProperty('--cf-color', color);
+    slot.dataset.state = 'ok';
+    ratingEl.textContent = user.rating;
+    rankEl.textContent = `Codeforces · ${titleCase(user.rank)}`;
+  };
+
+  const renderError = () => {
+    slot.dataset.state = 'error';
+    ratingEl.textContent = 'CF';
+    rankEl.textContent = `Codeforces · @${handle}`;
+  };
+
+  // Serve from cache instantly, then refresh in background
+  const cacheKey = `cf:${handle}`;
+  const ttl = 60 * 60 * 1000; // 1 hour
+  try {
+    const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (cached && cached.t && Date.now() - cached.t < ttl) {
+      render(cached.user);
+    } else {
+      slot.dataset.state = 'loading';
+    }
+  } catch { slot.dataset.state = 'loading'; }
+
+  fetch(`https://codeforces.com/api/user.info?handles=${encodeURIComponent(handle)}`, { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(json => {
+      if (json.status !== 'OK' || !json.result || !json.result[0]) throw 0;
+      const user = json.result[0];
+      render(user);
+      try { localStorage.setItem(cacheKey, JSON.stringify({ t: Date.now(), user })); } catch {}
+    })
+    .catch(() => {
+      // If cache already populated the slot, keep that view. Otherwise, show fallback.
+      if (slot.dataset.state !== 'ok') renderError();
+    });
 })();
 
 /* ---------- Back to top ---------- */

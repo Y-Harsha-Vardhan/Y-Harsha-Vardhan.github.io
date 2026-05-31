@@ -2,7 +2,28 @@
 
 A hiring-perspective audit of the current state of the site and a prioritized, actionable plan to close the gap between "good visual layer" and "must-call candidate."
 
-The site currently scores roughly **7 / 10** overall: the visual layer is doing more work than the content layer. The list below is ordered so that the items at the top buy the largest credibility per minute of effort.
+The site started at roughly **7 / 10**. After the items completed below it sits closer to **7.5 / 10** — the gap that remains is project-depth, not polish.
+
+---
+
+## Progress so far
+
+**Shipped:**
+- ✅ §1.3 — Self-rated skill rings replaced with grouped tag cloud + "Currently learning" strip
+- ✅ §1.4 — Hero headline rewritten ("CS @ IIT Bombay. I build systems-oriented projects and quantitative trading models."); status pill bumped to Summer 2027
+- ✅ §1.6 — Codeforces line replaced with a **live API-fetched badge** (rating + rank, official rank colors, 1-hour localStorage cache, graceful offline fallback); handle updated `NovaStorm37` → `limitless__`
+- ✅ §2.5 — Footer restructured: brand + tagline + social row, live "Last updated" (auto from `document.lastModified`), location chip, source-on-GitHub link, honest authorship line (`Designed with Claude. Shipped by Harsha.`)
+
+**Bonus polish that landed alongside:**
+- Whole-site palette swapped from violet/cyan/magenta aurora to a minimal black + blue family
+- No-FOUC reveal pattern (`html.js` gate) so the page cannot end up invisible if JS fails
+- 2.5-second safety-net force-show for any unrevealed elements (catches deep-link / observer edge cases)
+- `:focus-visible` accessible focus rings, `scroll-padding-top` / `scroll-margin-top` for clean hash deep-links
+- OG / Twitter card meta tags
+- ResizeObserver + `document.fonts.ready` recomputation for the resume tab pill (fixes the misaligned-on-load bug)
+- Code audit removed all orphan CSS (`.report-list`, `.report-card`, `.contact-grid`, `.resume-grid`, etc.)
+
+**Still open from this plan:** §1.1, §1.2, §1.5 (Tier 1); all of Tier 2 except §2.5; all of Tier 3 and Tier 4.
 
 ---
 
@@ -43,7 +64,9 @@ These are items a recruiter or engineer notices in the first 30 seconds. They ar
 
 ---
 
-### 1.3 Self-rated skill % bars / rings
+### 1.3 Self-rated skill % bars / rings ✅ DONE
+
+> **Shipped:** ring gauges and percentages deleted. Replaced with a grouped tag cloud in 5 categories (Languages · Systems · ML & data · Web · Math) using glass-pill chips, plus a "Currently learning" strip with a pulsing dot and two accent-tinted tags (Distributed systems · Rust). Edit lists directly in `index.html` → `.skill-groups` / `.skill-tags`.
 
 **Where:** Resume → Skills (`.ring-grid` with `data-pct="90"`, `85`, etc.).
 
@@ -63,7 +86,9 @@ These are items a recruiter or engineer notices in the first 30 seconds. They ar
 
 ---
 
-### 1.4 Vague headline
+### 1.4 Vague headline ✅ DONE
+
+> **Shipped:** big line is now **"CS @ IIT Bombay."**, soft line is **"I build systems-oriented projects and quantitative trading models."** Sub-paragraph rewritten to position as a second-year with taste ("problems that aren't already on a tutorial" — a deliberate nod against the LSTM critique below). Status pill bumped Summer 2026 → **Summer 2027** to match the next intern cycle.
 
 **Where:** Hero — *"Building things at the edge of systems & intelligence."*
 
@@ -94,7 +119,14 @@ Keep the gradient styling; replace only the words. The "Available for internship
 
 ---
 
-### 1.6 Codeforces signal is ambiguous
+### 1.6 Codeforces signal is ambiguous ✅ DONE — *upgraded to live*
+
+> **Shipped:** the "150+" line is gone. In its place is a **live API-fetched CF badge** that reads your current rating + rank from `codeforces.com/api/user.info`, renders the number in the official CF rank color (Specialist cyan today; will auto-shift if you climb to Expert / CM / etc.), and labels it `Codeforces · <Rank>`. Implementation details:
+> - 1-hour `localStorage` cache so repeat visitors get an instant paint, refreshed in the background.
+> - Graceful fallback if the API is down or the visitor is offline — shows `CF · @limitless__` in dim gray, link still works.
+> - Color map covers every rank Newbie → Legendary Grandmaster, so the badge ages with your rating with no code change.
+> - **Finding while implementing:** your CF handle has been renamed `NovaStorm37` → `limitless__`. All three references in `index.html` updated (hero social, badge hook, footer social).
+> - Current state as of last fetch: **1491 · Specialist** (max 1835 · Expert).
 
 **Where:** About → Highlights bento card — *"150+ CP problems solved."*
 
@@ -176,7 +208,13 @@ This is the single highest-leverage thing on this list for senior reviewers.
 
 ---
 
-### 2.5 Footer is empty
+### 2.5 Footer is empty ✅ DONE
+
+> **Shipped:** full restructure of `.site-footer` into a two-column grid (brand + meta), with a divider and bottom row underneath:
+> - **Left:** brand mark, tagline (`CS @ IIT Bombay · Systems · ML · Quant`), social icon row (GitHub, LinkedIn, Codeforces, Email).
+> - **Right:** a `<dl>` of three labeled facts — `Currently: Mumbai, India · IST` · `Last updated: <auto-from document.lastModified>` · `View source on GitHub →` (linked to `Y-Harsha-Vardhan/Y-Harsha-Vardhan.github.io`).
+> - **Bottom row:** `© 2026 Harsha Vardhan. Designed with Claude. Shipped by Harsha.` on the left; `Designed in the open. Back to top ↑` on the right.
+> The authorship line was an explicit hiring-perspective decision: it names the AI tool honestly (defends against the AI-skeptical ~40% of reviewers) while "Shipped by Harsha" claims engineer ownership of the result.
 
 **Where:** `.site-footer`.
 
@@ -276,17 +314,32 @@ Two sentences of specific is worth two paragraphs of generic.
 - **`<title>` tag** could include a keyword for SEO: "Harsha Vardhan — CS @ IIT Bombay · Portfolio".
 - **Add a sitemap.xml and robots.txt** if you want this indexed by Google.
 
+### 4.1 Third-party CDN dependencies (cross-browser fragility)
+
+> **Discovered during this iteration:** the site renders correctly in vanilla Firefox but visibly breaks in **Zen Browser** (Firefox fork with stricter default tracking protection). Same issue will hit any visitor with strict privacy extensions (uBlock Origin custom lists, Brave Shields strict, NoScript, etc.).
+
+**Cause:** three runtime dependencies on third-party CDNs:
+1. `unpkg.com/ionicons` — every `<ion-icon>` element (~30 of them) fails to render → nav buttons, tabs, project card overlays, contact panel, form button all show empty squares.
+2. `fonts.googleapis.com` — Google Fonts CSS.
+3. `fonts.gstatic.com` — actual font files. Without these the page falls back to system sans-serif and the carefully tuned spacing collapses.
+
+**Fix options (pick one):**
+- **A — Self-host (recommended).** Download the ionicons bundle into `assets/vendor/ionicons/` and the four Google Font weights into `assets/fonts/` with a local `@font-face` block. ~10 min. Removes all third-party risk for every visitor.
+- **B — Drop dependencies entirely.** Replace `<ion-icon>` instances with inline SVGs (~30 occurrences, more work but zero network risk). Keep a system-font stack or self-host one weight only.
+
+**Effort:** 10–30 min depending on path.
+
 ---
 
-## Suggested order of execution
+## Suggested order of execution (updated)
 
-If you have **one hour**: 1.1, 1.4, 1.6 — kill dead links, sharpen headline, fix CF claim.
+If you have **one hour** remaining: §1.1 (kill dead links) and §1.2 (résumé PDF). These are the two highest-impact items still open in Tier 1.
 
-If you have **one afternoon**: add §1.1 – §1.6 plus §2.5 (footer). The site goes from 7 to 7.5 with no new content.
+If you have **one afternoon** remaining: §1.1, §1.2, §1.5 (LSTM reframe/remove), plus §4.1 (self-host CDN deps) and §2.3 (real photo). The site goes from ~7.5 to ~8.
 
-If you have **one weekend**: everything in Tier 1 + §2.1 (numbers on projects) + §2.3 (real photo) + §2.5 (footer). The site goes from 7 to 8.
+If you have **one weekend** remaining: above + §2.1 (numbers on every project) and §2.4 (GitHub repo READMEs). The site goes from ~7.5 to ~8.5.
 
-If you have **one month**: everything in Tier 1 and Tier 2 + one item from Tier 3 (either §3.1 *or* §3.2). The site goes from 7 to 8.5+. At that point the gap between your visual layer and your content layer closes, and recruiters reach out before you apply.
+If you have **one month** remaining: above + §2.2 (one inline blog post) + one Tier-3 item (either §3.1 *original project* or §3.2 *case study*). The site goes from ~7.5 to ~9. At that point the gap between visual layer and content layer closes — recruiters reach out before you apply.
 
 ---
 

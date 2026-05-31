@@ -32,17 +32,6 @@
 </head>
 
 <body>
-  <!-- Shared SVG defs -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#1e40af" />
-        <stop offset="50%" stop-color="#3b82f6" />
-        <stop offset="100%" stop-color="#60a5fa" />
-      </linearGradient>
-    </defs>
-  </svg>
-
   <!-- Aurora background layers -->
   <div class="bg-layer" aria-hidden="true">
     <div class="aurora aurora-1"></div>
@@ -94,18 +83,18 @@
         <div class="hero-left reveal">
           <div class="status-pill">
             <span class="pulse"></span>
-            <span>Available for internships · Summer 2026</span>
+            <span>Available for internships · Summer 2027</span>
           </div>
 
           <h1 class="hero-title">
             <span class="hero-label">I'm Harsha Vardhan.</span>
-            <span class="hero-gradient">Building things</span>
-            <span class="hero-gradient-soft">at the edge of systems &amp; intelligence.</span>
+            <span class="hero-gradient">CS @ IIT Bombay.</span>
+            <span class="hero-gradient-soft">I build systems-oriented projects and quantitative trading models.</span>
           </h1>
 
           <p class="hero-sub">
-            Computer Science @ IIT Bombay. I work across low-level systems, algorithms, machine
-            learning, and web — with a bias for clean, maintainable engineering.
+            Second-year undergrad. Comfortable across low-level systems, algorithms, and ML —
+            with a bias for clean code, measurable results, and problems that aren't already on a tutorial.
           </p>
 
           <div class="hero-ctas">
@@ -131,7 +120,7 @@
               </a>
             </li>
             <li>
-              <a href="https://codeforces.com/profile/NovaStorm37" target="_blank" rel="noopener noreferrer" aria-label="Codeforces">
+              <a href="https://codeforces.com/profile/limitless__" target="_blank" rel="noopener noreferrer" aria-label="Codeforces">
                 <ion-icon name="code-slash-outline"></ion-icon>
               </a>
             </li>
@@ -245,7 +234,12 @@
           </header>
           <ul class="stat-list">
             <li><b>Top 10</b><span>Summer of Quant '25</span></li>
-            <li><b>150+</b><span>CP problems solved</span></li>
+            <li class="stat-cf" data-cf-handle="limitless__">
+              <a class="stat-cf-link" href="https://codeforces.com/profile/limitless__" target="_blank" rel="noopener noreferrer" aria-label="Codeforces profile">
+                <b data-cf-rating>—</b>
+                <span data-cf-rank>Codeforces · loading…</span>
+              </a>
+            </li>
             <li><b>97.8%</b><span>Class XII — CBSE</span></li>
           </ul>
         </article>
@@ -524,31 +518,51 @@
       <div class="skills-block reveal">
         <div class="resume-col-head">
           <div class="bento-icon"><ion-icon name="git-branch-outline"></ion-icon></div>
-          <h3>Skills</h3>
+          <h3>Skills &amp; tools</h3>
         </div>
 
-        <ul class="ring-grid">
-          <li class="ring-card">
-            <div class="ring" data-pct="90"><svg viewBox="0 0 100 100"><circle class="ring-track" cx="50" cy="50" r="44"/><circle class="ring-fill" cx="50" cy="50" r="44"/></svg><b>90<i>%</i></b></div>
-            <h5>DSA</h5><p>Data structures &amp; algorithms</p>
+        <ul class="skill-groups">
+          <li class="skill-group">
+            <h5 class="skill-group-label">Languages</h5>
+            <ul class="skill-tags">
+              <li>Python</li><li>C / C++</li><li>Bash</li><li>JavaScript</li>
+            </ul>
           </li>
-          <li class="ring-card">
-            <div class="ring" data-pct="85"><svg viewBox="0 0 100 100"><circle class="ring-track" cx="50" cy="50" r="44"/><circle class="ring-fill" cx="50" cy="50" r="44"/></svg><b>85<i>%</i></b></div>
-            <h5>Systems</h5><p>OS, architecture, low-level</p>
+          <li class="skill-group">
+            <h5 class="skill-group-label">Systems</h5>
+            <ul class="skill-tags">
+              <li>Linux</li><li>gdb</li><li>perf</li><li>Make / CMake</li>
+            </ul>
           </li>
-          <li class="ring-card">
-            <div class="ring" data-pct="90"><svg viewBox="0 0 100 100"><circle class="ring-track" cx="50" cy="50" r="44"/><circle class="ring-fill" cx="50" cy="50" r="44"/></svg><b>90<i>%</i></b></div>
-            <h5>Languages</h5><p>Python, C / C++, Bash</p>
+          <li class="skill-group">
+            <h5 class="skill-group-label">ML &amp; data</h5>
+            <ul class="skill-tags">
+              <li>PyTorch</li><li>NumPy</li><li>pandas</li><li>scikit-learn</li>
+            </ul>
           </li>
-          <li class="ring-card">
-            <div class="ring" data-pct="75"><svg viewBox="0 0 100 100"><circle class="ring-track" cx="50" cy="50" r="44"/><circle class="ring-fill" cx="50" cy="50" r="44"/></svg><b>75<i>%</i></b></div>
-            <h5>ML / AI</h5><p>PyTorch, time-series, CV</p>
+          <li class="skill-group">
+            <h5 class="skill-group-label">Web</h5>
+            <ul class="skill-tags">
+              <li>React</li><li>Node.js</li><li>HTML / CSS</li><li>Git</li>
+            </ul>
           </li>
-          <li class="ring-card">
-            <div class="ring" data-pct="80"><svg viewBox="0 0 100 100"><circle class="ring-track" cx="50" cy="50" r="44"/><circle class="ring-fill" cx="50" cy="50" r="44"/></svg><b>80<i>%</i></b></div>
-            <h5>Web</h5><p>React, Node, tooling</p>
+          <li class="skill-group">
+            <h5 class="skill-group-label">Math</h5>
+            <ul class="skill-tags">
+              <li>Probability</li><li>Linear algebra</li><li>Time series</li>
+            </ul>
           </li>
         </ul>
+
+        <div class="learning-strip">
+          <span class="learning-label">
+            <span class="learning-dot"></span>Currently learning
+          </span>
+          <ul class="skill-tags skill-tags--accent">
+            <li>Distributed systems</li>
+            <li>Rust</li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -682,7 +696,7 @@
             <ul class="panel-socials">
               <li><a href="https://github.com/Y-Harsha-Vardhan" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><ion-icon name="logo-github"></ion-icon></a></li>
               <li><a href="https://www.linkedin.com/in/harsha-vardhan-yalamanchili-086a60323" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a></li>
-              <li><a href="https://codeforces.com/profile/NovaStorm37" target="_blank" rel="noopener noreferrer" aria-label="Codeforces"><ion-icon name="code-slash-outline"></ion-icon></a></li>
+              <li><a href="https://codeforces.com/profile/limitless__" target="_blank" rel="noopener noreferrer" aria-label="Codeforces"><ion-icon name="code-slash-outline"></ion-icon></a></li>
             </ul>
           </div>
         </aside>
@@ -722,13 +736,45 @@
   </button>
 
   <footer class="site-footer">
-    <div class="footer-inner">
-      <p>© <span data-year></span> Harsha Vardhan · Built with care.</p>
-      <ul>
-        <li><a href="https://github.com/Y-Harsha-Vardhan" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/harsha-vardhan-yalamanchili-086a60323" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        <li><a href="mailto:yharshavardhan37@gmail.com">Email</a></li>
-      </ul>
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <a href="#hero" class="brand">
+          <span class="brand-mark">HV</span>
+          <span class="brand-text">Harsha<span>.</span></span>
+        </a>
+        <p class="footer-tagline">CS @ IIT Bombay · Systems · ML · Quant</p>
+        <ul class="footer-socials">
+          <li><a href="https://github.com/Y-Harsha-Vardhan" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><ion-icon name="logo-github"></ion-icon></a></li>
+          <li><a href="https://www.linkedin.com/in/harsha-vardhan-yalamanchili-086a60323" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+          <li><a href="https://codeforces.com/profile/limitless__" target="_blank" rel="noopener noreferrer" aria-label="Codeforces"><ion-icon name="code-slash-outline"></ion-icon></a></li>
+          <li><a href="mailto:yharshavardhan37@gmail.com" aria-label="Email"><ion-icon name="mail-outline"></ion-icon></a></li>
+        </ul>
+      </div>
+
+      <dl class="footer-meta">
+        <div class="footer-meta-item">
+          <dt>Currently</dt>
+          <dd>Mumbai, India · IST</dd>
+        </div>
+        <div class="footer-meta-item">
+          <dt>Last updated</dt>
+          <dd><time data-last-updated datetime="">—</time></dd>
+        </div>
+        <div class="footer-meta-item">
+          <dt>Source</dt>
+          <dd>
+            <a class="footer-source" href="https://github.com/Y-Harsha-Vardhan/Y-Harsha-Vardhan.github.io" target="_blank" rel="noopener noreferrer">
+              View source on GitHub
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© <span data-year></span> Harsha Vardhan. Designed with Claude. Shipped by Harsha.</p>
+      <p class="footer-fineprint">Designed in the open. <a href="#hero">Back to top ↑</a></p>
     </div>
   </footer>
 
