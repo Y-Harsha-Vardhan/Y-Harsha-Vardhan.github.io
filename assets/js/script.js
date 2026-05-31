@@ -93,10 +93,13 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   sections.forEach(s => io.observe(s));
 
-  window.addEventListener('resize', () => {
+  const refreshActive = () => {
     const active = links.find(a => a.classList.contains('is-active'));
     if (active) setActive(active.getAttribute('href').slice(1));
-  });
+  };
+  window.addEventListener('resize', refreshActive);
+  window.addEventListener('load', refreshActive);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refreshActive);
 })();
 
 /* ---------- Reveal on scroll ---------- */
@@ -179,15 +182,23 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   };
 
   tabs.forEach(t => t.addEventListener('click', () => activate(t)));
-  // initial position once layout settles
-  requestAnimationFrame(() => {
+
+  const reposition = () => {
     const active = tabs.find(t => t.classList.contains('is-active')) || tabs[0];
-    move(active);
-  });
-  window.addEventListener('resize', () => {
-    const active = tabs.find(t => t.classList.contains('is-active'));
-    if (active) move(active);
-  });
+    if (active && active.offsetWidth) move(active);
+  };
+
+  // Initial position — wait for layout
+  requestAnimationFrame(reposition);
+  // Web fonts settle after first paint; recompute when they're ready
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(reposition);
+  // ion-icon mounts asynchronously; ResizeObserver catches the resulting size change
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(reposition);
+    tabs.forEach(t => ro.observe(t));
+  }
+  window.addEventListener('load', reposition);
+  window.addEventListener('resize', reposition);
 })();
 
 /* ---------- Back to top ---------- */
