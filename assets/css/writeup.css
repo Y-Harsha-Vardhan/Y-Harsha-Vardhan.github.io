@@ -17,6 +17,34 @@
   font-family: var(--f-display); font-size: 15px; font-weight: 600; color: #fff;
   letter-spacing: -.01em;
 }
+.writeup-actions {
+  display: inline-flex; align-items: center; gap: 18px;
+}
+.copy-link-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .04em;
+  color: var(--text-dim);
+  padding: 6px 12px; border-radius: 999px;
+  background: rgba(59, 130, 246, .06);
+  border: 1px solid rgba(59, 130, 246, .22);
+  cursor: pointer;
+  transition: color .2s ease, background .2s ease, border-color .2s ease;
+}
+.copy-link-btn:hover {
+  color: var(--text-bright);
+  background: rgba(59, 130, 246, .14);
+  border-color: rgba(59, 130, 246, .4);
+}
+.copy-link-btn ion-icon { font-size: 14px; }
+.copy-link-btn.is-copied {
+  color: var(--blue-bright);
+  border-color: rgba(59, 130, 246, .55);
+  background: rgba(59, 130, 246, .18);
+}
+@media (max-width: 560px) {
+  .copy-link-btn span { display: none; }
+  .copy-link-btn { padding: 7px 9px; }
+}
 
 .writeup {
   max-width: 780px; margin: 0 auto; padding: 80px 32px 120px;

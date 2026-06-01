@@ -272,6 +272,24 @@ main { padding-top: 88px; }
   font-size: clamp(15px, 1.4vw, 17.5px); color: var(--text-dim); max-width: 60ch;
 }
 
+.resume-download {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 18px;
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .04em;
+  color: var(--text-bright);
+  padding: 9px 16px; border-radius: 999px;
+  background: rgba(59, 130, 246, .08);
+  border: 1px solid rgba(59, 130, 246, .28);
+  text-decoration: none;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.resume-download:hover {
+  background: rgba(59, 130, 246, .16);
+  border-color: rgba(59, 130, 246, .45);
+  transform: translateY(-1px);
+}
+.resume-download ion-icon { font-size: 15px; color: var(--blue-bright); }
+
 /* ---------- HERO ---------- */
 .hero {
   position: relative;

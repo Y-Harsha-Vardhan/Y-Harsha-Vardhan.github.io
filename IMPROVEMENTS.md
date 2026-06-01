@@ -35,6 +35,8 @@ The site has been through two waves of work:
 - Cursor-glow opacity dropped from 28% to 12% — ambient, not eager
 - Hero layout fix — long sub-tagline no longer pushes CTAs below the fold
 - Top-of-page dark shade so the hero opens on a clean black canvas before the aurora emerges
+- Résumé PDF wired up — "Download résumé" button in hero CTAs + "Download PDF" pill in the Resume section header (serves `assets/HarshaVardhan-Resume.pdf`)
+- "Copy link" affordance on every writeup nav — clipboard write with "Copied" feedback, falls back to `execCommand` for non-secure contexts
 
 **Net effect:** the polished container is essentially done. Further design work yields diminishing returns.
 
@@ -47,13 +49,6 @@ Ordered by **impact on shortlist decision**, not by effort. Each item is tagged 
 ### Tier A — Mechanical, ship today
 
 These are small, deterministic, and disproportionately costly to leave broken.
-
-#### A1 · Add résumé PDF + download CTAs  `[USER + CLAUDE]`
-**Why:** The single biggest UX failure on the site. Recruiters look for the PDF first to forward / paste into ATS. Forcing them to read a styled timeline is friction many won't pay.
-**You provide:** `HarshaVardhan-Resume.pdf` (one page, current).
-**I do:** drop it in `assets/`, add a "Download résumé" button to hero CTAs (next to "View my work"), add a secondary "Download PDF" link in the Resume section header.
-**Effort:** 15 min after the PDF exists.
-**Impact:** large — closes the #1 friction point in the review.
 
 #### A2 · Replace the avatar with a real photo  `[USER + CLAUDE]`
 **Why:** The current avatar reads as filtered/AI-generated. Against the rest of the design (sober and grown-up), it lowers the perceived seriousness of the whole hero.
@@ -166,10 +161,6 @@ The Graph Routing or Quant writeup is close. Add explicit sections for *Alternat
 Pick the strongest report (Graph Routing or Quant), convert the PDF into a long-form inline HTML page on the site. This is a writing sample, a technical reasoning sample, and a design-doc sample in one. A single good post outweighs three more project cards.
 **Effort:** 1 evening.
 
-#### D4 · Deep-link affordance on writeups  `[CLAUDE]`
-Add a small "Copy link" button to the top-right of each writeup page. Lets a recruiter forward a specific project to a colleague.
-**Effort:** 15 min.
-
 #### D5 · `<title>` tag SEO + sitemap.xml + robots.txt  `[CLAUDE]`
 Update the title to `Harsha Vardhan — CS @ IIT Bombay · Portfolio`. Add `sitemap.xml` and `robots.txt` if you want this indexed by Google.
 **Effort:** 15 min.
@@ -178,7 +169,7 @@ Update the title to `Harsha Vardhan — CS @ IIT Bombay · Portfolio`. Add `site
 
 ## Recommended execution order
 
-**This week (1 evening + 2 hours):** A1 (PDF), A2 (photo), B1+B2 (cull weak cards), B3 (About rewrite). Site to ~8.7.
+**This week (1 evening + 2 hours):** A2 (photo), B1+B2 (cull weak cards), B3 (About rewrite). Site to ~8.7.
 
 **This weekend:** B4 (curate GitHub) + start C1 (original project scaffolding). Site to ~8.8 immediately; the impact of C1 itself unlocks ~9.
 
