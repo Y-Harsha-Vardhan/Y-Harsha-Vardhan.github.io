@@ -2,7 +2,25 @@
 <html lang="en">
 
 <head>
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    document.documentElement.classList.add('js');
+    // If we're returning from a writeup, hide the page until scroll is restored —
+    // avoids the brief flash of top-of-page during a full reload.
+    try {
+      if (sessionStorage.getItem('portfolio-scroll') !== null) {
+        document.documentElement.classList.add('restoring-scroll');
+      }
+    } catch (_) {}
+  </script>
+  <style>
+    /* Critical inline CSS — applied before any external stylesheet loads.
+       Without this, a back-nav that misses bfcache would show a brief flash of
+       unstyled HTML against the browser's default white background before
+       style.css finishes parsing. */
+    html { background-color: #08080d; color-scheme: dark; }
+    body { margin: 0; }
+    html.restoring-scroll body { opacity: 0 !important; }
+  </style>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,6 +58,7 @@
     <div class="grid-overlay"></div>
     <div class="noise"></div>
   </div>
+  <div class="top-shade" aria-hidden="true"></div>
 
   <!-- Mouse spotlight -->
   <div class="cursor-glow" aria-hidden="true"></div>
@@ -209,6 +228,7 @@
               </div>
             </li>
           </ul>
+          <p class="work-footnote">Currently going deeper on systems programming, ML infrastructure, and quantitative engineering.</p>
         </article>
 
         <article class="bento-card reveal" data-spotlight>
@@ -279,8 +299,8 @@
         <span class="eyebrow"><span class="eyebrow-dot"></span>Selected work</span>
         <h2 class="section-title">Projects across systems, ML, and the web.</h2>
         <p class="section-lead">
-          A mix of coursework, research, and personal builds. Click a card to open the source or
-          live demo where available.
+          A mix of coursework, research, and personal builds. Click any card for a short
+          overview — open the full writeup or jump straight to the source.
         </p>
       </div>
 
@@ -293,126 +313,169 @@
       </ul>
 
       <ul class="project-grid" data-spotlight-group>
-        <li class="project-card reveal" data-category="ai / ml" data-spotlight>
-          <a href="https://github.com/Y-Harsha-Vardhan/AI-Chess-Bot" target="_blank" rel="noopener noreferrer">
+        <li class="project-card reveal" data-category="ai / ml" data-spotlight
+            data-source="https://github.com/Y-Harsha-Vardhan/AI-Chess-Bot"
+            data-summary="A C++ chess engine that plays full games through a CLI. It uses a hand-curated opening book for the first ~25 moves, then switches to alpha-beta search with a transposition table to pick the best response.">
+          <a href="./assets/writeups/chess-engine.html" rel="noopener noreferrer">
             <figure class="project-media">
               <img src="./assets/images/chess.png" alt="AI Chess Engine" loading="lazy" />
-              <span class="project-action"><ion-icon name="logo-github"></ion-icon></span>
+              <span class="project-action"><ion-icon name="eye-outline"></ion-icon></span>
             </figure>
             <div class="project-body">
-              <span class="project-tag">AI / ML</span>
+              <div class="project-meta-row">
+                <span class="project-tag">AI / ML</span>
+                <span class="project-metric">Depth 32 · ~1500 Elo</span>
+              </div>
               <h3>AI Chess Engine</h3>
               <p>Search + evaluation engine with move ordering and pruning.</p>
             </div>
           </a>
         </li>
 
-        <li class="project-card reveal" data-category="web" data-spotlight>
-          <a href="https://github.com/Y-Harsha-Vardhan/CS104-Project" target="_blank" rel="noopener noreferrer">
+        <li class="project-card reveal" data-category="web" data-spotlight
+            data-source="https://github.com/Y-Harsha-Vardhan/CS104-Project"
+            data-summary="A live cricket scoring web app — setup, real-time scoring, scorecard, and post-match summary. A single JavaScript scoring engine handles cricket-specific rules: overs, wides, no-balls, strike rotation.">
+          <a href="./assets/writeups/cricket-scoring.html" rel="noopener noreferrer">
             <figure class="project-media">
               <img src="./assets/images/cricket.png" alt="Cricket Scoring System" loading="lazy" />
-              <span class="project-action"><ion-icon name="logo-github"></ion-icon></span>
+              <span class="project-action"><ion-icon name="eye-outline"></ion-icon></span>
             </figure>
             <div class="project-body">
-              <span class="project-tag">Web</span>
+              <div class="project-meta-row">
+                <span class="project-tag">Web</span>
+              </div>
               <h3>Cricket Scoring System</h3>
               <p>Real-time scoring app with modular state and clean tests.</p>
             </div>
           </a>
         </li>
 
-        <li class="project-card reveal" data-category="quant" data-spotlight>
-          <a href="https://github.com/Y-Harsha-Vardhan/SoQ-Project" target="_blank" rel="noopener noreferrer">
+        <li class="project-card reveal" data-category="quant" data-spotlight
+            data-source="https://github.com/Y-Harsha-Vardhan/SoQ-Project"
+            data-summary="A Python framework that takes trading signals plus historical price data, simulates trades bar-by-bar, and reports 18+ metrics covering profit, Sharpe ratio, and drawdowns. Built for Summer of Quant; the strategy placed in the Top 10.">
+          <a href="./assets/writeups/quant-backtester.html" rel="noopener noreferrer">
             <figure class="project-media">
               <img src="./assets/images/quant.png" alt="Quantitative Trading Models" loading="lazy" />
-              <span class="project-action"><ion-icon name="logo-github"></ion-icon></span>
+              <span class="project-action"><ion-icon name="eye-outline"></ion-icon></span>
             </figure>
             <div class="project-body">
-              <span class="project-tag">Quant</span>
+              <div class="project-meta-row">
+                <span class="project-tag">Quant</span>
+                <span class="project-metric">Top 10 · SoQ '25</span>
+              </div>
               <h3>Quantitative Trading Models</h3>
               <p>Signal generation, backtesting, and risk-managed strategies.</p>
             </div>
           </a>
         </li>
 
-        <li class="project-card reveal" data-category="systems" data-spotlight>
-          <a href="#" rel="noopener noreferrer">
+        <li class="project-card reveal" data-category="systems" data-spotlight
+            data-source="https://github.com/Y-Harsha-Vardhan/Sem-3/tree/main/CS228-Logic/Assignments/Assignment%201"
+            data-summary="Two classic puzzles — Sudoku and Sokoban — translated into Boolean satisfiability and handed off to an off-the-shelf SAT solver. The work is in the encoding; the solver does the search.">
+          <a href="./assets/writeups/sat-puzzle-solvers.html" rel="noopener noreferrer">
             <figure class="project-media">
               <img src="./assets/images/sat.png" alt="SAT Solver" loading="lazy" />
               <span class="project-action"><ion-icon name="eye-outline"></ion-icon></span>
             </figure>
             <div class="project-body">
-              <span class="project-tag">Systems</span>
-              <h3>SAT-Based Sokoban Solver</h3>
-              <p>Encoded Sokoban as SAT with optimized constraint formulations.</p>
+              <div class="project-meta-row">
+                <span class="project-tag">Systems</span>
+                <span class="project-metric">Sudoku + Sokoban</span>
+              </div>
+              <h3>SAT-Based Puzzle Solvers</h3>
+              <p>Sudoku and Sokoban encoded as Boolean satisfiability with PySAT.</p>
             </div>
           </a>
         </li>
 
-        <li class="project-card reveal" data-category="systems" data-spotlight>
-          <a href="#" rel="noopener noreferrer">
+        <li class="project-card reveal" data-category="systems" data-spotlight
+            data-source="https://github.com/Y-Harsha-Vardhan/Sem-3/tree/main/CS409-Cryptography/Labs"
+            data-summary="CTF-style cryptography exploits — each lab is a live remote service implementing a primitive with a subtle flaw. The challenge is to recover the flag: keystream reuse, HMAC timing attacks, hash collisions, ECDSA nonce reuse.">
+          <a href="./assets/writeups/applied-cryptography.html" rel="noopener noreferrer">
             <figure class="project-media">
               <img src="./assets/images/crypto.jpg" alt="Applied Cryptography" loading="lazy" />
               <span class="project-action"><ion-icon name="eye-outline"></ion-icon></span>
             </figure>
             <div class="project-body">
-              <span class="project-tag">Systems</span>
+              <div class="project-meta-row">
+                <span class="project-tag">Systems</span>
+                <span class="project-metric">4 labs · live CTF</span>
+              </div>
               <h3>Applied Cryptography &amp; Exploits</h3>
               <p>CTR keystream reuse, HMAC timing attacks, MD collisions.</p>
             </div>
           </a>
         </li>
 
-        <li class="project-card reveal" data-category="ai / ml" data-spotlight>
-          <a href="https://github.com/Y-Harsha-Vardhan/Stock-Price-Prediction-Using-LSTM" target="_blank" rel="noopener noreferrer">
+        <li class="project-card reveal" data-category="ai / ml" data-spotlight
+            data-source="https://github.com/Y-Harsha-Vardhan/Stock-Price-Prediction-Using-LSTM"
+            data-summary="A TensorFlow/Keras model that forecasts stock prices using a 60-day window of price data plus technical indicators (MACD, RSI). Pulls live data from Yahoo Finance and predicts the next 15 trading days.">
+          <a href="./assets/writeups/lstm-stock.html" rel="noopener noreferrer">
             <figure class="project-media">
               <img src="./assets/images/stock.jpg" alt="LSTM Stock Prediction" loading="lazy" />
-              <span class="project-action"><ion-icon name="logo-github"></ion-icon></span>
+              <span class="project-action"><ion-icon name="eye-outline"></ion-icon></span>
             </figure>
             <div class="project-body">
-              <span class="project-tag">AI / ML</span>
+              <div class="project-meta-row">
+                <span class="project-tag">AI / ML</span>
+                <span class="project-metric">60-day window · R²-evaluated</span>
+              </div>
               <h3>Stock Price Prediction (LSTM)</h3>
               <p>Time-series forecasting with a sequence model in PyTorch.</p>
             </div>
           </a>
         </li>
 
-        <li class="project-card reveal" data-category="systems" data-spotlight>
-          <a href="#" rel="noopener noreferrer">
+        <li class="project-card reveal" data-category="systems" data-spotlight
+            data-source="https://github.com/Y-Harsha-Vardhan/Sem-3/tree/main/CS213-DSA"
+            data-summary="Ten labs of from-scratch C++ implementations — balanced trees, divide-and-conquer matrix multiplication, custom hash maps, leftist heaps, tries, MSTs. The building blocks of every larger system.">
+          <a href="./assets/writeups/advanced-algorithms.html" rel="noopener noreferrer">
             <figure class="project-media">
               <img src="./assets/images/algorithm.jpg" alt="Algorithms" loading="lazy" />
               <span class="project-action"><ion-icon name="eye-outline"></ion-icon></span>
             </figure>
             <div class="project-body">
-              <span class="project-tag">Systems</span>
+              <div class="project-meta-row">
+                <span class="project-tag">Systems</span>
+                <span class="project-metric">10 labs · C++17</span>
+              </div>
               <h3>Advanced Algorithm Implementations</h3>
               <p>Red-Black trees, Strassen multiplication, optimized hash tables.</p>
             </div>
           </a>
         </li>
 
-        <li class="project-card reveal" data-category="web" data-spotlight>
-          <a href="https://github.com/8787233419/e-commerce-dashboard" target="_blank" rel="noopener noreferrer">
+        <li class="project-card reveal" data-category="web" data-spotlight
+            data-source="https://github.com/8787233419/e-commerce-dashboard"
+            data-summary="A team-built restaurant ordering web app with menu browsing, cart, checkout, and an admin dashboard. Contributed the frontend interaction layer — cart state, checkout transitions, menu rendering.">
+          <a href="./assets/writeups/restaurant-ecommerce.html" rel="noopener noreferrer">
             <figure class="project-media">
               <img src="./assets/images/food.png" alt="Restaurant Web App" loading="lazy" />
-              <span class="project-action"><ion-icon name="logo-github"></ion-icon></span>
+              <span class="project-action"><ion-icon name="eye-outline"></ion-icon></span>
             </figure>
             <div class="project-body">
-              <span class="project-tag">Web</span>
+              <div class="project-meta-row">
+                <span class="project-tag">Web</span>
+              </div>
               <h3>Restaurant E-Commerce Platform</h3>
               <p>Full-stack dashboard with cart, checkout, and admin views.</p>
             </div>
           </a>
         </li>
 
-        <li class="project-card reveal" data-category="systems" data-spotlight>
-          <a href="https://github.com/Y-Harsha-Vardhan/CS293-TeamProject" target="_blank" rel="noopener noreferrer">
+        <li class="project-card reveal" data-category="systems" data-spotlight
+            data-source="https://github.com/Y-Harsha-Vardhan/CS293-TeamProject"
+            data-summary="A three-phase C++ simulation of real-world routing systems inspired by Google Maps and Zomato. Covers dynamic shortest-path queries, diverse alternative routes, and multi-order delivery scheduling with disruptions.">
+          <a href="./assets/writeups/graph-routing.html" rel="noopener noreferrer">
             <figure class="project-media">
               <img src="./assets/images/graph.jpg" alt="Graph-Based Routing System" loading="lazy" />
-              <span class="project-action"><ion-icon name="logo-github"></ion-icon></span>
+              <span class="project-action"><ion-icon name="eye-outline"></ion-icon></span>
             </figure>
             <div class="project-body">
-              <span class="project-tag">Systems</span>
+              <div class="project-meta-row">
+                <span class="project-tag">Systems</span>
+                <span class="project-metric">5000-node graphs · 15s budget</span>
+              </div>
               <h3>Graph-Based Routing System</h3>
               <p>Shortest paths, k-shortest, and constrained delivery scheduling.</p>
             </div>
@@ -442,6 +505,9 @@
 
         <div class="resume-panels">
           <div class="resume-panel is-active" data-panel="education">
+            <h3 class="resume-col-title">
+              <ion-icon name="school-outline"></ion-icon><span>Education</span>
+            </h3>
             <ol class="tline">
               <li>
                 <span class="tline-year">2024 — 28</span>
@@ -473,6 +539,9 @@
           </div>
 
           <div class="resume-panel" data-panel="experience">
+            <h3 class="resume-col-title">
+              <ion-icon name="briefcase-outline"></ion-icon><span>Experience</span>
+            </h3>
             <ol class="tline">
               <li>
                 <span class="tline-year">Jun — Jul 2025</span>
@@ -667,7 +736,7 @@
             <h3 class="contact-headline">
               Have an <em>idea</em>, a <em>role</em>, or just want to <em>chat</em>?
             </h3>
-            <p class="contact-sub">Drop a note — I read every message and write back quickly.</p>
+            <p class="contact-sub">Email is the best way to reach me — I read every message and write back quickly.</p>
 
             <ul class="contact-list">
               <li>
@@ -675,13 +744,6 @@
                 <div>
                   <span>Email</span>
                   <a href="mailto:yharshavardhan37@gmail.com">yharshavardhan37@gmail.com</a>
-                </div>
-              </li>
-              <li>
-                <div class="contact-ic"><ion-icon name="call-outline"></ion-icon></div>
-                <div>
-                  <span>Phone</span>
-                  <a href="tel:+919848697725">+91 98486 97725</a>
                 </div>
               </li>
               <li>
@@ -777,6 +839,29 @@
       <p class="footer-fineprint">Designed in the open. <a href="#hero">Back to top ↑</a></p>
     </div>
   </footer>
+
+  <!-- Project preview popover (anchored, light-dismiss) -->
+  <div id="project-preview" class="preview-pop" popover="auto" aria-labelledby="preview-title" role="dialog">
+    <span class="preview-arrow" aria-hidden="true"></span>
+    <div class="preview-head">
+      <span class="preview-tag" data-preview-tag></span>
+      <button class="preview-close" type="button" aria-label="Close preview" data-preview-close>
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <h3 class="preview-title" id="preview-title" data-preview-title></h3>
+    <p class="preview-summary" data-preview-summary></p>
+    <div class="preview-actions">
+      <a class="preview-btn preview-btn--primary" data-preview-writeup target="_blank" rel="noopener noreferrer">
+        <ion-icon name="document-text-outline"></ion-icon>
+        <span>View full writeup</span>
+      </a>
+      <a class="preview-btn preview-btn--ghost" data-preview-source target="_blank" rel="noopener noreferrer">
+        <ion-icon name="logo-github"></ion-icon>
+        <span>View source</span>
+      </a>
+    </div>
+  </div>
 
   <script src="./assets/js/script.js" defer></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

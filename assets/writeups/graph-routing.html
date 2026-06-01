@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>html{background-color:#08080d;color-scheme:dark}body{margin:0}</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Graph-Based Routing System — a 3-phase C++ simulation of navigation and delivery logistics: dynamic Dijkstra, simplified Yen's K-shortest paths, and TSP via Large Neighborhood Search." />
+  <meta name="theme-color" content="#08080d" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Graph-Based Routing System — Harsha Vardhan</title>
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/writeup.css" />
+</head>
+
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <nav class="writeup-nav">
+    <a href="../../index.html#projects" class="back-link" data-back>
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back to projects
+    </a>
+    <span class="brand">Harsha<span style="color: var(--blue-bright);">.</span></span>
+  </nav>
+
+  <main class="writeup">
+    <span class="writeup-eyebrow">CS293 · Software Systems Lab</span>
+    <h1>Graph-Based Routing System</h1>
+    <p class="writeup-lede">
+      A three-phase C++ simulation of real-world routing — inspired by Google Maps, Ola,
+      and Zomato — built across dynamic graph queries, K-shortest-paths with speed/accuracy
+      trade-offs, and TSP-variant delivery scheduling. Team project with Rishi Vardhan
+      Majji.
+    </p>
+    <div class="writeup-meta">
+      <span>IIT Bombay · Autumn 2025</span>
+      <span>C++20 · nlohmann/json · Make</span>
+      <span>Pair project</span>
+    </div>
+
+    <div class="writeup-body">
+      <h2>Phase 1 — Dynamic graph &amp; core queries</h2>
+      <p>
+        Foundations: a Dijkstra implementation that respects <strong>time-dependent edge
+        costs</strong> via 96-slot daily speed profiles (15-minute resolution traffic
+        simulation), and two KNN strategies — Euclidean with a grid-based spatial index, and
+        shortest-path KNN that early-terminates an expanding Dijkstra.
+      </p>
+      <ul>
+        <li>Adjacency list as <code>vector&lt;vector&lt;AdjEdge&gt;&gt;</code> for cache
+            locality.</li>
+        <li>Dynamic <code>remove_edge</code> / <code>modify_edge</code> in O(1) via a
+            precomputed <code>edgePos</code> reverse map.</li>
+        <li>Constraint support — forbidden nodes, restricted road types — handled
+            in-loop without changing the core algorithm.</li>
+      </ul>
+
+      <h2>Phase 2 — K-shortest paths, exact and approximate</h2>
+      <p>
+        A simplified <strong>Yen's algorithm</strong> for exact <code>K</code>-shortest
+        paths, with spur-node generation backed by bidirectional A*. The simplification:
+        per spur node, suppress only the immediate prefix-edge rather than all conflicting
+        edges — fewer book-keeping correctness concerns, slightly more candidate paths to
+        deduplicate, faster in practice.
+      </p>
+      <p>
+        The interesting addition is the <strong>heuristic K-shortest variant</strong>: rather
+        than purely shortest, candidates are scored by a composite
+      </p>
+      <ul>
+        <li><code>W<sub>len</sub> · path_length + W<sub>div</sub> · (overlap_penalty ×
+            distance_penalty)</code></li>
+      </ul>
+      <p>
+        targeting <strong>diverse alternatives</strong> within a 20–80% overlap band — i.e.
+        the Google-Maps-style "here are three different ways to get there." Runs under a
+        strict 5–15 second time budget; an approximate mode hits the same answers within
+        5–15% error with a 10–20× speedup via aggressive Dijkstra pruning.
+      </p>
+
+      <h2>Phase 3 — Delivery scheduling (TSP variant)</h2>
+      <p>
+        The hardest phase: a vehicle-routing problem with multiple orders, pickup/dropoff
+        pairs, and <em>dynamic disruptions</em> (driver accidents, order cancellations,
+        priority re-shuffles). Classical heuristics — nearest-neighbour, sweep,
+        Clarke-Wright, parallel cheapest insertion — handled the static case well but
+        crumbled under disruptions.
+      </p>
+      <p>
+        The final solver is <strong>Large Neighborhood Search</strong> with a
+        ruin-and-recreate operator:
+      </p>
+      <ul>
+        <li><strong>Ruin</strong> — remove 15–20% of orders (as full pickup-dropoff pairs)
+            from the current route.</li>
+        <li><strong>Recreate</strong> — re-insert via parallel cheapest insertion, sorted
+            by order price so high-value orders claim the best slots.</li>
+        <li><strong>Disruption hooks</strong> — driver failure triggers a full-route ruin;
+            order cancellation triggers a targeted removal.</li>
+      </ul>
+      <p>
+        Initial construction is <code>O(N²)</code>; LNS iterations are <code>O(K·N)</code>.
+        Completes within the 15-second budget on graphs up to ~5000 nodes.
+      </p>
+
+      <h2>I/O &amp; build</h2>
+      <p>
+        JSON in, JSON out via <code>nlohmann/json</code>. A single
+        <code>SampleDriver.cpp</code> dispatches all three phases through a phase-specific
+        Make target, with exception guards around per-query handling.
+      </p>
+
+      <h2>What I'd carry forward</h2>
+      <p>
+        The Phase 3 work shifted how I think about optimisation problems. Classical
+        heuristics give a strong static-case answer, but the real complexity is
+        <em>robustness under change</em> — disruptions arrive and the schedule needs to
+        survive them. <strong>Ruin-and-recreate</strong> turned out to be the cleanest
+        framework: it gives you escape from local minima for free, and it composes
+        naturally with arbitrary disruption events.
+      </p>
+    </div>
+
+    <div class="writeup-cta">
+      <div class="writeup-cta-text">
+        <b>Source &amp; report</b>
+        <span>Phase 1/2/3 code, build system, Report.pdf</span>
+      </div>
+      <a href="https://github.com/Y-Harsha-Vardhan/CS293-TeamProject" target="_blank" rel="noopener noreferrer">
+        <ion-icon name="logo-github"></ion-icon>
+        View on GitHub
+      </a>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="../js/writeup.js" defer></script>
+</body>
+
+</html>

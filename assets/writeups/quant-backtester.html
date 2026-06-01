@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>html{background-color:#08080d;color-scheme:dark}body{margin:0}</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SoQ Trading Signal Backtester — a Python framework for evaluating trading strategies with intra-bar TP/SL execution, Sharpe, drawdowns, and lookahead-bias checks." />
+  <meta name="theme-color" content="#08080d" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Quantitative Trading Backtester — Harsha Vardhan</title>
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/writeup.css" />
+</head>
+
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <nav class="writeup-nav">
+    <a href="../../index.html#projects" class="back-link" data-back>
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back to projects
+    </a>
+    <span class="brand">Harsha<span style="color: var(--blue-bright);">.</span></span>
+  </nav>
+
+  <main class="writeup">
+    <span class="writeup-eyebrow">Summer of Quant · Math &amp; Physics Club, IIT Bombay</span>
+    <h1>Quantitative Trading Backtester</h1>
+    <p class="writeup-lede">
+      A Python framework that takes a stream of trading signals (with optional Take-Profit
+      and Stop-Loss levels) and a master OHLCV dataset, simulates the trades bar-by-bar, and
+      reports 18+ metrics covering profitability, risk, and consistency. Built for the
+      Summer of Quant cohort and used in a strategy that placed in the Top 10.
+    </p>
+    <div class="writeup-meta">
+      <span>Summer 2025</span>
+      <span>Python · pandas · Plotly</span>
+      <span>BTC daily, 2019–2023</span>
+    </div>
+
+    <div class="writeup-body">
+      <h2>What it does</h2>
+      <p>
+        Input is two CSVs: <strong>signals</strong> (timestamp, direction, optional
+        TP/SL) and a <strong>master OHLCV reference</strong> — for this project, daily
+        Bitcoin candles from Sept 2019 through 2023. The <code>BackTester</code> class
+        walks the signal stream, opens and closes <code>Position</code> objects, checks for
+        intra-bar TP/SL triggers, and collects each completed round-trip as a
+        <code>TradePair</code>. From those it computes everything from net PnL to
+        max drawdown to consecutive-loss streaks.
+      </p>
+
+      <h2>The interesting parts</h2>
+
+      <h3>1. Intra-bar TP/SL execution</h3>
+      <p>
+        Most beginner backtests fill at the candle close, which silently inflates results
+        because TP and SL targets are often hit somewhere <em>inside</em> the bar, not at
+        its end. <code>check_tp_sl()</code> walks the master data within each bar and closes
+        the position at the actual trigger price — high ≥ TP for longs, low ≤ TP for shorts.
+        That single change is the difference between a backtest that looks great and one
+        that's actually defensible.
+      </p>
+
+      <h3>2. Position-reversal signals</h3>
+      <p>
+        The signal vocabulary supports values <code>±1</code> (open) and <code>±2</code>
+        (close-and-reverse), so a single bar can flip from a long to a short atomically.
+        This avoids the gap-risk ambiguity of issuing a close followed by a new open across
+        two bars.
+      </p>
+
+      <h3>3. Lookahead-bias check</h3>
+      <p>
+        Before trusting any signal, <code>main.py</code> re-runs the strategy on
+        progressively truncated data and flags any signal that wouldn't have fired given
+        only the information available at that time. ATR(14) at bar <code>i</code> is
+        computed only on bars <code>[:i]</code>, so no future data leaks back into the
+        decision — easy to forget, painful to debug after the fact.
+      </p>
+
+      <h3>4. Realistic costs</h3>
+      <p>
+        Every trade pays a 0.15% transaction cost in the PnL formula. Small per-trade, big
+        impact on the Sharpe number — and a reminder that "this strategy works" usually
+        means "this strategy works <em>after</em> realistic frictions."
+      </p>
+
+      <h2>Strategy on top</h2>
+      <p>
+        The bundled <code>strat()</code> in <code>main.py</code> is a volume-spike trend
+        follower: a long entry on a 1.5σ-above-mean volume spike with a green close
+        (short on red), trailing stop at close ± 2×ATR, exit on three consecutive adverse
+        closes or a stop breach. Nothing exotic — the backtester was the point.
+      </p>
+
+      <h2>Metrics reported</h2>
+      <ul>
+        <li>Net Profit, Win Rate, Largest Win / Loss</li>
+        <li>Sharpe Ratio (annualised), Max &amp; Average Drawdown</li>
+        <li>Max / Average Holding Time, Consecutive Win/Loss Streaks</li>
+        <li>Benchmark return (buy-and-hold)</li>
+      </ul>
+      <p>
+        Visualised with Plotly: a candlestick chart with green/red trade regions, and a
+        dual-axis plot of capital evolution against the underlying price.
+      </p>
+
+      <h2>What I'd carry forward</h2>
+      <p>
+        The lesson wasn't the strategy — it was that <strong>most of what makes a backtest
+        trustworthy is friction</strong>: intra-bar fills, realistic costs, lookahead
+        checks. Without those, every chart slopes up and to the right.
+      </p>
+    </div>
+
+    <div class="writeup-cta">
+      <div class="writeup-cta-text">
+        <b>Source &amp; documentation</b>
+        <span>Backtester, sample strategy, BTC dataset</span>
+      </div>
+      <a href="https://github.com/Y-Harsha-Vardhan/SoQ-Project" target="_blank" rel="noopener noreferrer">
+        <ion-icon name="logo-github"></ion-icon>
+        View on GitHub
+      </a>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="../js/writeup.js" defer></script>
+</body>
+
+</html>

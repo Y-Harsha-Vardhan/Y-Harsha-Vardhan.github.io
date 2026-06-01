@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>html{background-color:#08080d;color-scheme:dark}body{margin:0}</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Stock Price Prediction with LSTM — a TensorFlow/Keras model that forecasts adjusted close prices using a 60-day window with MACD and RSI features." />
+  <meta name="theme-color" content="#08080d" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Stock Price Prediction (LSTM) — Harsha Vardhan</title>
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/writeup.css" />
+</head>
+
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <nav class="writeup-nav">
+    <a href="../../index.html#projects" class="back-link" data-back>
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back to projects
+    </a>
+    <span class="brand">Harsha<span style="color: var(--blue-bright);">.</span></span>
+  </nav>
+
+  <main class="writeup">
+    <span class="writeup-eyebrow">Seasons of Code · IIT Bombay</span>
+    <h1>Stock Price Prediction with LSTM</h1>
+    <p class="writeup-lede">
+      A time-series forecasting pipeline built in TensorFlow/Keras: pulls historical OHLCV
+      data with <code>yfinance</code>, augments it with technical indicators, trains a stacked
+      LSTM on a 60-day sliding window, and forecasts adjusted closing prices for the next
+      15 trading days.
+    </p>
+    <div class="writeup-meta">
+      <span>Summer 2025</span>
+      <span>Python · TensorFlow / Keras</span>
+      <span>yfinance · pandas · sklearn</span>
+    </div>
+
+    <div class="writeup-body">
+      <h2>Pipeline</h2>
+      <p>
+        The script is interactive — it asks for a ticker and a date range, fetches daily
+        candles via <code>yfinance</code>, and runs a five-stage pipeline: feature
+        engineering → preprocessing → model build → train → forecast.
+      </p>
+
+      <h2>Features</h2>
+      <p>
+        Rather than feeding raw close prices, the model takes three channels:
+      </p>
+      <ul>
+        <li><strong>Adjusted Close</strong> — the target signal, scaled.</li>
+        <li><strong>MACD</strong> — 12/26-period EMA difference plus a 9-period signal line,
+            a momentum/trend indicator.</li>
+        <li><strong>RSI(14)</strong> — relative strength index, oscillating 0–100;
+            overbought above 70, oversold below 30.</li>
+      </ul>
+      <p>
+        Adding technical indicators alongside the price gives the network more context than
+        the price series alone — momentum and overbought/oversold information are visible
+        in the input rather than requiring the network to learn them from scratch.
+      </p>
+
+      <h2>Preprocessing</h2>
+      <p>
+        All three features are <code>MinMaxScaler</code>-normalised to <code>[0, 1]</code>.
+        A sliding window of <strong>60 days</strong> is used to predict the next day's
+        adjusted close — so each training sample has shape
+        <code>(60, 3)</code>. An 80/20 chronological train/test split avoids the obvious
+        sin of randomly shuffling time-series data.
+      </p>
+
+      <h2>Model</h2>
+      <p>
+        Stacked LSTM in Keras:
+      </p>
+      <ul>
+        <li><code>LSTM(50, return_sequences=True)</code> → <code>Dropout(0.2)</code></li>
+        <li><code>LSTM(50)</code> → <code>Dropout(0.2)</code></li>
+        <li><code>Dense(25)</code> → <code>Dense(1)</code></li>
+      </ul>
+      <p>
+        Optimised with Adam against MSE, trained for 25 epochs at batch size 32. Evaluated
+        on the held-out 20% with the <strong>R² score</strong>.
+      </p>
+
+      <h2>Forecasting beyond the training range</h2>
+      <p>
+        For the 15-day forward forecast, the last known 60-day window is fed in, the next
+        scaled price is predicted, and that prediction is appended to the window — sliding
+        forward one day at a time. There's a deliberate simplification here: the MACD and
+        RSI for synthetic future days are held at their last known values rather than
+        recomputed (recomputing them from a predicted price compounds error fast). This is
+        called out in the code as a known approximation.
+      </p>
+
+      <h2>What I'd carry forward</h2>
+      <p>
+        The model trains cleanly, but forecasting financial time series with an LSTM is
+        humbling — R² on the test set is much friendlier than performance on truly out-of-
+        sample data. The real takeaway was the <strong>shape of the pipeline</strong>:
+        feature engineering &gt; model choice, scaling and windowing matter, and recursive
+        forecasting compounds errors quickly. Useful scaffolding to extend with attention,
+        transformers, or proper walk-forward validation.
+      </p>
+    </div>
+
+    <div class="writeup-cta">
+      <div class="writeup-cta-text">
+        <b>Source &amp; how to run</b>
+        <span>Stock predictor script, week-by-week resources</span>
+      </div>
+      <a href="https://github.com/Y-Harsha-Vardhan/Stock-Price-Prediction-Using-LSTM" target="_blank" rel="noopener noreferrer">
+        <ion-icon name="logo-github"></ion-icon>
+        View on GitHub
+      </a>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="../js/writeup.js" defer></script>
+</body>
+
+</html>

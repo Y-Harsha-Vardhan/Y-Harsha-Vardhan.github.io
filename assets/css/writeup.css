@@ -1,0 +1,109 @@
+/* Writeup pages — built on top of style.css tokens */
+
+.writeup-nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 32px; backdrop-filter: blur(20px);
+  background: rgba(8, 8, 13, .7); border-bottom: 1px solid var(--border);
+}
+.writeup-nav .back-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--text-dim); font-size: 14px; font-family: var(--f-mono);
+  transition: color .2s ease;
+}
+.writeup-nav .back-link:hover { color: var(--blue-bright); }
+.writeup-nav .back-link ion-icon { font-size: 16px; }
+.writeup-nav .brand {
+  font-family: var(--f-display); font-size: 15px; font-weight: 600; color: #fff;
+  letter-spacing: -.01em;
+}
+
+.writeup {
+  max-width: 780px; margin: 0 auto; padding: 80px 32px 120px;
+  position: relative; z-index: 2;
+}
+.writeup-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 999px;
+  background: rgba(59, 130, 246, .08); border: 1px solid rgba(59, 130, 246, .2);
+  color: var(--blue-bright); font-family: var(--f-mono); font-size: 12px;
+  letter-spacing: .04em; text-transform: uppercase;
+  margin-bottom: 22px;
+}
+.writeup h1 {
+  font-family: var(--f-display); font-size: clamp(36px, 5vw, 52px);
+  font-weight: 600; letter-spacing: -.02em; line-height: 1.1;
+  background: var(--grad-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 18px;
+}
+.writeup-lede {
+  font-size: 18px; line-height: 1.6; color: var(--text-dim);
+  margin-bottom: 32px;
+}
+.writeup-meta {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  padding-bottom: 32px; margin-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+.writeup-meta span {
+  padding: 6px 12px; border-radius: 8px;
+  background: rgba(255,255,255,.04); border: 1px solid var(--border);
+  font-family: var(--f-mono); font-size: 12px; color: var(--text-mute);
+}
+
+.writeup-body h2 {
+  font-family: var(--f-display); font-size: 22px; font-weight: 600;
+  color: #fff; letter-spacing: -.01em; margin: 48px 0 16px;
+}
+.writeup-body h2:first-child { margin-top: 0; }
+.writeup-body h3 {
+  font-family: var(--f-display); font-size: 16px; font-weight: 600;
+  color: #fff; margin: 28px 0 10px;
+}
+.writeup-body p {
+  font-size: 15.5px; line-height: 1.7; color: var(--text-dim);
+  margin-bottom: 16px;
+}
+.writeup-body ul {
+  list-style: none; padding: 0; margin: 0 0 20px;
+}
+.writeup-body ul li {
+  position: relative; padding-left: 22px; margin-bottom: 10px;
+  font-size: 15px; line-height: 1.65; color: var(--text-dim);
+}
+.writeup-body ul li::before {
+  content: ""; position: absolute; left: 4px; top: 10px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue-bright); box-shadow: 0 0 8px var(--blue);
+}
+.writeup-body code {
+  font-family: var(--f-mono); font-size: 13px;
+  padding: 2px 7px; border-radius: 5px;
+  background: rgba(59, 130, 246, .1); border: 1px solid rgba(59, 130, 246, .15);
+  color: var(--blue-bright);
+}
+.writeup-body strong { color: var(--text); font-weight: 600; }
+
+.writeup-cta {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 56px; padding: 24px;
+  border-radius: 16px;
+  background: rgba(59, 130, 246, .06); border: 1px solid rgba(59, 130, 246, .2);
+}
+.writeup-cta-text { flex: 1; }
+.writeup-cta-text b { display: block; color: #fff; font-family: var(--f-display); font-size: 15px; margin-bottom: 2px; }
+.writeup-cta-text span { color: var(--text-mute); font-size: 13px; font-family: var(--f-mono); }
+.writeup-cta a {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border-radius: 10px;
+  background: var(--blue); color: #fff; font-weight: 500; font-size: 14px;
+  transition: background .2s ease, transform .2s ease;
+}
+.writeup-cta a:hover { background: var(--blue-bright); transform: translateY(-1px); }
+.writeup-cta a ion-icon { font-size: 16px; }
+
+@media (max-width: 640px) {
+  .writeup-nav { padding: 14px 20px; }
+  .writeup { padding: 56px 20px 80px; }
+  .writeup-cta { flex-direction: column; align-items: flex-start; }
+}

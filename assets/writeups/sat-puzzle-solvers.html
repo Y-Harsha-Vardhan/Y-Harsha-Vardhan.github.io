@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>html{background-color:#08080d;color-scheme:dark}body{margin:0}</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SAT-Based Puzzle Solvers — Sudoku and Sokoban encoded as Boolean satisfiability problems using PySAT (Glucose3 / g3) at IIT Bombay (CS228)." />
+  <meta name="theme-color" content="#08080d" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>SAT-Based Puzzle Solvers — Harsha Vardhan</title>
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/writeup.css" />
+</head>
+
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <nav class="writeup-nav">
+    <a href="../../index.html#projects" class="back-link" data-back>
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back to projects
+    </a>
+    <span class="brand">Harsha<span style="color: var(--blue-bright);">.</span></span>
+  </nav>
+
+  <main class="writeup">
+    <span class="writeup-eyebrow">CS228 · Logic for Computer Science</span>
+    <h1>SAT-Based Puzzle Solvers</h1>
+    <p class="writeup-lede">
+      Two puzzles reduced to Boolean satisfiability and solved with off-the-shelf SAT
+      solvers via <code>PySAT</code>: Sudoku (9×9) and Sokoban (parameterised grid).
+      The exercise is in the <em>encoding</em> — once the puzzle is a CNF formula, the
+      solver does all the search.
+    </p>
+    <div class="writeup-meta">
+      <span>IIT Bombay · Autumn 2025</span>
+      <span>Python · PySAT (Glucose3 / g3)</span>
+      <span>Pair assignment</span>
+    </div>
+
+    <div class="writeup-body">
+      <h2>Q1 — Sudoku as SAT</h2>
+      <p>
+        The 9×9 board needs <strong>729 Boolean variables</strong> — one per
+        <code>(row, col, digit)</code> triple — with the mapping
+        <code>id = 100·i + 10·j + k</code> for readability. From there the constraints write
+        themselves:
+      </p>
+      <ul>
+        <li><strong>Cell uniqueness</strong> — each cell holds exactly one digit.</li>
+        <li><strong>Row, column, and 3×3 subgrid</strong> — each digit appears at least once
+            and at most once in each.</li>
+      </ul>
+      <p>
+        Strictly, the "at most one" clauses are <em>logically redundant</em> — they're
+        implied by "at least one" plus the cell-uniqueness constraint via pigeonhole. They
+        were added anyway because <strong>helping the solver beats being elegant</strong>:
+        redundant constraints prune the search tree faster. Solved with
+        <code>Solver(name='glucose3')</code>.
+      </p>
+
+      <h2>Q2 — Sokoban as SAT</h2>
+      <p>
+        Sokoban is a planning problem: push boxes onto goal tiles without pulling, without
+        squeezing into corners. Encoding it requires <em>time</em> as a dimension.
+      </p>
+      <p>
+        State variables are time-indexed:
+        <code>var_player(x, y, t)</code> and <code>var_box(b, x, y, t)</code>. The plan
+        horizon <code>T</code> is fixed up front and the encoder emits six families of
+        clauses:
+      </p>
+      <ul>
+        <li><strong>Initial state</strong> — player and boxes start at their given cells.</li>
+        <li><strong>Player movement</strong> — at step <code>t</code>, the player moves to
+            an adjacent free cell, with action-precondition constraints.</li>
+        <li><strong>Box pushing</strong> — a box moves only when the player walks into it
+            and the cell behind is free.</li>
+        <li><strong>Non-overlap</strong> — no two boxes in one cell; no player/box/wall
+            overlap.</li>
+        <li><strong>Goal conditions</strong> — every goal tile holds a box at step
+            <code>T</code>.</li>
+        <li><strong>Uniqueness / existence</strong> — the player is in exactly one cell at
+            each step; each box has exactly one position.</li>
+      </ul>
+      <p>
+        Solved with <code>Solver(name='g3')</code>. The interesting engineering was the
+        variable-ID arithmetic — assigning each
+        <code>(entity, position, time)</code> tuple a globally unique positive integer
+        without collisions across the player and box variable spaces.
+      </p>
+
+      <h2>What I'd carry forward</h2>
+      <p>
+        Two lessons. First: <strong>declarative encoding makes the essence of the problem
+        visible</strong> in a way procedural search doesn't — every constraint is named, and
+        the solver tells you when you've under-specified the problem. Second: redundant
+        clauses that look like noise to a human are often <em>load-bearing</em> for the
+        solver. Logical minimality and search-tree minimality point in different directions.
+      </p>
+    </div>
+
+    <div class="writeup-cta">
+      <div class="writeup-cta-text">
+        <b>Source &amp; report</b>
+        <span>q1.py (Sudoku), q2.py (Sokoban), and the assignment report</span>
+      </div>
+      <a href="https://github.com/Y-Harsha-Vardhan/Sem-3/tree/main/CS228-Logic/Assignments/Assignment%201" target="_blank" rel="noopener noreferrer">
+        <ion-icon name="logo-github"></ion-icon>
+        View on GitHub
+      </a>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="../js/writeup.js" defer></script>
+</body>
+
+</html>

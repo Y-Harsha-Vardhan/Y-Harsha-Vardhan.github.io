@@ -380,3 +380,211 @@ if (updatedEl) {
     });
   });
 })();
+
+/* ---------- Project preview popover (anchored, smart-placed) ---------- */
+(() => {
+  const pop = document.getElementById('project-preview');
+  if (!pop) return;
+
+  const titleEl   = pop.querySelector('[data-preview-title]');
+  const tagEl     = pop.querySelector('[data-preview-tag]');
+  const summaryEl = pop.querySelector('[data-preview-summary]');
+  const writeupEl = pop.querySelector('[data-preview-writeup]');
+  const sourceEl  = pop.querySelector('[data-preview-source]');
+  const closeBtn  = pop.querySelector('[data-preview-close]');
+  const arrowEl   = pop.querySelector('.preview-arrow');
+
+  let anchorCard = null;
+  const GAP = 12;      // distance between card and popover
+  const MARGIN = 16;   // viewport edge buffer
+
+  const supportsPopover = typeof pop.showPopover === 'function';
+
+  // Compute and apply position relative to anchor card
+  function position() {
+    if (!anchorCard) return;
+    const r = anchorCard.getBoundingClientRect();
+    const pw = pop.offsetWidth;
+    const ph = pop.offsetHeight;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // Vertical placement: prefer below, fall back to above, then squeeze
+    let top, placement;
+    if (r.bottom + GAP + ph + MARGIN <= vh) {
+      top = r.bottom + GAP;
+      placement = 'bottom';
+    } else if (r.top - GAP - ph >= MARGIN) {
+      top = r.top - GAP - ph;
+      placement = 'top';
+    } else {
+      // viewport-constrained: pin to bottom of viewport
+      top = Math.max(MARGIN, vh - ph - MARGIN);
+      placement = 'bottom';
+    }
+
+    // Horizontal: center on card, clamp inside viewport
+    const cardCenterX = r.left + r.width / 2;
+    let left = cardCenterX - pw / 2;
+    left = Math.max(MARGIN, Math.min(left, vw - pw - MARGIN));
+
+    pop.style.left = `${left}px`;
+    pop.style.top  = `${top}px`;
+    pop.dataset.placement = placement;
+
+    // Arrow horizontal offset relative to popover
+    const arrowX = Math.max(16, Math.min(pw - 16, cardCenterX - left));
+    arrowEl.style.left = `${arrowX}px`;
+    arrowEl.style.marginLeft = `-6px`;
+  }
+
+  function openPreview(card) {
+    anchorCard = card;
+
+    const link    = card.querySelector('a[href]');
+    const writeup = link ? link.getAttribute('href') : '#';
+    const source  = card.dataset.source || writeup;
+    const title   = card.querySelector('h3')?.textContent?.trim() || 'Project';
+    const tag     = card.querySelector('.project-tag')?.textContent?.trim() || '';
+    const summary = card.dataset.summary || card.querySelector('.project-body p')?.textContent?.trim() || '';
+
+    titleEl.textContent   = title;
+    tagEl.textContent     = tag;
+    tagEl.style.display   = tag ? '' : 'none';
+    summaryEl.textContent = summary;
+    writeupEl.setAttribute('href', writeup);
+    sourceEl.setAttribute('href', source);
+
+    // Place off-screen first to measure without flicker
+    pop.style.left = '-9999px';
+    pop.style.top  = '-9999px';
+
+    if (supportsPopover) {
+      pop.showPopover();
+    } else {
+      pop.classList.add('is-open');
+      pop.setAttribute('data-open', '');
+    }
+
+    // Now we can measure and position
+    requestAnimationFrame(position);
+    // Re-position after the entry transition in case width settled
+    setTimeout(position, 60);
+  }
+
+  function closePreview() {
+    if (supportsPopover && pop.matches(':popover-open')) {
+      pop.hidePopover();
+    } else {
+      pop.classList.remove('is-open');
+      pop.removeAttribute('data-open');
+    }
+    anchorCard = null;
+  }
+
+  // Wire up card clicks
+  document.querySelectorAll('.project-card').forEach(card => {
+    const link = card.querySelector('a[href]');
+    if (!link) return;
+    link.addEventListener('click', (e) => {
+      // Cmd/Ctrl/Shift/middle-click → let browser open writeup in new tab
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+      e.preventDefault();
+      openPreview(card);
+    });
+  });
+
+  closeBtn?.addEventListener('click', closePreview);
+
+  // Reposition while open; close if the anchor card scrolls fully out of view
+  const onReposition = () => {
+    if (!anchorCard) return;
+    const r = anchorCard.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) {
+      closePreview();
+      return;
+    }
+    position();
+  };
+  window.addEventListener('resize', onReposition);
+  window.addEventListener('scroll', onReposition, { passive: true });
+
+  // Close the popover after clicking an action — feels cleaner than leaving it open
+  [writeupEl, sourceEl].forEach(btn => {
+    btn?.addEventListener('click', () => {
+      // Slight delay so the navigation/new-tab-open is committed first
+      setTimeout(closePreview, 80);
+    });
+  });
+
+  // Light-dismiss is built into popover="auto" — but for fallback browsers,
+  // catch outside clicks
+  if (!supportsPopover) {
+    document.addEventListener('click', (e) => {
+      if (!anchorCard) return;
+      if (pop.contains(e.target)) return;
+      if (e.target.closest('.project-card a')) return;
+      closePreview();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && anchorCard) closePreview();
+    });
+  }
+
+  // Clear anchorCard when popover closes via native light-dismiss
+  pop.addEventListener('toggle', (e) => {
+    if (e.newState === 'closed') anchorCard = null;
+  });
+})();
+
+/* ---------- Scroll memory across writeup navigation ---------- */
+(() => {
+  const KEY = 'portfolio-scroll';
+  const html = document.documentElement;
+
+  const clearMask = () => {
+    // Remove the "page hidden during restore" mask set by the inline head script
+    html.classList.remove('restoring-scroll');
+  };
+
+  // Save scroll position on any nav to a writeup
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href*="assets/writeups/"]');
+    if (a) sessionStorage.setItem(KEY, String(window.scrollY));
+  }, true);
+
+  // Restore on return (handles non-bfcache back-nav; bfcache restores natively)
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+      // bfcache already restored everything (including scroll) — just unhide
+      clearMask();
+      return;
+    }
+
+    const stored = sessionStorage.getItem(KEY);
+    if (stored === null) {
+      // Fresh load with nothing to restore — unhide if mask was set spuriously
+      clearMask();
+      return;
+    }
+    const y = parseInt(stored, 10);
+    sessionStorage.removeItem(KEY);
+    if (Number.isNaN(y)) { clearMask(); return; }
+
+    // Stop browser scroll-restoration from fighting us
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+    // Pre-reveal everything so the page is the same height it was when we left —
+    // otherwise the scroll target may overshoot before reveal observers fire.
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-revealed'));
+
+    // Two RAFs: first frame applies layout + scroll, second frame fades the page in
+    requestAnimationFrame(() => {
+      window.scrollTo(0, y);
+      requestAnimationFrame(clearMask);
+    });
+  });
+
+  // Belt-and-suspenders: never let the mask linger past page load
+  window.addEventListener('load', () => setTimeout(clearMask, 400));
+})();

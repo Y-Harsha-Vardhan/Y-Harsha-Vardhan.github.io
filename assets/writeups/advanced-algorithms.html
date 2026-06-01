@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>html{background-color:#08080d;color-scheme:dark}body{margin:0}</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Advanced Algorithm Implementations — Strassen with empirical threshold, Red-Black trees with 2-3-4 conversion, leftist heaps, tries, MST. CS213 @ IIT Bombay." />
+  <meta name="theme-color" content="#08080d" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Advanced Algorithm Implementations — Harsha Vardhan</title>
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/writeup.css" />
+</head>
+
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <nav class="writeup-nav">
+    <a href="../../index.html#projects" class="back-link" data-back>
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back to projects
+    </a>
+    <span class="brand">Harsha<span style="color: var(--blue-bright);">.</span></span>
+  </nav>
+
+  <main class="writeup">
+    <span class="writeup-eyebrow">CS213 · Data Structures &amp; Algorithms</span>
+    <h1>Advanced Algorithm Implementations</h1>
+    <p class="writeup-lede">
+      Ten labs of from-scratch C++ implementations covering the classical
+      data-structures-and-algorithms canon — balanced trees, divide-and-conquer matrix
+      multiplication, custom hash maps, leftist heaps, tries, graph algorithms, MSTs. A few
+      that were more than just box-checking are below.
+    </p>
+    <div class="writeup-meta">
+      <span>IIT Bombay · Autumn 2025</span>
+      <span>C++17</span>
+      <span>10 labs</span>
+    </div>
+
+    <div class="writeup-body">
+      <h2>Strassen with an empirical threshold</h2>
+      <p>
+        Strassen's algorithm gives a recursive
+        <code>O(n<sup>2.807</sup>)</code> matrix multiplication, beating the naive
+        <code>O(n<sup>3</sup>)</code> — but only above a hardware-dependent crossover. Below
+        that size, cache behaviour and recursion overhead make the triple loop faster.
+      </p>
+      <p>
+        The lab made the threshold an <em>empirical</em> quantity: measure both algorithms
+        on the target machine, find the cross-over, and use it as the recursion base case.
+        A small thing, but it's the difference between Strassen as a textbook footnote and
+        Strassen as a usable building block.
+      </p>
+
+      <h2>Red-Black trees → 2-3-4 trees</h2>
+      <p>
+        Implemented the Red-Black tree from scratch — insertion with <code>fixup()</code>,
+        the five rotation cases, color invariants — and then the rarer second half: the
+        equivalence between Red-Black trees and <strong>2-3-4 trees</strong>. Each black
+        node with its red children maps to a 2-, 3-, or 4-node, and the rotations in the RB
+        tree correspond to node splits and merges in the 2-3-4 view. Seeing the two as the
+        same structure with different presentations is one of those moments where balanced
+        trees stop feeling like dark magic.
+      </p>
+
+      <h2>Hash table with tombstone deletion</h2>
+      <p>
+        Open-addressing hash map with linear probing, a Fibonacci-constant hash function,
+        and — the subtle part — <strong>tombstone deletion</strong>. Naively removing a key
+        from an open-addressed table breaks the probe chain for everything inserted after
+        it. Marking the slot as a tombstone instead preserves the chain for lookups while
+        making the slot reusable for inserts. Easy to get wrong; the bug usually surfaces
+        as "this key existed a minute ago and now doesn't."
+      </p>
+
+      <h2>Leftist heaps</h2>
+      <p>
+        A less common heap variant where every operation reduces to <code>merge()</code>,
+        which runs in <code>O(log n)</code> by maintaining the "leftist" invariant on the
+        null-path-length. Insert is merge-with-singleton; delete-min is merge-of-children.
+        The whole data structure is one function — uncommon enough that it sticks.
+      </p>
+
+      <h2>Also implemented</h2>
+      <ul>
+        <li><strong>Tries</strong> with autocomplete via DFS traversal.</li>
+        <li><strong>KMP</strong> string matching and a plagiarism checker.</li>
+        <li><strong>Graph algorithms</strong> — BFS, cycle detection, graph burning.</li>
+        <li><strong>MSTs</strong> — Kruskal (with DSU using union-by-rank) and Prim.</li>
+        <li><strong>Ropes</strong> for efficient string concatenation.</li>
+        <li><strong>TOTP</strong> generation (RFC 6238).</li>
+      </ul>
+
+      <h2>What I'd carry forward</h2>
+      <p>
+        Two habits stuck. <strong>Write invariant-checkers alongside the data structure
+        itself</strong> — a single <code>assertInvariants()</code> walk after every
+        operation catches more bugs than a test suite. And <strong>treat asymptotic
+        complexity as a starting point, not a verdict</strong> — the Strassen threshold is
+        the small lesson; the big one is that cache behaviour decides most real benchmarks.
+      </p>
+    </div>
+
+    <div class="writeup-cta">
+      <div class="writeup-cta-text">
+        <b>Source &amp; lab solutions</b>
+        <span>10 labs of C++ implementations with descriptions</span>
+      </div>
+      <a href="https://github.com/Y-Harsha-Vardhan/Sem-3/tree/main/CS213-DSA" target="_blank" rel="noopener noreferrer">
+        <ion-icon name="logo-github"></ion-icon>
+        View on GitHub
+      </a>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="../js/writeup.js" defer></script>
+</body>
+
+</html>

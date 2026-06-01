@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>html{background-color:#08080d;color-scheme:dark}body{margin:0}</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Applied Cryptography & Exploits — OTP keystream reuse, CTR-mode reuse, HMAC timing attacks, Merkle-Damgard collisions, ECDSA nonce reuse. CS409 lab series @ IIT Bombay." />
+  <meta name="theme-color" content="#08080d" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Applied Cryptography &amp; Exploits — Harsha Vardhan</title>
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/writeup.css" />
+</head>
+
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <nav class="writeup-nav">
+    <a href="../../index.html#projects" class="back-link" data-back>
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back to projects
+    </a>
+    <span class="brand">Harsha<span style="color: var(--blue-bright);">.</span></span>
+  </nav>
+
+  <main class="writeup">
+    <span class="writeup-eyebrow">CS409 · Cryptography</span>
+    <h1>Applied Cryptography &amp; Exploits</h1>
+    <p class="writeup-lede">
+      A CTF-style lab series — each challenge is a live remote service implementing a
+      cryptographic primitive with a subtle flaw, and the assignment is to recover a flag.
+      Theme: cryptography in textbooks is a list of primitives; cryptography in practice is
+      a list of <em>ways the primitives were used wrong</em>.
+    </p>
+    <div class="writeup-meta">
+      <span>IIT Bombay · Autumn 2025</span>
+      <span>Python · PyCryptodome · pwntools</span>
+      <span>Labs 1–4</span>
+    </div>
+
+    <div class="writeup-body">
+      <h2>Lab 1 — One-time pad variants</h2>
+      <p>
+        Four challenges on weakened OTPs: two-time pad (XOR keystream reuse, recoverable via
+        crib-dragging), modular OTP with a deterministic key expansion, a distinguishing
+        attack on a faulty OTP with a reduced keyspace, and ciphertext recovery from a
+        base-255 radix-encryption scheme.
+      </p>
+
+      <h2>Lab 2 — Block-cipher modes</h2>
+      <p>
+        Attacks across AES modes:
+      </p>
+      <ul>
+        <li><strong>ECB</strong> — exploit the deterministic mode's pattern-leaking to
+            extract structure from ciphertexts.</li>
+        <li><strong>CBC with IV = key</strong> — payload injection that lets the attacker
+            recover the key from a single decryption oracle.</li>
+        <li><strong>CTR keystream reuse</strong> — the server reuses the same
+            <code>(key, nonce)</code> pair across encryptions. Because CTR XORs plaintext
+            with a deterministic keystream, the XOR of two ciphertexts equals the XOR of
+            their plaintexts: <code>P_flag = C_flag ⊕ (P_known ⊕ C_known)</code>.</li>
+        <li><strong>CBC-PKCS#7 padding oracle</strong> — classical Vaudenay attack.</li>
+      </ul>
+
+      <h2>Lab 3 — MACs &amp; hash collisions</h2>
+      <h3>HMAC timing side-channel</h3>
+      <p>
+        The target verified MAC tags with a byte-by-byte loop that short-circuited on the
+        first mismatch — and each matching byte introduced a 1-second artificial delay,
+        simulating timing variance. The attack measures latency with
+        <code>time.perf_counter()</code>, averages over <code>TRIALS=3</code> samples per
+        candidate byte, and walks the tag forward one byte at a time. The first 10 hex
+        characters of the tag fall to this in seconds.
+      </p>
+      <h3>Merkle–Damgård collisions (diamond structure)</h3>
+      <p>
+        Bonus challenge: a chosen-target-forced-prefix collision against an MD-style hash,
+        built via the <strong>diamond-structure</strong> birthday attack at
+        <code>2<sup>n/2</sup></code> cost. Construct a converging tree of collisions, then
+        for any forced prefix find a suffix that lands on the precomputed target — making
+        the hash construction itself the source of the vulnerability. This is exactly why
+        modern designs (SHA-3, sponge construction) abandon the Merkle–Damgård paradigm.
+      </p>
+
+      <h2>Lab 4 — Public-key &amp; signatures</h2>
+      <h3>ECDSA nonce reuse → private key recovery</h3>
+      <p>
+        A textbook failure mode: signing two different messages with the same nonce
+        <code>k</code> leaks the private key in a few lines of modular arithmetic. This is
+        the exact mistake Sony made on the PS3 — the same one. Solving it implements the
+        derivation directly.
+      </p>
+      <p>
+        Other challenges in this lab: RSA-OAEP decryption with a malformed oracle, X.509
+        certificate parsing under adversarial input, an EdDSA variant forgery, and a custom
+        cipher broken by search-space reduction.
+      </p>
+
+      <h2>Tooling</h2>
+      <p>
+        Solutions are written in Python against <code>PyCryptodome</code> for the
+        primitives (<code>Crypto.Cipher.AES</code>, <code>Crypto.Util.strxor</code>,
+        <code>Crypto.Util.Padding</code>) and <code>pwntools</code> for remote-server
+        interaction. The standard <code>hashlib</code> and <code>time</code> modules cover
+        the MAC and side-channel work.
+      </p>
+
+      <h2>What stuck</h2>
+      <p>
+        These weren't toy exercises — each one was a live network service, and most labs
+        took longer to set up the attack harness than to execute the actual exploit. That
+        ratio is the lesson: <strong>most cryptographic break-ins are engineering work, not
+        cryptographic genius</strong>.
+      </p>
+    </div>
+
+    <div class="writeup-cta">
+      <div class="writeup-cta-text">
+        <b>Source &amp; exploit scripts</b>
+        <span>Per-lab solutions, attack harnesses, and notes</span>
+      </div>
+      <a href="https://github.com/Y-Harsha-Vardhan/Sem-3/tree/main/CS409-Cryptography/Labs" target="_blank" rel="noopener noreferrer">
+        <ion-icon name="logo-github"></ion-icon>
+        View on GitHub
+      </a>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="../js/writeup.js" defer></script>
+</body>
+
+</html>

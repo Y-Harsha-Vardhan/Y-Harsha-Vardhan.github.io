@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>html{background-color:#08080d;color-scheme:dark}body{margin:0}</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cricket Scoring System — a multi-screen web app for real-time match scoring with autofill scaffolding. CS104 @ IIT Bombay." />
+  <meta name="theme-color" content="#08080d" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Cricket Scoring System — Harsha Vardhan</title>
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/writeup.css" />
+</head>
+
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <nav class="writeup-nav">
+    <a href="../../index.html#projects" class="back-link" data-back>
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back to projects
+    </a>
+    <span class="brand">Harsha<span style="color: var(--blue-bright);">.</span></span>
+  </nav>
+
+  <main class="writeup">
+    <span class="writeup-eyebrow">CS104 · Introduction to Computing</span>
+    <h1>Cricket Scoring System</h1>
+    <p class="writeup-lede">
+      A browser-based live cricket scoring app, built end-to-end as a CS104 course project.
+      Five screens — setup, live scoring, scorecard, summary, plus a Python autofill
+      utility — wired together by a single JavaScript scoring engine that handles the
+      cricket-specific rules (overs, wides, no-balls, wickets).
+    </p>
+    <div class="writeup-meta">
+      <span>IIT Bombay · 2024</span>
+      <span>HTML · CSS · JavaScript</span>
+      <span>Python (autofill)</span>
+    </div>
+
+    <div class="writeup-body">
+      <h2>Screens</h2>
+      <p>
+        The app is structured as a sequence of static pages with shared client-side state:
+      </p>
+      <ul>
+        <li><strong>Setup</strong> (<code>setup.html</code>) — team names, players, toss,
+            match format.</li>
+        <li><strong>Live scoring</strong> (<code>live.html</code>) — the active scorer's
+            interface, ball-by-ball entry.</li>
+        <li><strong>Scorecard</strong> (<code>scorecard.html</code>) — the broadcast-style
+            view, with batter/bowler stats and fall-of-wickets.</li>
+        <li><strong>Summary</strong> (<code>summary.html</code>) — post-match digest.</li>
+      </ul>
+
+      <h2>Scoring engine</h2>
+      <p>
+        <code>score.js</code> is the core: it maintains innings state and applies the rules
+        of cricket on each delivery. The non-obvious parts are the ones that look trivial
+        until you build them:
+      </p>
+      <ul>
+        <li>An <em>over</em> isn't always six legal balls — wides and no-balls don't count,
+            and the ball-counter must roll over to the next over only after the sixth legal
+            delivery.</li>
+        <li>A wicket changes the active batter; the strike rotation must follow the runs
+            scored on that delivery.</li>
+        <li>The bowler rotates at the end of each completed over and can't bowl two in a
+            row — a small piece of state with surprising downstream consequences.</li>
+      </ul>
+
+      <h2>Autofill</h2>
+      <p>
+        <code>autofill.py</code> generates realistic match scenarios for testing the UI
+        without manually entering hundreds of deliveries. Useful for catching edge cases —
+        last-ball wickets, super-overs, declared innings — that would otherwise need
+        patient hand-entry.
+      </p>
+
+      <h2>What I'd carry forward</h2>
+      <p>
+        The biggest lesson was about <strong>state</strong> — most of the bugs were not in
+        the UI or the layout, they were in transitions between innings, between overs,
+        between batters. Building rules-engines for any sport teaches you that the rules
+        you "know" leave out half of the edge cases.
+      </p>
+    </div>
+
+    <div class="writeup-cta">
+      <div class="writeup-cta-text">
+        <b>Source &amp; screens</b>
+        <span>HTML/CSS/JS frontend with Python autofill</span>
+      </div>
+      <a href="https://github.com/Y-Harsha-Vardhan/CS104-Project" target="_blank" rel="noopener noreferrer">
+        <ion-icon name="logo-github"></ion-icon>
+        View on GitHub
+      </a>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="../js/writeup.js" defer></script>
+</body>
+
+</html>

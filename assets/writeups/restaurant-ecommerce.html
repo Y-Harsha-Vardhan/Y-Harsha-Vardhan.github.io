@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>html{background-color:#08080d;color-scheme:dark}body{margin:0}</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Restaurant E-Commerce Platform — a multi-screen food-ordering web app with menu browsing, cart, checkout, and admin views." />
+  <meta name="theme-color" content="#08080d" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Restaurant E-Commerce Platform — Harsha Vardhan</title>
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/writeup.css" />
+</head>
+
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <nav class="writeup-nav">
+    <a href="../../index.html#projects" class="back-link" data-back>
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back to projects
+    </a>
+    <span class="brand">Harsha<span style="color: var(--blue-bright);">.</span></span>
+  </nav>
+
+  <main class="writeup">
+    <span class="writeup-eyebrow">Team project</span>
+    <h1>Restaurant E-Commerce Platform</h1>
+    <p class="writeup-lede">
+      A small full-stack restaurant ordering app built as a team project. Menu browsing,
+      cart, checkout, and an admin dashboard for managing items — implemented with a
+      vanilla JavaScript frontend and modular page-level structure.
+    </p>
+    <div class="writeup-meta">
+      <span>2024</span>
+      <span>HTML · CSS · JavaScript</span>
+      <span>Team project</span>
+    </div>
+
+    <div class="writeup-body">
+      <h2>What it does</h2>
+      <p>
+        The user-facing flow is the standard food-ordering loop: browse the menu, add items
+        to a cart, review and adjust quantities, place an order. A separate admin view
+        exposes the operations side — manage menu items, view incoming orders, change
+        prices and availability.
+      </p>
+
+      <h2>Structure</h2>
+      <p>
+        The codebase is organised around discrete screens rather than a single-page-app
+        bundler. Roughly half the lines are CSS — most of the visual identity (restaurant
+        theme, food cards, hero imagery) lives there. The "Penthouse" folder suggests a
+        themed section or premium tier within the menu.
+      </p>
+
+      <h2>My contribution</h2>
+      <p>
+        This was a collaborative project; my work focused on the frontend interaction
+        layer — cart state management, checkout transitions, and menu rendering. The repo
+        is hosted under a teammate's account.
+      </p>
+
+      <h2>What I'd carry forward</h2>
+      <p>
+        The exercise made the case for state libraries — even at this small scale, a
+        cart that lives across pages and survives reloads quickly becomes the kind of
+        thing where ad-hoc <code>localStorage</code> reads and writes turn into bugs. A
+        rebuild today would start with a clear single source of truth for cart state and
+        treat the UI as a derived view of it.
+      </p>
+    </div>
+
+    <div class="writeup-cta">
+      <div class="writeup-cta-text">
+        <b>Source</b>
+        <span>Team repo on a collaborator's account</span>
+      </div>
+      <a href="https://github.com/8787233419/e-commerce-dashboard" target="_blank" rel="noopener noreferrer">
+        <ion-icon name="logo-github"></ion-icon>
+        View on GitHub
+      </a>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="../js/writeup.js" defer></script>
+</body>
+
+</html>

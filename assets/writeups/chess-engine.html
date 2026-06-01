@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>html{background-color:#08080d;color-scheme:dark}body{margin:0}</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Strategos — a C++ chess engine combining a Polyglot opening book with alpha-beta search, transposition tables, and phase-aware evaluation." />
+  <meta name="theme-color" content="#08080d" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Strategos — AI Chess Engine — Harsha Vardhan</title>
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/writeup.css" />
+</head>
+
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <nav class="writeup-nav">
+    <a href="../../index.html#projects" class="back-link" data-back>
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back to projects
+    </a>
+    <span class="brand">Harsha<span style="color: var(--blue-bright);">.</span></span>
+  </nav>
+
+  <main class="writeup">
+    <span class="writeup-eyebrow">Summer of Code · Queen's Gambit</span>
+    <h1>Strategos — AI Chess Engine</h1>
+    <p class="writeup-lede">
+      A C++ chess engine that plays full games through a CLI. It pulls from a Polyglot
+      opening book for the first ~25 moves, then hands off to an alpha-beta search with a
+      transposition table and phase-aware evaluation for the middlegame and endgame.
+    </p>
+    <div class="writeup-meta">
+      <span>SOC 2024</span>
+      <span>C++17</span>
+      <span>Polyglot · Alpha-Beta · TT</span>
+    </div>
+
+    <div class="writeup-body">
+      <h2>How it picks a move</h2>
+      <p>
+        The engine runs <strong>iterative deepening</strong> with alpha-beta pruning,
+        escalating from depth 1 up to a hard cap of 32. Time budget is 15 seconds for the
+        first move out of the opening book and 8 seconds thereafter — so the engine
+        always returns a legal move even if the deeper search gets cut off.
+      </p>
+      <p>
+        Move ordering is the single biggest determinant of how much pruning the alpha-beta
+        actually does. The engine orders candidate moves in tiers:
+      </p>
+      <ul>
+        <li><strong>Hash move</strong> — the best move from the transposition table for this
+            position, if it exists (score <code>10000</code>).</li>
+        <li><strong>Captures</strong>, ranked by <strong>MVV-LVA</strong> — most-valuable-victim,
+            least-valuable-attacker — so a pawn taking a queen comes before a queen taking a
+            pawn.</li>
+        <li><strong>Killer moves</strong> — two slots per ply, holding moves that recently
+            caused a beta-cutoff at a sibling node.</li>
+        <li>Everything else, in generation order.</li>
+      </ul>
+
+      <h2>Evaluation</h2>
+      <p>
+        The evaluator combines weighted material (Pawn 100, Knight 300, Bishop 320, Rook
+        500, Queen 900) with <strong>piece-square tables</strong> that reward good squares
+        per piece type. The interesting part is the <em>king</em>: two separate tables, one
+        for the middlegame (defensive, tucked away from the centre) and one for the endgame
+        (aggressive, marching to the centre). The endgame detection switches between them
+        based on remaining material — a small detail that changes how the engine plays late
+        in a game.
+      </p>
+
+      <h2>Transposition table</h2>
+      <p>
+        Positions are hashed with Zobrist keys. Each TT entry stores the best move, score,
+        search depth, and a flag — exact, lower-bound, or upper-bound — that records what
+        kind of cutoff produced it. Subsequent searches that reach the same position re-use
+        the entry to prune entire subtrees and to seed move ordering with the hash move.
+      </p>
+
+      <h2>Opening book</h2>
+      <p>
+        For the first few dozen moves the engine reads from <code>Titans.bin</code>, a
+        Polyglot binary book — 12 bytes per entry: Zobrist key, encoded move, weight, learn
+        data. The engine decodes the key, binary-searches the book, and plays the move if a
+        match exists. This avoids spending search time on positions that already have a
+        well-known theoretical answer.
+      </p>
+
+      <h2>Draws and dead positions</h2>
+      <p>
+        Repetition (<code>board.isRepetition(2)</code>), the 50-move rule
+        (<code>board.isHalfMoveDraw()</code>), and insufficient-material detection all return
+        a score of 0, nudging the engine away from positions that are technically drawn —
+        which matters because evaluating a "drawn but ahead in material" position naively
+        would otherwise look like a win.
+      </p>
+
+      <h2>What I'd carry forward</h2>
+      <p>
+        The biggest takeaway was how much engineering effort goes into <em>not searching</em>
+        — opening books, transposition reuse, move ordering, draw detection. The actual
+        alpha-beta core is short; everything around it is what makes it playable in real
+        time.
+      </p>
+    </div>
+
+    <div class="writeup-cta">
+      <div class="writeup-cta-text">
+        <b>Source &amp; build instructions</b>
+        <span>Engine, opening book, and FEN support</span>
+      </div>
+      <a href="https://github.com/Y-Harsha-Vardhan/AI-Chess-Bot" target="_blank" rel="noopener noreferrer">
+        <ion-icon name="logo-github"></ion-icon>
+        View on GitHub
+      </a>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="../js/writeup.js" defer></script>
+</body>
+
+</html>
