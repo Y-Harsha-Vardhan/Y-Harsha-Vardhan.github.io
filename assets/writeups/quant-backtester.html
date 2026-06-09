@@ -51,14 +51,28 @@
     <p class="writeup-lede">
       A Python framework that takes a stream of trading signals (with optional Take-Profit
       and Stop-Loss levels) and a master OHLCV dataset, simulates the trades bar-by-bar, and
-      reports 18+ metrics covering profitability, risk, and consistency. Built for the
-      Summer of Quant cohort and used in a strategy that placed in the Top 10.
+      reports a dozen metrics covering profitability, risk, and consistency. Built during
+      the Summer of Quant cohort and used in a strategy that placed in the Top 10.
     </p>
-    <div class="writeup-meta">
-      <span>Summer 2025</span>
-      <span>Python · pandas · Plotly</span>
-      <span>BTC daily, 2019–2023</span>
-    </div>
+
+    <dl class="writeup-spec">
+      <dt>Timeline</dt>
+      <dd>Jun – Jul 2025 · Summer of Quant, Math &amp; Physics Club, IIT Bombay</dd>
+      <dt>Result</dt>
+      <dd>Top 10 performer · Certificate of Excellence</dd>
+      <dt>Language</dt>
+      <dd>Python 3</dd>
+      <dt>Stack</dt>
+      <dd>pandas · pandas_ta · numpy · plotly · matplotlib</dd>
+      <dt>Core</dt>
+      <dd><code>backtester.py</code> (~197 LOC) — <code>TradeType</code>, <code>Position</code>, <code>TradePair</code>, <code>BackTester</code></dd>
+      <dt>Capital</dt>
+      <dd>$1,000 initial · 0.15% brokerage per leg · compounding or fixed-stake (<code>compound_flag</code>)</dd>
+      <dt>Dataset</dt>
+      <dd>BTC daily candles, Sept 2019 – 2023 (~1,600 bars)</dd>
+      <dt>Repo</dt>
+      <dd><a href="https://github.com/Y-Harsha-Vardhan/SoQ-Project" target="_blank" rel="noopener noreferrer">github.com/Y-Harsha-Vardhan/SoQ-Project</a></dd>
+    </dl>
 
     <div class="writeup-body">
       <h2>What it does</h2>
@@ -86,19 +100,19 @@
 
       <h3>2. Position-reversal signals</h3>
       <p>
-        The signal vocabulary supports values <code>±1</code> (open) and <code>±2</code>
-        (close-and-reverse), so a single bar can flip from a long to a short atomically.
-        This avoids the gap-risk ambiguity of issuing a close followed by a new open across
-        two bars.
+        The signal vocabulary is <code>{1, −1, 2, −2, 0}</code> — open long, open short,
+        close-and-reverse-to-long, close-and-reverse-to-short, hold. A single bar can flip
+        a long into a short atomically, avoiding the gap-risk ambiguity of issuing a close
+        followed by a new open across two bars.
       </p>
 
-      <h3>3. Lookahead-bias check</h3>
+      <h3>3. Lookahead-bias guard</h3>
       <p>
-        Before trusting any signal, <code>main.py</code> re-runs the strategy on
-        progressively truncated data and flags any signal that wouldn't have fired given
-        only the information available at that time. ATR(14) at bar <code>i</code> is
-        computed only on bars <code>[:i]</code>, so no future data leaks back into the
-        decision — easy to forget, painful to debug after the fact.
+        A signal generated on the close of bar <code>i</code> is always executed at the
+        <em>open</em> of bar <code>i+1</code> — never at the same bar's close. That single
+        rule makes the whole simulation honest: the strategy can never trade on a price it
+        wouldn't have seen yet in production. Easy to write, easy to forget, painful to
+        debug after the fact.
       </p>
 
       <h3>4. Realistic costs</h3>

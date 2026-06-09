@@ -54,11 +54,20 @@
       multiplication, custom hash maps, leftist heaps, tries, graph algorithms, MSTs. A few
       that were more than just box-checking are below.
     </p>
-    <div class="writeup-meta">
-      <span>IIT Bombay · Autumn 2025</span>
-      <span>C++17</span>
-      <span>10 labs</span>
-    </div>
+    <dl class="writeup-spec">
+      <dt>Timeline</dt>
+      <dd>Aug – Sept 2025 · CS213 Data Structures &amp; Algorithms, IIT Bombay</dd>
+      <dt>Instructor</dt>
+      <dd>Prof. Ashutosh Gupta</dd>
+      <dt>Language</dt>
+      <dd>C++17 · ~10,300 LOC across the lab series</dd>
+      <dt>Build</dt>
+      <dd>Per-lab Makefiles · automated <code>test1/</code>, <code>test2/</code>, … harnesses</dd>
+      <dt>Coverage</dt>
+      <dd>Strassen · RB / 2-3-4 trees · open-addressed hash maps · leftist heaps · tries · KMP · graph algos · MST · ropes</dd>
+      <dt>Repo</dt>
+      <dd><a href="https://github.com/Y-Harsha-Vardhan/Sem-3/tree/main/CS213-DSA" target="_blank" rel="noopener noreferrer">github.com/.../CS213-DSA</a></dd>
+    </dl>
 
     <div class="writeup-body">
       <h2>Strassen with an empirical threshold</h2>
@@ -70,9 +79,11 @@
       </p>
       <p>
         The lab made the threshold an <em>empirical</em> quantity: measure both algorithms
-        on the target machine, find the cross-over, and use it as the recursion base case.
-        A small thing, but it's the difference between Strassen as a textbook footnote and
-        Strassen as a usable building block.
+        on the target machine across <code>N = 2, 4, 8, …, 1024</code>, find the
+        cross-over, and use it as the recursion base case in a threshold-hybrid that
+        falls back to the naïve triple loop below the cutoff. A small thing, but it's the
+        difference between Strassen as a textbook footnote and Strassen as a usable
+        building block.
       </p>
 
       <h2>Red-Black trees → 2-3-4 trees</h2>
@@ -88,12 +99,21 @@
 
       <h2>Hash table with tombstone deletion</h2>
       <p>
-        Open-addressing hash map with linear probing, a Fibonacci-constant hash function,
-        and — the subtle part — <strong>tombstone deletion</strong>. Naively removing a key
-        from an open-addressed table breaks the probe chain for everything inserted after
-        it. Marking the slot as a tombstone instead preserves the chain for lookups while
-        making the slot reusable for inserts. Easy to get wrong; the bug usually surfaces
-        as "this key existed a minute ago and now doesn't."
+        Open-addressed hash map with linear probing. The hash itself is a
+        <strong>polynomial accumulation</strong> with prime base
+        <code>p = 31 / 33</code>, followed by <strong>Fibonacci compression</strong> with
+        <code>A = (√5 − 1) / 2</code> (the golden-ratio fractional part) — Knuth's
+        multiplicative hash, picked specifically because it spreads clustered keys evenly
+        across a power-of-two table. The English dictionary is the stress test;
+        ≤32-byte string keys live in a 64-slot fixed array.
+      </p>
+      <p>
+        The subtle part is <strong>tombstone deletion</strong>. Naively removing a key from
+        an open-addressed table breaks the probe chain for everything inserted after it.
+        Marking the slot with a <code>TOMBSTONE</code> sentinel (distinct from
+        <code>NULL</code>) preserves the chain for lookups while making the slot reusable
+        for inserts. Easy to get wrong; the bug usually surfaces as "this key existed a
+        minute ago and now doesn't."
       </p>
 
       <h2>Leftist heaps</h2>
@@ -109,7 +129,7 @@
         <li><strong>Tries</strong> with autocomplete via DFS traversal.</li>
         <li><strong>KMP</strong> string matching and a plagiarism checker.</li>
         <li><strong>Graph algorithms</strong> — BFS, cycle detection, graph burning.</li>
-        <li><strong>MSTs</strong> — Kruskal (with DSU using union-by-rank) and Prim.</li>
+        <li><strong>MSTs</strong> — Kruskal (with DSU using union-by-rank), Prim with a priority queue, plus a linear-time MST variant for a restricted edge-weight setting.</li>
         <li><strong>Ropes</strong> for efficient string concatenation.</li>
         <li><strong>TOTP</strong> generation (RFC 6238).</li>
       </ul>

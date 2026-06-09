@@ -276,7 +276,7 @@ main { padding-top: 88px; }
   display: inline-flex; align-items: center; gap: 8px;
   margin-top: 18px;
   font-family: var(--f-mono); font-size: 12px; letter-spacing: .04em;
-  color: var(--text-bright);
+  color: var(--text);
   padding: 9px 16px; border-radius: 999px;
   background: rgba(59, 130, 246, .08);
   border: 1px solid rgba(59, 130, 246, .28);
@@ -822,6 +822,7 @@ li.stat-cf:hover {
 .report-tile figure { width: 180px; aspect-ratio: 4/3; border-radius: 14px; overflow: hidden; background: #111; }
 .report-tile figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); filter: saturate(.92) brightness(.9); }
 .report-tile:hover figure img { transform: scale(1.06); filter: saturate(1.05) brightness(1); }
+.report-tile-body { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
 .report-tile h3 { font-family: var(--f-display); font-size: 17px; font-weight: 600; color: #fff; letter-spacing: -.01em; margin: 6px 0; }
 .report-tile p { font-size: 13px; color: var(--text-dim); margin-bottom: 10px; }
 

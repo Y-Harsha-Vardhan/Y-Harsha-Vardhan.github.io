@@ -35,7 +35,7 @@
   <meta property="og:image" content="./assets/images/my-avatar.jpeg" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <title>Harsha Vardhan — Portfolio</title>
+  <title>Harsha Vardhan — CS @ IIT Bombay · Portfolio</title>
 
   <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon" />
 
@@ -54,7 +54,6 @@
   <div class="bg-layer" aria-hidden="true">
     <div class="aurora aurora-1"></div>
     <div class="aurora aurora-2"></div>
-    <div class="aurora aurora-3"></div>
     <div class="grid-overlay"></div>
     <div class="noise"></div>
   </div>
@@ -319,7 +318,7 @@
       <ul class="project-grid" data-spotlight-group>
         <li class="project-card reveal" data-category="ai / ml" data-spotlight
             data-source="https://github.com/Y-Harsha-Vardhan/AI-Chess-Bot"
-            data-summary="A C++ chess engine that plays full games through a CLI. It uses a hand-curated opening book for the first ~25 moves, then switches to alpha-beta search with a transposition table to pick the best response.">
+            data-summary="A C++ chess engine that plays full games through a CLI. It pulls from a Polyglot opening book for the first ~25 moves, then switches to alpha-beta search with a transposition table and phase-aware evaluation.">
           <a href="./assets/writeups/chess-engine.html" rel="noopener noreferrer">
             <figure class="project-media">
               <img src="./assets/images/chess.png" alt="AI Chess Engine" loading="lazy" />
@@ -328,7 +327,7 @@
             <div class="project-body">
               <div class="project-meta-row">
                 <span class="project-tag">AI / ML</span>
-                <span class="project-metric">Depth 32 · ~1500 Elo</span>
+                <span class="project-metric">Depth 32 · α-β · TT</span>
               </div>
               <h3>AI Chess Engine</h3>
               <p>Search + evaluation engine with move ordering and pruning.</p>
@@ -336,27 +335,9 @@
           </a>
         </li>
 
-        <li class="project-card reveal" data-category="web" data-spotlight
-            data-source="https://github.com/Y-Harsha-Vardhan/CS104-Project"
-            data-summary="A live cricket scoring web app — setup, real-time scoring, scorecard, and post-match summary. A single JavaScript scoring engine handles cricket-specific rules: overs, wides, no-balls, strike rotation.">
-          <a href="./assets/writeups/cricket-scoring.html" rel="noopener noreferrer">
-            <figure class="project-media">
-              <img src="./assets/images/cricket.png" alt="Cricket Scoring System" loading="lazy" />
-              <span class="project-action"><ion-icon name="eye-outline"></ion-icon></span>
-            </figure>
-            <div class="project-body">
-              <div class="project-meta-row">
-                <span class="project-tag">Web</span>
-              </div>
-              <h3>Cricket Scoring System</h3>
-              <p>Real-time scoring app with modular state and clean tests.</p>
-            </div>
-          </a>
-        </li>
-
         <li class="project-card reveal" data-category="quant" data-spotlight
             data-source="https://github.com/Y-Harsha-Vardhan/SoQ-Project"
-            data-summary="A Python framework that takes trading signals plus historical price data, simulates trades bar-by-bar, and reports 18+ metrics covering profit, Sharpe ratio, and drawdowns. Built for Summer of Quant; the strategy placed in the Top 10.">
+            data-summary="A Python framework that takes trading signals plus historical price data, simulates trades bar-by-bar, and reports a dozen metrics covering profit, Sharpe ratio, and drawdowns. Built for Summer of Quant; the strategy placed in the Top 10.">
           <a href="./assets/writeups/quant-backtester.html" rel="noopener noreferrer">
             <figure class="project-media">
               <img src="./assets/images/quant.png" alt="Quantitative Trading Models" loading="lazy" />
@@ -411,25 +392,6 @@
           </a>
         </li>
 
-        <li class="project-card reveal" data-category="ai / ml" data-spotlight
-            data-source="https://github.com/Y-Harsha-Vardhan/Stock-Price-Prediction-Using-LSTM"
-            data-summary="A TensorFlow/Keras model that forecasts stock prices using a 60-day window of price data plus technical indicators (MACD, RSI). Pulls live data from Yahoo Finance and predicts the next 15 trading days.">
-          <a href="./assets/writeups/lstm-stock.html" rel="noopener noreferrer">
-            <figure class="project-media">
-              <img src="./assets/images/stock.jpg" alt="LSTM Stock Prediction" loading="lazy" />
-              <span class="project-action"><ion-icon name="eye-outline"></ion-icon></span>
-            </figure>
-            <div class="project-body">
-              <div class="project-meta-row">
-                <span class="project-tag">AI / ML</span>
-                <span class="project-metric">60-day window · R²-evaluated</span>
-              </div>
-              <h3>Stock Price Prediction (LSTM)</h3>
-              <p>Time-series forecasting with a sequence model in PyTorch.</p>
-            </div>
-          </a>
-        </li>
-
         <li class="project-card reveal" data-category="systems" data-spotlight
             data-source="https://github.com/Y-Harsha-Vardhan/Sem-3/tree/main/CS213-DSA"
             data-summary="Ten labs of from-scratch C++ implementations — balanced trees, divide-and-conquer matrix multiplication, custom hash maps, leftist heaps, tries, MSTs. The building blocks of every larger system.">
@@ -451,7 +413,7 @@
 
         <li class="project-card reveal" data-category="web" data-spotlight
             data-source="https://github.com/8787233419/e-commerce-dashboard"
-            data-summary="A team-built restaurant ordering web app with menu browsing, cart, checkout, and an admin dashboard. Contributed the frontend interaction layer — cart state, checkout transitions, menu rendering.">
+            data-summary="A Devcom team project — a React + Vite restaurant frontend with menu browsing, category filtering, and a login / signup flow. Backend lived in a separate stream and never landed in this repo.">
           <a href="./assets/writeups/restaurant-ecommerce.html" rel="noopener noreferrer">
             <figure class="project-media">
               <img src="./assets/images/food.png" alt="Restaurant Web App" loading="lazy" />
@@ -460,9 +422,10 @@
             <div class="project-body">
               <div class="project-meta-row">
                 <span class="project-tag">Web</span>
+                <span class="project-metric">React 18 · Vite</span>
               </div>
               <h3>Restaurant E-Commerce Platform</h3>
-              <p>Full-stack dashboard with cart, checkout, and admin views.</p>
+              <p>Devcom team frontend — menu, filtering, auth views.</p>
             </div>
           </a>
         </li>
@@ -684,18 +647,6 @@
               <div class="report-meta" data-topic="security"><span>Security / Cryptography</span><i></i><time datetime="2025-11-01">Nov 1, 2025</time></div>
               <h3>Applied Cryptography &amp; Exploit Analysis</h3>
               <p>CTR keystream reuse, timing side-channels, and hash collision constructions on real protocols.</p>
-              <span class="report-link">Read PDF <ion-icon name="arrow-forward-outline"></ion-icon></span>
-            </div>
-          </a>
-        </li>
-
-        <li class="report-tile reveal" data-spotlight>
-          <a href="./assets/reports/cricketReport.pdf" target="_blank" rel="noopener noreferrer">
-            <figure><img src="./assets/reports/images/cricket.jpg" alt="" loading="lazy" /></figure>
-            <div class="report-tile-body">
-              <div class="report-meta" data-topic="web"><span>Web / Software Engineering</span><i></i><time datetime="2025-04-29">Apr 29, 2025</time></div>
-              <h3>Real-Time Cricket Scoring System</h3>
-              <p>Real-time web app with robust state management, modular architecture, and automated tests.</p>
               <span class="report-link">Read PDF <ion-icon name="arrow-forward-outline"></ion-icon></span>
             </div>
           </a>

@@ -1,54 +1,14 @@
 # Portfolio — Action Plan
 
-A working document for closing the gap between *polished container* (where the site is) and *content worth shortlisting* (where it needs to be).
+A working document for closing the gap between *polished container* (where the site is now) and *content worth shortlisting* (where it needs to be). Cross items off as you ship them; new gaps surfaced during work go in as new tiers.
 
-**Current rating: 8.0 / 10.** Visual layer and writeups are top-decile for a student portfolio. The remaining ceiling is project depth and originality — items that cannot be solved by more polish.
+**Current state.** 7 cards in the project grid (AI Chess · Quant Backtester · SAT Solvers · Applied Cryptography · Advanced Algorithms · Restaurant E-Commerce · Graph Routing). Visual layer, writeups, résumé download, and copy-link affordances are done. Remaining work is overwhelmingly **content**, not styling — the kind of thing only the user can ship.
 
----
-
-## Recap — what's shipped
-
-The site has been through two waves of work:
-
-**Wave 1 — credibility blockers (Tier 1 of the old audit):**
-- §1.1 ✅ — 9 dedicated writeup pages under `assets/writeups/`, grounded in actual repo source
-- §1.3 ✅ — skill rings → grouped tag cloud + "Currently learning"
-- §1.4 ✅ — concrete hero headline + Summer 2027 status pill
-- §1.5 ✅ partial — tutorial-flavored projects reframed inside writeups (LSTM acknowledges its limits)
-- §1.6 ✅ — live Codeforces badge (rating + rank + official rank colors + 1-hr cache)
-- §2.5 ✅ — full footer (brand, social, meta, source link, honest authorship)
-
-**Wave 2 — interaction & content layer:**
-- 9 writeup pages built from actual source code (7 read locally, 2 via GitHub README)
-- Linear/Raycast-style anchored preview popover replacing direct navigation
-- About-section "currently going deeper on …" footnote
-- Whole-site palette swap to minimal black + blue
-- No-FOUC reveal pattern + 2.5s safety-net
-- Accessibility: focus-visible, ARIA labels, prefers-reduced-motion
-- Dead-CSS cleanup pass
-
-**Wave 3 — tier-A mechanical polish (just shipped):**
-- Phone number removed from public contact panel
-- Metric chips on every project card (Top 10 · SoQ '25, Depth 32, 5000-node graphs, etc.)
-- Resume goes side-by-side (Education + Experience) at ≥1024px; tabs kept for mobile
-- Every off-site `<a>` audited — `target="_blank" rel="noopener noreferrer"` everywhere, including the popover "View full writeup" button
-- Cursor-glow opacity dropped from 28% to 12% — ambient, not eager
-- Hero layout fix — long sub-tagline no longer pushes CTAs below the fold
-- Top-of-page dark shade so the hero opens on a clean black canvas before the aurora emerges
-- Résumé PDF wired up — "Download résumé" button in hero CTAs + "Download PDF" pill in the Resume section header (serves `assets/HarshaVardhan-Resume.pdf`)
-- "Copy link" affordance on every writeup nav — clipboard write with "Copied" feedback, falls back to `execCommand` for non-secure contexts
-
-**Net effect:** the polished container is essentially done. Further design work yields diminishing returns.
+Tags: `[CLAUDE]` = I can ship without you · `[USER]` = you have to do the substance · `[USER + CLAUDE]` = give me raw material, I'll integrate.
 
 ---
 
-## What still hurts the candidate (in priority order)
-
-Ordered by **impact on shortlist decision**, not by effort. Each item is tagged `[CLAUDE]` (I can ship it without you), `[USER]` (you must provide content / take action), or `[USER + CLAUDE]` (collaboration).
-
-### Tier A — Mechanical, ship today
-
-These are small, deterministic, and disproportionately costly to leave broken.
+## Tier A — Mechanical
 
 #### A2 · Replace the avatar with a real photo  `[USER + CLAUDE]`
 **Why:** The current avatar reads as filtered/AI-generated. Against the rest of the design (sober and grown-up), it lowers the perceived seriousness of the whole hero.
@@ -59,32 +19,9 @@ These are small, deterministic, and disproportionately costly to leave broken.
 
 ---
 
-### Tier B — Project section, ship this week
+## Tier B — Project section
 
 These move the project grid from "coursework with a few standouts" to "curated portfolio."
-
-#### B1 · Remove or replace the two weakest cards  `[USER decides]`
-**Why:** The Cricket Scoring System is first-year coursework; the Restaurant E-Commerce is a team project under someone else's account with thin documentation. Both *lower* the average perceived quality of the project grid. Six strong projects beat nine mixed-quality ones.
-
-**Decision needed from you (one per card):**
-
-| Card | Options |
-|---|---|
-| Cricket Scoring | (a) remove entirely · (b) keep but downgrade — smaller card, no popover · (c) keep as-is |
-| Restaurant E-Commerce | (a) remove entirely · (b) keep but caption it more clearly as a learning project |
-
-**My recommendation:** remove both. The grid will still hold 7 cards, balanced across systems / ML / web / quant. The remaining cards all pass a "would this hold up in an interview?" test; these two arguably don't.
-
-**Effort (after you decide):** 10 min — remove cards, remove writeup files, update IMPROVEMENTS.md.
-
-#### B2 · Drop the LSTM card OR commit to keeping it  `[USER decides]`
-**Why:** Stock-price LSTM is the single most common ML tutorial topic. The current writeup is unusually honest about this — the problem isn't the writeup, it's that the *card title* is the first thing a quant reviewer sees, and they will visibly flinch before clicking through to read the nuance.
-
-**Two paths:**
-- **Drop it.** Quant reviewers stop wincing. ML reviewers don't miss it.
-- **Keep + reframe the card.** Change the card subtitle from *"Time-series forecasting with a sequence model"* to *"What happens when you naively apply LSTMs to financial time series — and why."* This turns the card from a tutorial-flavored title into an opinion-bearing one.
-
-**Recommendation:** drop, unless you genuinely intend to expand it (e.g. add a persistence-baseline comparison and a "here's what actually works better" appendix).
 
 #### B3 · Rewrite the About section's section-lead paragraph  `[USER + CLAUDE]`
 **Why:** Current copy ("strong interest in systems, web development, and problem-solving … building clean, efficient interfaces") could be on any CS undergrad's page. It is true and tells me nothing specific about you.
@@ -103,7 +40,7 @@ These move the project grid from "coursework with a few standouts" to "curated p
 **Why:** Half of the clicks from the site land on your GitHub. If pinned repos lack screenshots and READMEs, the visual investment of the portfolio evaporates at the next page.
 
 **Action:**
-1. Pin the 6 strongest projects (the ones on the site) in the same order.
+1. Pin the 7 site projects (in the same order shown on the grid).
 2. For each pinned repo: a README with project title, hero image/GIF, problem statement, "how to run", and the same metric you put on the card chip.
 3. Make sure `main` has a recent commit (stale branches signal abandonment).
 
@@ -113,12 +50,10 @@ These move the project grid from "coursework with a few standouts" to "curated p
 
 ---
 
-### Tier C — The transformative item
+## Tier C — The transformative item
 
-This is the one move that changes the read of the entire portfolio.
-
-#### C1 · Ship one original, non-coursework project  `[USER builds, CLAUDE helps]`
-**Why:** Currently 7 of 9 projects are coursework. A reviewer comparing two IIT Bombay second-years cannot tell you apart from these — they have the exact same `CS213-DSA` labs on their site. Two cards (AI Chess, Quant) carry most of the originality signal; one more would tip the read from *"polished student"* to *"engineer worth a 30-min conversation."*
+#### C1 · Ship one or two original, non-coursework projects  `[USER builds, CLAUDE helps]`
+**Why:** 5 of the 7 cards on the site are coursework. A reviewer comparing two IIT Bombay second-years cannot tell you apart from those — they have the exact same `CS213-DSA` labs on their site. Two cards (AI Chess, Quant) carry most of the originality signal; one or two more would tip the read from *"polished student"* to *"engineer worth a 30-min conversation."* The grid slots freed by dropping Cricket and LSTM are reserved for these.
 
 **Criteria for a good portfolio project:**
 - Problem you actually had or genuinely cared about.
@@ -140,12 +75,12 @@ This is the one move that changes the read of the entire portfolio.
 
 **I can help:** scaffolding, code review, the writeup, the visual layer.
 **You provide:** the idea + the actual engineering work + the decision log.
-**Effort:** 1-2 weekends.
+**Effort:** 1-2 weekends per project.
 **Impact:** **transformative.** Single biggest item on this entire document.
 
 ---
 
-### Tier D — Polish that compounds
+## Tier D — Polish that compounds
 
 Smaller items that don't move the needle alone but together close the gap between *good* and *elite*.
 
@@ -169,22 +104,21 @@ Update the title to `Harsha Vardhan — CS @ IIT Bombay · Portfolio`. Add `site
 
 ## Recommended execution order
 
-**This week (1 evening + 2 hours):** A2 (photo), B1+B2 (cull weak cards), B3 (About rewrite). Site to ~8.7.
+**This week (1 evening + 2 hours):** A2 (photo) + B3 (About rewrite). Quick wins; both unblock once you provide the raw material.
 
-**This weekend:** B4 (curate GitHub) + start C1 (original project scaffolding). Site to ~8.8 immediately; the impact of C1 itself unlocks ~9.
+**This weekend:** B4 (curate GitHub) + start C1 (scaffolding for the first original project). The grid has two reserved slots waiting for it.
 
-**This month:** Finish C1, ship D2 (case study) and one of D1/D3. Site to ~9.0-9.3. At that point the gap between visual layer and content layer is closed — the limiting factor becomes things outside the portfolio (résumé PDF quality, leetcode performance, network).
+**This month:** Finish C1 (1-2 projects), then ship D2 (case study) and one of D1 / D3. After that, the gap between visual layer and content layer is closed — the limiting factor becomes things outside the portfolio.
 
 ---
 
-## What this audit does NOT fix
+## What this document does NOT fix
 
 Out of scope for the portfolio itself, but matter more for hiring outcomes than anything above:
 
 1. **The projects beneath the cards.** No amount of card styling rescues a thin repo. The biggest leverage on hiring outcomes is having two or three projects deep enough to talk about for 30 minutes.
-2. **The résumé PDF.** This document assumes you have a clean one-page résumé that matches the portfolio's tone. If you don't, that's a separate (and higher-priority) artifact.
-3. **CF rating and competitive programming credentials.** A jump from 1491 Specialist to 1600+ Expert would do more for quant prospects than anything on this list.
-4. **Internship history.** A first-summer internship — even unpaid, even small — would be more valuable than every Tier B/C/D item combined for the second-summer recruiting cycle.
+2. **CF rating and competitive programming credentials.** A jump from 1491 Specialist to 1600+ Expert would do more for quant prospects than anything on this list.
+3. **Internship history.** A first-summer internship — even unpaid, even small — would be more valuable than every Tier B / C / D item combined for the second-summer recruiting cycle.
 
 Fix those in parallel with what's on this list. The portfolio is necessary but not sufficient.
 
@@ -193,7 +127,5 @@ Fix those in parallel with what's on this list. The portfolio is necessary but n
 ## Notes for working with me on this
 
 - For `[CLAUDE]` items: just ask. They're scoped and deterministic.
-- For `[USER + CLAUDE]` items: give me the raw material (PDF, photo, sentences, idea) and I'll integrate.
+- For `[USER + CLAUDE]` items: give me the raw material (photo, sentences, idea) and I'll integrate.
 - For `[USER]` items: I can review what you write but the substance has to be yours.
-
-This document supersedes all earlier `IMPROVEMENTS.md` content. Cross items off as you ship them; new gaps surfaced during work go in as new tiers.

@@ -46,7 +46,7 @@
   </nav>
 
   <main class="writeup">
-    <span class="writeup-eyebrow">CS228 · Logic for Computer Science</span>
+    <span class="writeup-eyebrow">CS228 · Logic in Computer Science</span>
     <h1>SAT-Based Puzzle Solvers</h1>
     <p class="writeup-lede">
       Two puzzles reduced to Boolean satisfiability and solved with off-the-shelf SAT
@@ -54,11 +54,20 @@
       The exercise is in the <em>encoding</em> — once the puzzle is a CNF formula, the
       solver does all the search.
     </p>
-    <div class="writeup-meta">
-      <span>IIT Bombay · Autumn 2025</span>
-      <span>Python · PySAT (Glucose3 / g3)</span>
-      <span>Pair assignment</span>
-    </div>
+    <dl class="writeup-spec">
+      <dt>Timeline</dt>
+      <dd>Aug 2025 · CS228 Logic in Computer Science, IIT Bombay</dd>
+      <dt>Instructor</dt>
+      <dd>Prof. S. Krishna</dd>
+      <dt>Language</dt>
+      <dd>Python 3 · ~1,580 LOC across the CS228 assignments</dd>
+      <dt>Stack</dt>
+      <dd><code>PySAT</code> — <code>CNF()</code> + <code>Solver(name='glucose3')</code> · <code>tester.py</code> / <code>test.py</code> harnesses</dd>
+      <dt>Scope</dt>
+      <dd>Q1 Sudoku (729 vars) · Q2 Sokoban (time-indexed planning) · 6 clause families</dd>
+      <dt>Repo</dt>
+      <dd><a href="https://github.com/Y-Harsha-Vardhan/Sem-3/tree/main/CS228-Logic/Assignments/Assignment%201" target="_blank" rel="noopener noreferrer">github.com/.../CS228-Logic/Assignments/Assignment%201</a></dd>
+    </dl>
 
     <div class="writeup-body">
       <h2>Q1 — Sudoku as SAT</h2>
@@ -69,9 +78,11 @@
         themselves:
       </p>
       <ul>
-        <li><strong>Cell uniqueness</strong> — each cell holds exactly one digit.</li>
+        <li><strong>Cell coverage &amp; uniqueness</strong> — each cell holds exactly one digit.</li>
         <li><strong>Row, column, and 3×3 subgrid</strong> — each digit appears at least once
             and at most once in each.</li>
+        <li><strong>Given clues</strong> — every pre-filled cell becomes a unit clause that
+            pins its variable to <code>true</code>.</li>
       </ul>
       <p>
         Strictly, the "at most one" clauses are <em>logically redundant</em> — they're

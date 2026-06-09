@@ -46,50 +46,69 @@
   </nav>
 
   <main class="writeup">
-    <span class="writeup-eyebrow">Team project</span>
+    <span class="writeup-eyebrow">Devcom · IIT Bombay</span>
     <h1>Restaurant E-Commerce Platform</h1>
     <p class="writeup-lede">
-      A small full-stack restaurant ordering app built as a team project. Menu browsing,
-      cart, checkout, and an admin dashboard for managing items — implemented with a
-      vanilla JavaScript frontend and modular page-level structure.
+      A small restaurant ordering web app — landing page, browsable menu, search and
+      filter, login / signup — built as a Devcom team project in React on top of a Vite
+      dev pipeline. Frontend in this repo; backend lived in a separate, never-finalised
+      stream.
     </p>
-    <div class="writeup-meta">
-      <span>2024</span>
-      <span>HTML · CSS · JavaScript</span>
-      <span>Team project</span>
-    </div>
+
+    <dl class="writeup-spec">
+      <dt>Timeline</dt>
+      <dd>Jan – Feb 2025 · Devcom, IIT Bombay</dd>
+      <dt>Stack</dt>
+      <dd>React 18.3.1 · Vite 6.0.5 · React Router DOM 7 · Framer Motion 11 · FontAwesome · ESLint 9</dd>
+      <dt>Structure</dt>
+      <dd>13 components · ~613 JSX LOC + ~1,700 CSS LOC · 4 routes — <code>/</code> · <code>/itempage</code> · <code>/login</code> · <code>/signup</code></dd>
+      <dt>Domain</dt>
+      <dd>Menu (Shawarma · Sandwich · Biryani) · category browsing (Indian · Fast Food) · promo codes (<code>ILUVSHWRMA</code> = 40%) · marquee promo banner</dd>
+      <dt>Build</dt>
+      <dd><code>npm run dev</code> (Vite HMR) · <code>npm run build</code> · <code>npm run lint</code></dd>
+      <dt>Repo</dt>
+      <dd><a href="https://github.com/8787233419/e-commerce-dashboard" target="_blank" rel="noopener noreferrer">github.com/8787233419/e-commerce-dashboard</a> (team repo)</dd>
+    </dl>
 
     <div class="writeup-body">
       <h2>What it does</h2>
       <p>
-        The user-facing flow is the standard food-ordering loop: browse the menu, add items
-        to a cart, review and adjust quantities, place an order. A separate admin view
-        exposes the operations side — manage menu items, view incoming orders, change
-        prices and availability.
+        The user-facing flow is the standard food-ordering loop: land on the homepage,
+        scroll through featured items and category strips, jump to the dedicated item page,
+        filter and search, sign in. The visual register is the part that took the most
+        time — animated transitions via Framer Motion, a marquee promo banner, and a
+        category-led layout that nudges the visitor toward the highlight items
+        (<em>Shawarma</em>, <em>Sandwich</em>, <em>Biryani</em>).
       </p>
 
       <h2>Structure</h2>
       <p>
-        The codebase is organised around discrete screens rather than a single-page-app
-        bundler. Roughly half the lines are CSS — most of the visual identity (restaurant
-        theme, food cards, hero imagery) lives there. The "Penthouse" folder suggests a
-        themed section or premium tier within the menu.
+        A four-route Vite SPA mounted under <code>BrowserRouter</code>:
+        <code>/</code> (home), <code>/itempage</code> (browse / filter), and
+        <code>/login</code> / <code>/signup</code> for auth. Behind those routes sit ~13
+        small components — a <code>NavBar</code>, a <code>SearchBar</code>, a
+        <code>FoodItem</code> card, a <code>Category</code> strip, the auth forms, plus
+        the homepage composition. Roughly three quarters of the line count is CSS — the
+        identity of a restaurant site lives in the styling more than the structure.
       </p>
 
-      <h2>My contribution</h2>
+      <h2>Honest scope</h2>
       <p>
-        This was a collaborative project; my work focused on the frontend interaction
-        layer — cart state management, checkout transitions, and menu rendering. The repo
-        is hosted under a teammate's account.
+        This is a frontend-only repo. The backend was meant to live in a separate
+        Node.js stream but didn't reach the workspace, which means there's no persistence
+        layer, no real auth, and no order state surviving a reload. Treat it as a
+        UI / componentisation exercise, not a production e-commerce stack.
       </p>
 
       <h2>What I'd carry forward</h2>
       <p>
-        The exercise made the case for state libraries — even at this small scale, a
-        cart that lives across pages and survives reloads quickly becomes the kind of
-        thing where ad-hoc <code>localStorage</code> reads and writes turn into bugs. A
-        rebuild today would start with a clear single source of truth for cart state and
-        treat the UI as a derived view of it.
+        The lesson was about <em>state ownership</em>. Once a cart needs to outlive a
+        page navigation, ad-hoc <code>localStorage</code> reads from individual components
+        turn into bugs fast. A rebuild today would start with one clear source of truth
+        for cart state (Context + reducer, or Zustand) and treat each component as a
+        derived view of it — not as the place where state lives. The promo-code logic,
+        which currently sits inside the cart component, is the obvious first thing to
+        lift out.
       </p>
     </div>
 

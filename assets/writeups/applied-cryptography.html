@@ -54,11 +54,20 @@
       Theme: cryptography in textbooks is a list of primitives; cryptography in practice is
       a list of <em>ways the primitives were used wrong</em>.
     </p>
-    <div class="writeup-meta">
-      <span>IIT Bombay · Autumn 2025</span>
-      <span>Python · PyCryptodome · pwntools</span>
-      <span>Labs 1–4</span>
-    </div>
+    <dl class="writeup-spec">
+      <dt>Timeline</dt>
+      <dd>Aug – Sept 2025 · CS409 Introduction to Cryptography, IIT Bombay</dd>
+      <dt>Instructor</dt>
+      <dd>Prof. Shruthi Shekar</dd>
+      <dt>Language</dt>
+      <dd>Python 3 · ~3,775 LOC across the four labs</dd>
+      <dt>Stack</dt>
+      <dd><code>PyCryptodome</code> · <code>pwntools</code> · <code>hashlib</code> · <code>ecdsa</code> · OpenSSL CLI</dd>
+      <dt>Scope</dt>
+      <dd>Labs 1–4 · OTP attacks · block-cipher modes · MACs &amp; hash collisions · public-key &amp; signatures</dd>
+      <dt>Repo</dt>
+      <dd><a href="https://github.com/Y-Harsha-Vardhan/Sem-3/tree/main/CS409-Cryptography/Labs" target="_blank" rel="noopener noreferrer">github.com/.../CS409-Cryptography/Labs</a></dd>
+    </dl>
 
     <div class="writeup-body">
       <h2>Lab 1 — One-time pad variants</h2>
@@ -95,28 +104,49 @@
         candidate byte, and walks the tag forward one byte at a time. The first 10 hex
         characters of the tag fall to this in seconds.
       </p>
-      <h3>Merkle–Damgård collisions (diamond structure)</h3>
+      <h3>Merkle–Damgård collisions (Nostradamus / diamond structure)</h3>
       <p>
-        Bonus challenge: a chosen-target-forced-prefix collision against an MD-style hash,
-        built via the <strong>diamond-structure</strong> birthday attack at
-        <code>2<sup>n/2</sup></code> cost. Construct a converging tree of collisions, then
-        for any forced prefix find a suffix that lands on the precomputed target — making
-        the hash construction itself the source of the vulnerability. This is exactly why
-        modern designs (SHA-3, sponge construction) abandon the Merkle–Damgård paradigm.
+        Bonus challenge — "Nostradamus' Resurrection": a chosen-target-forced-prefix
+        attack against an MD-style hash with no length finalisation and length-independent
+        padding. The server hands over a 2–32 byte prefix; the attacker has to produce a
+        message that hashes to a pre-committed target. The solution is a
+        <strong>diamond structure</strong> — precompute a converging tree of collisions at
+        <code>2<sup>n/2</sup></code> cost, then for any forced prefix find a suffix that
+        lands on the precomputed target. Cleared <strong>100 / 100</strong> trials. This is
+        exactly why modern designs (SHA-3, sponge construction) abandon the Merkle–Damgård
+        paradigm.
+      </p>
+      <p>
+        A second challenge in the same lab recovers the full flag from only <code>n/4</code>
+        Merkle proof queries — the structure of the tree itself leaks more than the proofs
+        were meant to.
       </p>
 
       <h2>Lab 4 — Public-key &amp; signatures</h2>
       <h3>ECDSA nonce reuse → private key recovery</h3>
       <p>
-        A textbook failure mode: signing two different messages with the same nonce
-        <code>k</code> leaks the private key in a few lines of modular arithmetic. This is
-        the exact mistake Sony made on the PS3 — the same one. Solving it implements the
-        derivation directly.
+        A textbook failure mode on <strong>SECP256k1</strong>: signing two different
+        messages with the same nonce <code>k</code> leaks the private key in a few lines of
+        modular arithmetic — the same mistake Sony made on the PS3.
       </p>
+      <ul>
+        <li><code>k = (h<sub>1</sub> − h<sub>2</sub>) / (s<sub>1</sub> − s<sub>2</sub>) mod n</code></li>
+        <li><code>d<sub>A</sub> = (s<sub>1</sub>·k − h<sub>1</sub>) / r mod n</code></li>
+      </ul>
+
+      <h3>EdDSA-style forgery (weakened nonce)</h3>
       <p>
-        Other challenges in this lab: RSA-OAEP decryption with a malformed oracle, X.509
-        certificate parsing under adversarial input, an EdDSA variant forgery, and a custom
-        cipher broken by search-space reduction.
+        On NIST P-256 with a weakened deterministic-nonce rule
+        — <code>r = SHA256(msg[:len/2] ∥ privkey)</code> — the attacker requests
+        signatures on five chosen messages, recovers enough structure to predict
+        <code>r</code>, then forges a valid signature on a sixth, unseen message.
+      </p>
+
+      <h3>Other Lab 4 challenges</h3>
+      <p>
+        RSA-OAEP decryption against a malformed oracle, X.509 certificate analysis on
+        <code>https://www.cse.iitb.ac.in</code> to extract the flag from the issuer field,
+        and a bonus Grover-style classical search-space reduction.
       </p>
 
       <h2>Tooling</h2>

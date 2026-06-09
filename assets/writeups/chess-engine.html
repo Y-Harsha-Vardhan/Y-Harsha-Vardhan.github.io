@@ -53,13 +53,38 @@
       opening book for the first ~25 moves, then hands off to an alpha-beta search with a
       transposition table and phase-aware evaluation for the middlegame and endgame.
     </p>
-    <div class="writeup-meta">
-      <span>SOC 2024</span>
-      <span>C++17</span>
-      <span>Polyglot · Alpha-Beta · TT</span>
-    </div>
+    <dl class="writeup-spec">
+      <dt>Timeline</dt>
+      <dd>Jun – Jul 2025 · Summer of Code (Queen's Gambit track)</dd>
+      <dt>Type</dt>
+      <dd>Self project</dd>
+      <dt>Language</dt>
+      <dd>C++17</dd>
+      <dt>Search</dt>
+      <dd>Iterative deepening · alpha-beta · transposition table · MVV-LVA</dd>
+      <dt>Built on</dt>
+      <dd><code>disservin/chess-library</code> v0.6.51 — bitboards, magic-bitboard sliders, FEN, movegen</dd>
+      <dt>Repo</dt>
+      <dd><a href="https://github.com/Y-Harsha-Vardhan/AI-Chess-Bot" target="_blank" rel="noopener noreferrer">github.com/Y-Harsha-Vardhan/AI-Chess-Bot</a></dd>
+    </dl>
 
     <div class="writeup-body">
+      <h2>What I built, what I built on</h2>
+      <p>
+        Move generation, magic-bitboard sliders, FEN parsing, and the board representation
+        come from the <code>disservin/chess-library</code> (v0.6.51, ~4.4k LOC of header-only
+        C++). That left the part I actually wanted to write: the search, the evaluation, the
+        opening-book reader, and the move-ordering heuristics — the parts that determine
+        how the engine <em>plays</em>, not how it represents a board.
+      </p>
+      <p>
+        The project also opens with a week of game-theory groundwork — small C++ and Python
+        solvers for <strong>Nim</strong> (Sprague–Grundy / Nim-sum), <strong>Chomp</strong>,
+        <strong>Pawnscape</strong>, and a "greedy or not" puzzle. None of that code ships
+        with the engine, but the framing — minimax, zero-sum, value of a position — carries
+        directly into what comes next.
+      </p>
+
       <h2>How it picks a move</h2>
       <p>
         The engine runs <strong>iterative deepening</strong> with alpha-beta pruning,

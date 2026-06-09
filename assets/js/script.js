@@ -576,7 +576,7 @@ if (updatedEl) {
 
     // Pre-reveal everything so the page is the same height it was when we left —
     // otherwise the scroll target may overshoot before reveal observers fire.
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-revealed'));
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
 
     // Two RAFs: first frame applies layout + scroll, second frame fades the page in
     requestAnimationFrame(() => {

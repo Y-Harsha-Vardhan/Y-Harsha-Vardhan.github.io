@@ -46,7 +46,7 @@
   </nav>
 
   <main class="writeup">
-    <span class="writeup-eyebrow">CS293 · Software Systems Lab</span>
+    <span class="writeup-eyebrow">CS293 · Data Structures &amp; Algorithms Lab</span>
     <h1>Graph-Based Routing System</h1>
     <p class="writeup-lede">
       A three-phase C++ simulation of real-world routing — inspired by Google Maps, Ola,
@@ -54,11 +54,23 @@
       trade-offs, and TSP-variant delivery scheduling. Team project with Rishi Vardhan
       Majji.
     </p>
-    <div class="writeup-meta">
-      <span>IIT Bombay · Autumn 2025</span>
-      <span>C++20 · nlohmann/json · Make</span>
-      <span>Pair project</span>
-    </div>
+
+    <dl class="writeup-spec">
+      <dt>Timeline</dt>
+      <dd>Autumn 2025 · CS293 DSA Lab, IIT Bombay</dd>
+      <dt>Team</dt>
+      <dd>Pair project (with Rishi Vardhan Majji) · 20% of course grade</dd>
+      <dt>Language</dt>
+      <dd>C++17 / C++20 · ~2,080 LOC across the three phases</dd>
+      <dt>Build</dt>
+      <dd><code>make</code> · <code>-O3 -march=native -funroll-loops -ffast-math</code> · targets <code>phase1</code> / <code>phase2</code> / <code>phase3</code></dd>
+      <dt>Scale</dt>
+      <dd>Up to ~5,000 nodes (<code>MAX_NODES_PHASE2</code>) within a 15 s budget</dd>
+      <dt>I/O</dt>
+      <dd>JSON in / JSON out via <code>nlohmann/json</code> · Python generators + checker</dd>
+      <dt>Repo</dt>
+      <dd><a href="https://github.com/Y-Harsha-Vardhan/CS293-TeamProject" target="_blank" rel="noopener noreferrer">github.com/Y-Harsha-Vardhan/CS293-TeamProject</a></dd>
+    </dl>
 
     <div class="writeup-body">
       <h2>Phase 1 — Dynamic graph &amp; core queries</h2>
@@ -107,6 +119,14 @@
         priority re-shuffles). Classical heuristics — nearest-neighbour, sweep,
         Clarke-Wright, parallel cheapest insertion — handled the static case well but
         crumbled under disruptions.
+      </p>
+      <p>
+        The simulation itself is deterministic so results are reproducible: cooking time is
+        <code>id mod 15</code> minutes, cancellations land on every 20th order
+        (≈5%), priority flags on every 10th (≈10%), drivers travel at an assumed
+        <strong>17 m/s</strong> (~60 km/h), and an accident scenario fires at <code>t = 0</code>.
+        Initial driver assignment uses K-means-style clustering around depots before
+        per-driver routing kicks in.
       </p>
       <p>
         The final solver is <strong>Large Neighborhood Search</strong> with a
