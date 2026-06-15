@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>html{background-color:#08080d;color-scheme:dark}body{margin:0}</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Freight CRM — a production freight-forwarding CRM for a Mumbai logistics firm. React 19 SPA, Node/Express + SQLite backend, Gmail ingest, AI scoring, agent dispatch, rates and L1 freeze." />
+  <meta name="theme-color" content="#08080d" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Freight CRM — Harsha Vardhan</title>
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/writeup.css" />
+</head>
+
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <nav class="writeup-nav">
+    <a href="../../index.html#projects" class="back-link" data-back>
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back to projects
+    </a>
+    <div class="writeup-actions">
+      <button type="button" class="copy-link-btn" data-copy-link aria-label="Copy link to this writeup">
+        <ion-icon name="link-outline"></ion-icon><span>Copy link</span>
+      </button>
+      <span class="brand">Harsha<span style="color: var(--blue-bright);">.</span></span>
+    </div>
+  </nav>
+
+  <main class="writeup">
+    <span class="writeup-eyebrow">Freelance · Mumbai logistics firm</span>
+    <h1>Freight CRM</h1>
+    <p class="writeup-lede">
+      Production freight-forwarding CRM for a Mumbai logistics firm — I built the React SPA
+      framework the team rallied around, then shipped Buckets 6B–11: email drafts, enquiry
+      board, sea/air enquiry forms, agent dispatch, and rates with L1 freeze. Built in a
+      team of four (lead + three developers) over five weeks; live on a client-owned domain.
+    </p>
+
+    <dl class="writeup-spec">
+      <dt>Timeline</dt>
+      <dd>May – Jun 2026 · ~5 weeks · paid freelance engagement</dd>
+      <dt>Team</dt>
+      <dd>Team lead + 3 developers · I shipped ~27 commits across Buckets 6B–11 + the SPA framework</dd>
+      <dt>Stack</dt>
+      <dd>React 19 · Vite 8 · Node.js 22 · Express 4.18 · <code>better-sqlite3</code> 12.10 · <code>express-session</code> · <code>bcryptjs</code></dd>
+      <dt>Email pipeline</dt>
+      <dd><code>imapflow</code> · <code>mailparser</code> · <code>nodemailer</code> · <code>pdf-parse</code> · <code>xlsx</code> · Python IMAP sidecar</dd>
+      <dt>Scope</dt>
+      <dd>My scope: ~50 of 124 endpoints · 13 of 31 tables · Buckets 6B–11 of 15 shipped by the team</dd>
+      <dt>Infra</dt>
+      <dd>GCP Compute Engine <code>e2-small</code> · Ubuntu 22.04 · Nginx + Certbot TLS · PM2 under systemd · daily SQLite snapshots to GCS</dd>
+      <dt>Status</dt>
+      <dd>Live deployment available on request</dd>
+    </dl>
+
+    <div class="writeup-body">
+      <h2>My contribution</h2>
+      <ul>
+        <li><strong>React SPA framework</strong> — converted the team's static HTML mockups into a
+            React 19 + Vite app and set up the routing, sidebar, context, and the fetch
+            wrapper that every later bucket landed inside.</li>
+        <li><strong>Buckets 6B–11</strong> — Email Drafts pipeline (generator + UI + scheduler),
+            Enquiry Board with Stage Tracker + Timeline, Sea-freight forms (FCL/LCL imp/exp),
+            Air-freight forms + mode picker, Agent Dispatch with the 4-hour reminder loop
+            and IMAP auto-reply threading, and the Rates table with L1 freeze + margin
+            calculator.</li>
+        <li><strong>SPA integration for Buckets 2–5</strong> — merged my teammates' AI scoring,
+            field extraction, reply parser, and SMTP sender modules into the React app in a
+            single merge sequence on 2026-05-25.</li>
+        <li><strong>Documentation</strong> — sole author of <code>REMAINING_WORK.md</code> and
+            <code>BUCKET_7_9_ASSUMPTIONS.md</code>; co-author and primary maintainer of the
+            developer guide.</li>
+      </ul>
+
+      <h2>What it does</h2>
+      <p>
+        End-to-end enquiry-to-quote pipeline. Gmail IMAP polls the client's ops inbox →
+        an AI scorer ranks each new message → high-scoring messages auto-create enquiries,
+        mid-scoring go to a review queue → field extraction lifts mode, ports, weight, and
+        incoterm → the enquiry lands on a six-column Kanban → agents are dispatched over
+        SMTP for rates → replies are parsed (PDF / Excel / text) into structured rate
+        rows → quotes are built with a margin calculator that hard-locks below the
+        threshold → L1 freeze snapshots the chosen rate and advances the stage with an
+        immutable audit row.
+      </p>
+
+      <h2>Architecture</h2>
+      <p>
+        A Python IMAP sidecar (<code>gmail_proxy.py</code>) polls Gmail every 60 seconds and
+        POSTs to a secret-guarded ingest webhook (<code>INGEST_SECRET</code>) on the Express
+        backend, decoupling inbox polling from the request path. Express runs against a
+        single SQLite file in WAL mode (31 tables, indexed foreign keys); the React SPA is
+        served as static assets from the same Node process behind Nginx, with TLS via
+        Certbot and PM2 keeping the process alive under systemd. A nightly cron snapshots
+        the database to a GCS bucket.
+      </p>
+
+      <h2>AI scoring (Bucket 3, integrated)</h2>
+      <p>
+        Five weighted signals score each incoming message — sender domain
+        (<strong>30</strong>), subject keywords like <em>quote / RFQ / freight rate</em>
+        (<strong>25</strong>), body terms + quantity + incoterm (<strong>20</strong>),
+        PDF/Excel/packing-list attachment (<strong>15</strong>), first-in-thread bonus
+        (<strong>10</strong>). Thresholds: <strong>≥75 auto-creates</strong> an enquiry,
+        <strong>50–74 routes to a review queue</strong>, &lt;50 silently skips. Tunable
+        through a sandbox UI on the Inbox screen — Shreshta built the scorer; I wired the
+        sandbox into the React SPA.
+      </p>
+
+      <h2>Margin calculator + L1 freeze (Bucket 11)</h2>
+      <p>
+        The margin tab computes Buy(INR) = Buy(USD) × <code>exchange_rate</code> (default
+        <strong>83.50</strong>, mutable in <code>settings</code>). A slider sets the
+        margin 0–30%; under <strong>12%</strong> the route hard-locks the quote with a
+        "needs approval" badge. L1 freeze is an idempotent endpoint — it snapshots the
+        INR conversion using the current <code>settings.exchange_rate</code>, advances the
+        enquiry stage, and writes one immutable row to <code>enquiry_timeline</code>.
+        Re-firing the route doesn't double-snapshot.
+      </p>
+
+      <h2>Team &amp; work split</h2>
+      <p>
+        Built in a team of four — a lead who brought the team together and three
+        developers. My buckets are listed above; crediting the rest by name and bucket
+        below, partly because it's accurate, partly because portfolio-grade transparency
+        on freelance team work is the framing reviewers actually want.
+      </p>
+      <ul>
+        <li><strong>Mohith</strong> — team lead; connected the team and ran the engagement
+            end-to-end. Repo bootstrap, branch integration / release management, production
+            deploy runbook (GCP / Nginx / Certbot / PM2), Bucket 6C (Gmail App Password UX).
+            I owned the Node-side production build-serve config (Vite build pipeline +
+            static-middleware ordering) the runbook deploys against; GCP / Nginx / TLS
+            were lead-led.</li>
+        <li><strong>Shreshta</strong> — Buckets 3, 4, 5 and 6A (AI scoring, field extraction,
+            reply parser, SMTP sender) — the ingest layer I integrated into the SPA.</li>
+        <li><strong>Lochan Sai</strong> — Buckets 12, 13, 14, 15 (quote versions, analytics,
+            agent rating + Best-Fit ranking, Rate Recommendations, LLM-backed reply
+            analysis, lost-deal patterns) + ops layer (jobs / customs / documents tables).</li>
+      </ul>
+      <p>
+        The team shipped 15 buckets in total; my scope was Buckets 6B–11 plus the SPA
+        framework and the integration of Buckets 2–5 into it.
+      </p>
+    </div>
+
+    <div class="writeup-cta">
+      <div class="writeup-cta-text">
+        <b>Source</b>
+        <span>Team repository on a teammate's account · my ~27 commits include the React SPA bootstrap, the Buckets 2–5 integration sequence, the Bucket 6B email-drafts pipeline, and Buckets 10 &amp; 11</span>
+      </div>
+      <a href="https://github.com/Ganeshrane1234/Advanced_CRM" target="_blank" rel="noopener noreferrer">
+        <ion-icon name="logo-github"></ion-icon>
+        View on GitHub
+      </a>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="../js/writeup.js" defer></script>
+</body>
+
+</html>

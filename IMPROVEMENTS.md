@@ -2,7 +2,9 @@
 
 A working document for closing the gap between *polished container* (where the site is now) and *content worth shortlisting* (where it needs to be). Cross items off as you ship them; new gaps surfaced during work go in as new tiers.
 
-**Current state.** 7 cards in the project grid (AI Chess · Quant Backtester · SAT Solvers · Applied Cryptography · Advanced Algorithms · Restaurant E-Commerce · Graph Routing). Visual layer, writeups, résumé download, and copy-link affordances are done. Remaining work is overwhelmingly **content**, not styling — the kind of thing only the user can ship.
+**Current state.** 8 cards in the project grid (AI Chess · Quant Backtester · **Freight CRM** · SAT Solvers · Applied Cryptography · Advanced Algorithms · Restaurant E-Commerce · Graph Routing). Visual layer, writeups, résumé download, copy-link affordances, the JEE Advanced AIR 170 + Honours-in-CS surfacing in the About bento, and the production Freight CRM card + writeup (screenshot in, team & work split section, verified `Live · 31 tables · 124 endpoints` chip) are done. Remaining work is overwhelmingly **content**, not styling — the kind of thing only the user can ship.
+
+**Open follow-ups on the Freight CRM card:** confirm with the team lead whether the live URL can be linked publicly (currently kept off-link with "available on request"); revisit the chip and add an operational-metrics paragraph to the writeup if numbers (DAU, # enquiries, AI scorer precision) become available; consider adding a client testimonial if you can get one sentence.
 
 Tags: `[CLAUDE]` = I can ship without you · `[USER]` = you have to do the substance · `[USER + CLAUDE]` = give me raw material, I'll integrate.
 
@@ -22,6 +24,13 @@ Tags: `[CLAUDE]` = I can ship without you · `[USER]` = you have to do the subst
 ## Tier B — Project section
 
 These move the project grid from "coursework with a few standouts" to "curated portfolio."
+
+#### B6 · Ship the Advanced Deep Learning card  `[USER + CLAUDE]`
+**Why:** CS-AI/ML (Prof. Sunita Sarawagi) covered Encoder–Decoder RNNs, Block-Recurrent Transformers, attention variants, MoE with NCE soft-routing, SMO-SVM with learnable RBF kernels — strong ML breadth signal. Currently absent from the grid.
+**Blocker:** no workspace evidence. Writeup would be coursework-summary style only — needs the user to surface lab notebooks / dataset benchmarks before it can be more than a thin card.
+**You provide:** repo or notebooks per lab + at least one dataset-level number (MoE PPL, SVM accuracy, etc.).
+**Effort:** 1 evening once material exists.
+**Impact:** medium — fills the 8th grid slot with an ML-flavoured original.
 
 #### B3 · Rewrite the About section's section-lead paragraph  `[USER + CLAUDE]`
 **Why:** Current copy ("strong interest in systems, web development, and problem-solving … building clean, efficient interfaces") could be on any CS undergrad's page. It is true and tells me nothing specific about you.
@@ -102,13 +111,33 @@ Update the title to `Harsha Vardhan — CS @ IIT Bombay · Portfolio`. Add `site
 
 ---
 
+## Tier E — On hold pending confirmation
+
+These are unlocked once the underlying engagements are confirmed. Not blockers for any other work above.
+
+#### E1 · Theoretical Cryptography research strip  `[ON HOLD — USER + CLAUDE]`
+**Why:** Research under Prof. Sruthi Shekar (randomness extractors, leakage-resilient PRG/PRF, succinct proofs) would be a strong differentiator above the project grid and a natural narrative continuation from the CS409 card. Same advisor as the cryptography course.
+**Blocker:** engagement not yet formally confirmed. Hold until status is firm.
+**When unblocked:** small 2–3 line section between Hero and Projects with advisor name + date range + one-sentence direction.
+**Effort:** 30 min once confirmed.
+
+#### E2 · Teaching & Mentorship strip  `[ON HOLD — USER + CLAUDE]`
+**Why:** TA · CS409 Intro to Cryptography (Prof. Sruthi Shekar) + Student Mentor · Summer of Science '26 (MnP Club, 10 mentees on crypto / ZK). Adds a "responsibility" signal the site doesn't carry today.
+**Blocker:** TA appointment not yet formally confirmed.
+**When unblocked:** compact one-row section near the Resume section listing both roles.
+**Effort:** 30 min once confirmed.
+
+---
+
 ## Recommended execution order
 
-**This week (1 evening + 2 hours):** A2 (photo) + B3 (About rewrite). Quick wins; both unblock once you provide the raw material.
+**This week (1 evening + 2 hours):** A2 (photo) + B3 (About rewrite). Quick wins; both unblock once you provide the raw material. Also: drop a screenshot at `assets/images/freight-crm.png` to light up the new card visually.
 
-**This weekend:** B4 (curate GitHub) + start C1 (scaffolding for the first original project). The grid has two reserved slots waiting for it.
+**This weekend:** B4 (curate GitHub) + start C1 (scaffolding for the first original project). After B5 ships there's one grid slot left, ideally for an original non-coursework project.
 
-**This month:** Finish C1 (1-2 projects), then ship D2 (case study) and one of D1 / D3. After that, the gap between visual layer and content layer is closed — the limiting factor becomes things outside the portfolio.
+**This month:** Finish C1, then ship D2 (case study) and one of D1 / D3. B6 (Advanced DL card) lands here too if lab material surfaces. After that, the gap between visual layer and content layer is closed — the limiting factor becomes things outside the portfolio.
+
+**Unblock when confirmed:** E1 (research strip) + E2 (teaching strip). Both small in effort, large in narrative weight; held only because the engagements aren't yet formal.
 
 ---
 
