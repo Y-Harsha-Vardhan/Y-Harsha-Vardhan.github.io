@@ -272,6 +272,10 @@ main { padding-top: 88px; }
   font-size: clamp(15px, 1.4vw, 17.5px); color: var(--text-dim); max-width: 60ch;
 }
 
+.resume-download-group {
+  display: inline-flex; flex-wrap: wrap; gap: 10px; margin-top: 18px;
+}
+.resume-download-group .resume-download { margin-top: 0; }
 .resume-download {
   display: inline-flex; align-items: center; gap: 8px;
   margin-top: 18px;
@@ -699,6 +703,12 @@ li.stat-cf:hover {
 }
 .tline-card:hover { transform: translateX(4px); border-color: var(--border-strong); background: rgba(255,255,255,.04); }
 .tline-card h4 { font-family: var(--f-display); font-size: 16px; font-weight: 600; color: #fff; letter-spacing: -.01em; }
+.tline-badge {
+  display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px;
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+  color: #f5c05a; background: rgba(245,192,90,.10); border: 1px solid rgba(245,192,90,.28);
+  vertical-align: middle;
+}
 .tline-org { display: block; font-family: var(--f-mono); font-size: 12px; color: var(--text-mute); margin: 4px 0 10px; }
 .tline-card p { font-size: 14px; color: var(--text-dim); }
 .tline-card p b { color: var(--text); font-weight: 600; }

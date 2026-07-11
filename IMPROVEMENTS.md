@@ -1,19 +1,38 @@
 # Portfolio — Action Plan
 
-A working document for closing the gap between *polished container* (where the site is now) and *content worth shortlisting* (where it needs to be). Cross items off as you ship them; new gaps surfaced during work go in as new tiers.
+A working document for closing the gap between *polished container* (where the site is now) and *content worth shortlisting* (where a recruiter would advance you). Cross items off as you ship them; new gaps surfaced during work go in as new tiers.
 
-**Current state.** 8 cards in the project grid (AI Chess · Quant Backtester · **Freight CRM** · SAT Solvers · Applied Cryptography · Advanced Algorithms · Restaurant E-Commerce · Graph Routing). Visual layer, writeups, résumé download, copy-link affordances, the JEE Advanced AIR 170 + Honours-in-CS surfacing in the About bento, and the production Freight CRM card + writeup (screenshot in, team & work split section, verified `Live · 31 tables · 124 endpoints` chip) are done. Remaining work is overwhelmingly **content**, not styling — the kind of thing only the user can ship.
+**Current state (Jul 11, 2026).** 8 cards in the project grid, live Freight CRM engagement with a recommendation letter, third-year at IIT Bombay Honours-in-CS track, Codeforces `limitless__`, JEE Advanced AIR 170. The visual layer, writeups, résumé download, and now a GitHub profile README that mirrors the site — done. The last portfolio pass added hard-number chips to Chess (`Beat 1500 Lichess · 63/63 puzzles`) and SoQ (`Top 10 SoQ '25 · Sharpe 3.60`), added Freight CRM as an Experience card with an Honours-in-CS badge on Education, and expanded the Skills groups to match what the master DB and the Freight CRM stack actually confirm. Remaining work is overwhelmingly **content**, not styling.
 
-**Open follow-ups on the Freight CRM card:** confirm with the team lead whether the live URL can be linked publicly (currently kept off-link with "available on request"); revisit the chip and add an operational-metrics paragraph to the writeup if numbers (DAU, # enquiries, AI scorer precision) become available; consider adding a client testimonial if you can get one sentence.
+**Recruiter lens.** Recruiters spend 20–40s per portfolio. The scan pattern: hero → status pill → project cards (metric chips first) → résumé PDF → LinkedIn. What they're looking for in that pass: (1) can I place them in a bucket (SWE / Quant / Research), (2) is there a hard number I can quote to a hiring manager, (3) is there anyone else vouching for them. Items below are ordered by how directly they answer those three questions.
+
+**Open follow-ups on the Freight CRM card:** confirm with the team lead whether the live URL can be linked publicly (currently kept off-link with "available on request"); revisit the chip and add an operational-metrics paragraph to the writeup if numbers (DAU, # enquiries, AI scorer precision) become available; the recommendation letter (`Resume Projects/Freelancing/Letter.pdf`) exists but isn't surfaced anywhere on the site.
 
 Tags: `[CLAUDE]` = I can ship without you · `[USER]` = you have to do the substance · `[USER + CLAUDE]` = give me raw material, I'll integrate.
 
 ---
 
-## Tier A — Mechanical
+## Recently shipped
+
+- ✅ GitHub profile README (B4 top half) — mirrors the 8-card grid, matched Codeforces handle, portfolio URL swapped to `y-harsha-vardhan.github.io`.
+- ✅ Hero updated to "Third-year undergrad."
+- ✅ About tech marquee expanded (TensorFlow, Vite, SQLite, GCP) and "Currently" focus → `Systems · ML · Crypto`.
+- ✅ Chess + SoQ project cards now carry hard-number metric chips.
+- ✅ Resume Experience: Freight CRM added as top card with live-deployment note.
+- ✅ Resume Education: "Honours in CS" badge on the IIT Bombay card.
+- ✅ Skills groups expanded (Verilog / Assembly / LaTeX, Docker / GCP / Nginx / PM2, TensorFlow, Express / Vite / SQLite, Stochastic processes).
+- ✅ Reports: CP problem count 150+ → 300+.
+- ✅ A4 — dual résumé downloads: Hero and Resume section both offer SWE + Quant PDFs (`assets/resumes/SOFTWARE.pdf`, `assets/resumes/QUANT.pdf`); old `HarshaVardhan-Resume.pdf` deleted.
+- ✅ A5 — Hero status pill sharpened to `SWE / Quant / Research internships · Summer 2027`.
+
+---
+
+## Tier A — Recruiter-priority mechanical
+
+Items that shift what a recruiter sees in the first 30 seconds. All small.
 
 #### A2 · Replace the avatar with a real photo  `[USER + CLAUDE]`
-**Why:** The current avatar reads as filtered/AI-generated. Against the rest of the design (sober and grown-up), it lowers the perceived seriousness of the whole hero.
+**Why:** The current avatar reads as filtered/AI-generated. Against the rest of the design (sober and grown-up), it lowers the perceived seriousness of the whole hero. Recruiters do register the face.
 **You provide:** a phone-camera headshot against a plain wall, well-lit. Or decide to remove the avatar entirely.
 **I do:** drop into `assets/images/`, retune the avatar frame styling if needed, or remove and recompose the hero as a single text column.
 **Effort:** 15 min after the photo exists.
@@ -24,6 +43,20 @@ Tags: `[CLAUDE]` = I can ship without you · `[USER]` = you have to do the subst
 ## Tier B — Project section
 
 These move the project grid from "coursework with a few standouts" to "curated portfolio."
+
+#### B1 · Add hard-number chips to the remaining 6 project cards  `[USER + CLAUDE]`
+**Why:** Chess and SoQ now carry recruiter-scannable numbers (`Beat 1500 Lichess`, `Sharpe 3.60`). The other six read as `Systems · 10 labs · C++17`, `Sudoku + Sokoban`, `React 18 · Vite` — factual but forgettable. A hiring manager repeating a card to a screener needs the *one thing* about the project. Cards without numbers get skimmed past.
+**Candidates:**
+- **Freight CRM** — already has `Live · 31 tables · 124 endpoints`. Good.
+- **SAT** — solver runtime on a hard instance; # of encodings compared.
+- **Applied Cryptography** — # of labs completed / grade / hardest attack recovered.
+- **Advanced Algorithms** — grade, or benchmark speedup vs stdlib on one representative structure.
+- **Restaurant E-Commerce** — probably not upgradeable; consider dropping to the archive or replacing (Tier C).
+- **Graph Routing** — largest graph solved; query latency at that size.
+**You provide:** the numbers.
+**I do:** update the chips + `data-summary` if the number needs a one-line justification.
+**Effort:** you 30 min digging through repos + reports; me 15 min.
+**Impact:** medium-large — six chips × every recruiter × every scan.
 
 #### B6 · Ship the Advanced Deep Learning card  `[USER + CLAUDE]`
 **Why:** CS-AI/ML (Prof. Sunita Sarawagi) covered Encoder–Decoder RNNs, Block-Recurrent Transformers, attention variants, MoE with NCE soft-routing, SMO-SVM with learnable RBF kernels — strong ML breadth signal. Currently absent from the grid.
@@ -45,24 +78,24 @@ These move the project grid from "coursework with a few standouts" to "curated p
 **Effort:** 30 min of your honest thinking, 10 min of mine.
 **Impact:** medium — converts the About from generic to specific.
 
-#### B4 · Curate the GitHub profile to match the site  `[USER]`
-**Why:** Half of the clicks from the site land on your GitHub. If pinned repos lack screenshots and READMEs, the visual investment of the portfolio evaporates at the next page.
+#### B4 · Curate the pinned repos and their READMEs  `[USER + CLAUDE]`
+**Why:** The profile README is done — but half of the recruiter clicks from it land on the actual pinned repos. If those repos lack hero images, decision logs, or "how to run" sections, the visual investment of the portfolio and the polish of the README evaporate one click deeper.
 
 **Action:**
-1. Pin the 7 site projects (in the same order shown on the grid).
+1. Pin the 7 site projects on the profile (in the same order as the grid). `Sem-3` monorepo counts once.
 2. For each pinned repo: a README with project title, hero image/GIF, problem statement, "how to run", and the same metric you put on the card chip.
 3. Make sure `main` has a recent commit (stale branches signal abandonment).
 
-**I can help:** writing the READMEs if you give me the content. The repos themselves need you.
+**I can help:** writing the READMEs if you give me the raw material. Chess and SoQ already have README rewrites (git log shows recent doc commits); the coursework repos (SAT, Crypto, DSA, CS293) are the ones that need work.
 **Effort:** 2-3 hours.
-**Impact:** medium-large — second-tier impression.
+**Impact:** medium-large — second-tier impression, and a recruiter absolutely does open at least one pinned repo.
 
 ---
 
 ## Tier C — The transformative item
 
 #### C1 · Ship one or two original, non-coursework projects  `[USER builds, CLAUDE helps]`
-**Why:** 5 of the 7 cards on the site are coursework. A reviewer comparing two IIT Bombay second-years cannot tell you apart from those — they have the exact same `CS213-DSA` labs on their site. Two cards (AI Chess, Quant) carry most of the originality signal; one or two more would tip the read from *"polished student"* to *"engineer worth a 30-min conversation."* The grid slots freed by dropping Cricket and LSTM are reserved for these.
+**Why:** 5 of the 8 cards on the site are coursework. A reviewer comparing two IIT Bombay third-years cannot tell you apart from them on the coursework — they have the exact same `CS213-DSA` labs on their site. Three cards (AI Chess, Quant, Freight CRM) carry most of the originality signal; one or two more would tip the read from *"polished student"* to *"engineer worth a 30-min conversation."* One grid slot is still open (formerly earmarked for Advanced DL, blocked on material).
 
 **Criteria for a good portfolio project:**
 - Problem you actually had or genuinely cared about.
@@ -80,7 +113,7 @@ These move the project grid from "coursework with a few standouts" to "curated p
 | Quant | Paper-traded strategy on a free data source with a live dashboard showing rolling Sharpe + drawdown | Directly extends your strongest credential (SoQ Top 10); demonstrates *you didn't stop when the contest ended* |
 | Crypto | A small CLI that breaks one specific weak cipher and prints why, with annotated output | Extends your CS409 work into an original tool |
 
-**Strong recommendation:** the **quant paper-trading dashboard**. It compounds with your existing strongest signal (SoQ Top 10) and answers a question reviewers will have ("did you keep going after the contest?"). It also gives you something concrete to mention in interviews.
+**Strong recommendation:** the **quant paper-trading dashboard**. It compounds with your existing strongest signal (SoQ Top 10, Sharpe 3.60 on the card) and answers the exact question a quant recruiter has ("did you keep going after the contest?"). It also gives you something concrete to mention in interviews. `new-project-ideas.txt` in Resume Projects lists a lot of "build your own" ideas — those are learning projects; portfolio needs the *one* thing that maps to a role you want.
 
 **I can help:** scaffolding, code review, the writeup, the visual layer.
 **You provide:** the idea + the actual engineering work + the decision log.
@@ -93,21 +126,32 @@ These move the project grid from "coursework with a few standouts" to "curated p
 
 Smaller items that don't move the needle alone but together close the gap between *good* and *elite*.
 
-#### D1 · One real external endorsement  `[USER]`
-A one-line testimonial from a course TA, research mentor, or SoQ organizer. Or a hackathon placing. Or a Codeforces / Kaggle / CTF rank certificate screenshot. Even one credible external voice breaks the "one person making claims" frame. Place in a small "Selected mentions" strip in the Resume or Reports section.
-**Effort:** depends on who you ask. Low for you; high impact for the site.
+#### D1 · Surface the Freight CRM recommendation letter  `[USER + CLAUDE]`
+**Why:** `Resume Projects/Freelancing/Letter.pdf` is exactly the "external voice" a recruiter wants and it currently isn't anywhere on the site. One line under the Freight CRM writeup — *"Recommendation letter available on request"* or an inline blockquote with one sentence — flips the Freight CRM card from *"I claim this shipped"* to *"someone paid me and wrote about it."*
+**You provide:** permission to quote (or a redacted excerpt).
+**I do:** add to the writeup, and a "Selected mentions" strip in the Resume section.
+**Effort:** 15 min once you say what can be quoted.
+**Impact:** medium-large — external endorsements break the "one person making claims" frame.
 
 #### D2 · Convert one writeup into a true case study  `[USER + CLAUDE]`
-The Graph Routing or Quant writeup is close. Add explicit sections for *Alternatives I considered and rejected* and *What I'd change if I rebuilt this*. Senior reviewers read those sections specifically — they are how you prove you can reason at the design level, not just the implementation level.
+The Graph Routing or SoQ writeup is close. The SoQ INTERVIEW_PREP.md (Jul 6) already does this work privately — Sharpe gap analysis, lookahead bias, win-rate expectancy. Lifting that into a public writeup with explicit *Alternatives I considered and rejected* and *What I'd change if I rebuilt this* sections gives senior reviewers exactly what they look for. That INTERVIEW_PREP is a goldmine — it's already written, it just isn't public.
 **Effort:** 1 evening (yours), 1 hour (mine).
 
 #### D3 · Inline blog post  `[USER + CLAUDE]`
-Pick the strongest report (Graph Routing or Quant), convert the PDF into a long-form inline HTML page on the site. This is a writing sample, a technical reasoning sample, and a design-doc sample in one. A single good post outweighs three more project cards.
+Pick the strongest report (Graph Routing or Quant), convert the PDF into a long-form inline HTML page on the site. This is a writing sample, a technical reasoning sample, and a design-doc sample in one. A single good post outweighs three more project cards. Same source material as D2, different treatment.
 **Effort:** 1 evening.
 
-#### D5 · `<title>` tag SEO + sitemap.xml + robots.txt  `[CLAUDE]`
-Update the title to `Harsha Vardhan — CS @ IIT Bombay · Portfolio`. Add `sitemap.xml` and `robots.txt` if you want this indexed by Google.
-**Effort:** 15 min.
+#### D4 · Refresh "Currently learning"  `[USER]`
+**Why:** Resume section still shows *"Distributed systems, Rust."* You've since shipped a production freight CRM, done a paid engagement, and are prepping for internship season. If distributed systems / Rust is still true, keep it. If it's stale, recruiters notice.
+**You provide:** one sentence on what you're actually spending late-night time on right now.
+**I do:** swap the chips.
+**Effort:** 2 min.
+**Impact:** small — but staleness is a signal.
+
+#### D6 · Codeforces climb  `[USER]`
+**Why:** A jump from Specialist to 1600+ Expert would do more for quant prospects than anything else on this list. The `limitless__` handle is already surfaced in the Highlights bento and the profile README. If the rating moves, everything else on the page compounds with it.
+**Effort:** ongoing.
+**Impact:** large for quant recruiting specifically.
 
 ---
 
@@ -131,13 +175,25 @@ These are unlocked once the underlying engagements are confirmed. Not blockers f
 
 ## Recommended execution order
 
-**This week (1 evening + 2 hours):** A2 (photo) + B3 (About rewrite). Quick wins; both unblock once you provide the raw material. Also: drop a screenshot at `assets/images/freight-crm.png` to light up the new card visually.
+**This week (1 evening + 2 hours):** A3 (résumé PDF sync) + A5 (status pill sharpening) + D1 (recommendation letter surfacing). Three near-zero-effort recruiter-priority wins; A3 alone has the highest ROI on this document.
 
-**This weekend:** B4 (curate GitHub) + start C1 (scaffolding for the first original project). After B5 ships there's one grid slot left, ideally for an original non-coursework project.
+**This weekend:** A2 (photo) + A4 (dual-résumé Hero) + B1 (metric chips on the remaining 6 cards). All you-provides-input-then-I-integrate.
 
-**This month:** Finish C1, then ship D2 (case study) and one of D1 / D3. B6 (Advanced DL card) lands here too if lab material surfaces. After that, the gap between visual layer and content layer is closed — the limiting factor becomes things outside the portfolio.
+**This month:** B4 (pinned-repo READMEs) + B3 (About lead rewrite) + start C1 (scaffolding the original project). B6 (Advanced DL card) lands if lab material surfaces.
 
-**Unblock when confirmed:** E1 (research strip) + E2 (teaching strip). Both small in effort, large in narrative weight; held only because the engagements aren't yet formal.
+**Then:** D2 (case study — SoQ INTERVIEW_PREP is the source material) → D3 (inline blog post) → C1 ship.
+
+**Unblock when confirmed:** E1 (research strip) + E2 (teaching strip). Both small in effort, large in narrative weight.
+
+**Lowest priority (do last):** D5 (SEO baseline). Deferred — pick this up only after everything above has landed.
+
+---
+
+## Tier Z — Lowest priority
+
+#### D5 · `<title>` tag SEO + sitemap.xml + robots.txt  `[CLAUDE]`
+Update the title to `Harsha Vardhan — CS @ IIT Bombay · Portfolio`. Add `sitemap.xml` and `robots.txt` if you want this indexed by Google. Deprioritised — ship only after everything in Tiers A–E is done.
+**Effort:** 15 min.
 
 ---
 
@@ -146,8 +202,8 @@ These are unlocked once the underlying engagements are confirmed. Not blockers f
 Out of scope for the portfolio itself, but matter more for hiring outcomes than anything above:
 
 1. **The projects beneath the cards.** No amount of card styling rescues a thin repo. The biggest leverage on hiring outcomes is having two or three projects deep enough to talk about for 30 minutes.
-2. **CF rating and competitive programming credentials.** A jump from 1491 Specialist to 1600+ Expert would do more for quant prospects than anything on this list.
-3. **Internship history.** A first-summer internship — even unpaid, even small — would be more valuable than every Tier B / C / D item combined for the second-summer recruiting cycle.
+2. **CF rating and competitive programming credentials.** See D6.
+3. **Internship history.** A first-summer internship — even unpaid, even small — would be more valuable than every Tier B / C / D item combined for the second-summer recruiting cycle. Freight CRM partially answers this now (paid, live, letter available), but a formal internship at a known company would land harder.
 
 Fix those in parallel with what's on this list. The portfolio is necessary but not sufficient.
 
